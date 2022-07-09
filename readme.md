@@ -1,7 +1,6 @@
 ## Avatec Accomodation - Skrypt Bazy noclegowej
 
-W związku z zaprzestaniem rozwijania tego oprogramowania w formie komercyjnej
-zdecydowaliśmy na opublikowanie go i udostępnienie w formie Open Source.
+This software can be used for building own accomodation website. We open its source for You. If you wish buy me a coffee :-)
 
 ## Installation
 
