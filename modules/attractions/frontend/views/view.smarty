@@ -1,0 +1,42 @@
+{$view|print_r}
+{*
+<div class="container container-article">
+    <div class="row">
+        <div class="col-12 col-md-8 col-xl-9 col-article">
+            {if !empty($view)}
+            <div class="header-article">
+                <h6 class="date">{$view.create_date_text}</h6>
+                {if $view.archive == true}<span class="badge badge-danger">Archiwum</span>{/if}
+            </div>
+            <h3 class="title-article">{$view.name}</h3>
+            <p>
+                {$view.preface}
+            </p>
+
+            {if empty($view.is_blank)}
+            <a href="{$view.photo.url}" class="img-article">
+                <img src="{$view.photo.url}" alt="">
+            </a>
+            {/if}
+
+            {$view.text}
+        </div>
+        <div class="col-12 col-md-4 col-xl-3 col-sidebar">
+            {if !empty($latest)}
+            <h4>Zobacz także</h4>
+            {foreach item=item from=$latest}
+            <a href="{$item.link}" class="box-article-short">
+                <div class="text-article-short">
+                    <p>{$item.name|truncate:50}</p>
+                </div>
+            </a>
+            {/foreach}
+            {/if}
+        </div>
+        {else}
+        <h3 class="title-article">Wybrana atrakcja nie istnieje, lub została usunięta</h3>
+        <p><a href="{$app_url}/{Language::get_selected()}/">Kliknij tutaj i wróć do strony głównej</a></p>
+        {/if}
+    </div>
+</div>
+*}

@@ -1,0 +1,23 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+<div class="container" id="content">
+	<div class="row">
+		<div class="col-lg-8 content-left">
+			{if isset($tpl.module)}
+			{include file="`$app_path`modules/`$tpl.module`/templates/website/`$tpl.file`"}
+			{else}
+			<h1 class="title">{$content.name}</h1>
+			<div class="content-text">
+			{$content.text}
+			</div>
+			{/if}
+		</div>
+		<div class="col-lg-4 content-right">
+			<p class="text-center">
+				<div class="a-block">
+					{Advertising::show('PAGE')}
+				</div>
+			</p>
+		</div>
+	</div>
+</div>
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

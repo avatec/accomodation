@@ -1,0 +1,33 @@
+{if !empty( $news.latest )}
+<div class="container container-article-list">
+    <div class="row">
+        <div class="col-12 text-center col-header">
+            <h2 class="mb-0"><strong>Aktualności</strong></h2>
+            <p class="mt-0 small">NAJNOWSZE INFORMACJE</p>
+        </div>
+    </div>
+    <div class="slider-article">
+        <div class="swiper-wrapper">
+            {foreach item=item from=$news.latest}
+            <div class="swiper-slide">
+                <div class="box-article">
+                    <div class="text-article">
+                        <div class="header-article">
+                            <h6 class="date">{$item.create_date_text}</h6>
+                        </div>
+                        <h5>{$item.name}</h5>
+                        <p>{$item.preface}</p>
+                        <a href="{$item.link}" class="link-article">Czytaj dalej <span class="fal fa-angle-right ml-2"></span></a>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+    <div class="row mt-5 mt-lg-6">
+        <div class="col-12 text-center">
+            <a class="btn btn-secondary" href="/{Language::get_selected()}/{$news.link.index}" role="button">ZOBACZ WSZYSTKIE</a>
+        </div>
+    </div>
+</div>
+{/if}

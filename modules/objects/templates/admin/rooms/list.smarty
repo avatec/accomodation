@@ -1,0 +1,46 @@
+{Form::open()}
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Utworzone pozycje</h5>
+		<a class="pull-right btn btn-warning" href="{$app_url}admin/objects/rooms/add/?object_id={$smarty.get.object_id}"><i class="fa fa-plus"> </i>&nbsp;dodaj pozycję</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+	
+		{if isset($list)}<div class="table-responsive">
+			<table class="table table-hover no-margin">
+			<thead><tr>
+				<th width="50">#</th>
+				<th width="200">Nazwa</th>
+				<th width="100">Ilość osób</th>
+				<th width="100">Cena</th>
+				<th class="text-right">Opcje</th>
+			</tr></thead>
+			<tbody>
+			{foreach name=l item=item from=$list}
+			<tr>
+				<td>{$smarty.foreach.l.iteration}</td>
+				<td align="left"><b>{$item.name}</b></td>
+				<td align="center">{$item.persons}</td>
+				<td align="center">{$item.amount} {ObjectsRooms::getAmountTypeName($item.amount_type)}</td>
+				<td align="right">
+					{**<a class="btn btn-sm btn-success" href="{$app_url}admin/objects/prices/list/?room_id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-pencil"></i> cennik</a>**}
+					<a class="btn btn-sm btn-warning" href="{$app_url}admin/objects/photosroom/list/?room_id={$item.id}"><i class="fa fa-photo"></i> zdjęcia</a>
+					<a class="btn btn-sm btn-info" href="{$app_url}admin/objects/rooms/edit/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-pencil"></i> edycja</a>
+					<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/objects/rooms/delete/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-times"></i> usuń</a>
+				</td>
+			</tr>
+			{/foreach}
+			</tbody><tfoot>
+				<td colspan="5">
+					<a class="pull-right btn btn-warning" href="{$app_url}admin/objects/rooms/add/?object_id={$smarty.get.object_id}"><i class="fa fa-plus"> </i>&nbsp;dodaj pozycję</a>
+				</td>
+			</tfoot>
+			</table>
+		</div>{else}
+		<p>W bazie danych nie utworzono jeszcze żadnych pozycji. Kliknij w przycisk dodaj pozycję, aby utworzyć nową.</p>
+		{/if}
+	
+	</div>
+</div>
+{Form::close()}

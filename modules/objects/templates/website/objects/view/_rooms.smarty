@@ -1,0 +1,85 @@
+{if isset($rooms)}
+<div id="ViewRoomsContainer">
+	{foreach $rooms as $item}
+	<div class="panel panel-primary">
+		<div class="panel-heading">{$item.name}</div>
+		<div class="panel-body">
+			<div class="media media-rooms">
+				{if !empty($item.photos)}
+				<div id="gallery" class="room-photos">
+					{foreach item=photo from=$item.photos}
+					<a href="/userfiles/rooms/photos/{$photo.file}" class="gallery-item" rel="prettyPhoto[1]">
+	                    <img src="/userfiles/rooms/photos/thumbs/{$photo.file}" alt="Pokój: {$item.name}" data-title="{$item.name}" />
+	                </a>
+					{/foreach}
+				{**
+				<div class="media-header well photo-gallery" rel="photoGallery[gal_{$item.id}]">
+					<div class="row">
+						{foreach item=photo from=$item.photos}
+						<div class="col-xs-6 col-sm-3">
+							<a href="/userfiles/rooms/photos/{$photo.file}" class="img-thumbnail" title="{$item.name}" rel="prettyPhoto[{$item.id}]">
+								<img class="img-responsive" src="/userfiles/rooms/photos/thumbs/{$photo.file}" alt="Pokój: {$item.name}" />
+							</a>
+						</div>
+						{/foreach}
+					</div>
+				</div>
+				**}
+				</div>
+				{/if}
+				<div class="media-body">
+					<div class="row">
+						<div class="statistic col-xs-12 col-sm-12 col-md-6">
+							<div class="label">{Language::get("objects" , "view_persons")}</div>
+							<div class="value">{$item.persons}</div>
+
+						</div>
+
+						<div class="statistic col-xs-12 col-sm-12 col-md-6">
+							<div class="label">{Language::get("objects" , "rooms_table_amount")}</div>
+							<div class="value">{$item.amount} <span>{Language::get("objects" , "rooms_table_amount_type")} {ObjectsRooms::getAmountTypeName($item.amount_type)}</span></div>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-default btn-block" data-toggle="collapse" data-target=".RoomDescription{$item.id}">
+						pokaż szczegóły <i class="fa fa-angle-double-right"></i>
+					</button>
+				</div>
+			</div>
+			<div class="RoomDescription{$item.id} collapse">
+				<fieldset>
+					<legend>{Language::get("objects" , "view_description")}</legend>
+					{$item.description|html_entity_decode|html_entity_decode}
+				</fieldset>
+
+				{if isset($item.equipment)}
+				<fieldset>
+					<legend>{Language::get("objects" , "rooms_form_equipment")}</legend>
+					<div class="row list-equipment">
+					{foreach key=id item=equipment from=$item.equipment}
+					{ObjectsEquipment::getName($id, true)}
+					{/foreach}
+					</div>
+				</fieldset>{/if}
+			</div>
+		</div>
+		<div class="panel-footer">
+			{if isset($config['exclusive']) && $view.booking == "TRUE"}
+			<div class="row">
+				<div class="col-md-6">
+					<a type="button" class="btn btn-danger btn-block" href="{$app_url}booking/check/o{$view.id}-r{$item.id}">{Language::get("booking" , "btn_booking")} <span class="fa fa-calendar-check-o"></span></a>
+				</div>
+				<div class="col-md-6">
+					<button type="button" data-toggle="modal" data-target="#blockContactForm" data-id="{$view.id}"  {if isset($rooms)}data-room-id="{$item.id}" data-room-name="{$item.name}"{/if} class="btn btn-info btn-block">{Language::get("objects" , "btn_write_message")} <span class="fa fa-envelope"></span></button>
+				</div>
+			</div>
+			{else}
+			<p class="text-center">
+				<button type="button" data-toggle="modal" data-target="#blockContactForm" data-id="{$view.id}"  {if isset($rooms)}data-room-id="{$item.id}" data-room-name="{$item.name}"{/if} class="btn btn-info btn-lg btn-block">{Language::get("objects" , "btn_write_message")} <span class="fa fa-envelope"></span></button>
+			</p>
+			{/if}
+		</div>
+	</div>
+	{/foreach}
+</div>
+{/if}

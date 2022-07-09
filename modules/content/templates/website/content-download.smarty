@@ -1,0 +1,27 @@
+{if !empty($content.files)}
+<div class="table-responsive">
+    <table class="table table-doc">
+        <tbody>
+	        {foreach item=item from=$content.files}
+            <tr>
+                <td>
+                    <div class="td-doc">
+                        <i class="{$item.icon} fa-2x"></i>
+                        <h4>{$item.name}</h4>
+                    </div>
+                </td>
+                <td>
+                    <div class="td-doc">
+                        <div>
+                            <h5>{$item.type}, {$item.size}</h5>
+                            <h6>{$item.create_date}</h6>
+                        </div>
+                        <a class="btn btn-primary" href="{$item.link}" role="button">Pobierz</a>
+                    </div>
+                </td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+{/if}

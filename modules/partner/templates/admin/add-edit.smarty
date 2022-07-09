@@ -1,0 +1,60 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Dodawanie nowego{/if} partnera</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Kolejność</label>
+					<div class="col-md-4">
+						{Form::input("text" , "priority")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Nazwa</label>
+					<div class="col-md-8">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Link</label>
+					<div class="col-md-8">
+						{Form::input("text" , "link")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("photo")}
+					</div>
+					<div class="col-md-6">
+						{if isset(Form::$post['photo'])}
+						<input type="hidden" name="old_photo" value="{Form::$post['photo']}" />
+						<p><br/><img width="200" class="thumbnail" src="{$app_url}userfiles/partner/{Form::$post['photo']}" alt="" /></p>
+						{/if}
+					</div>
+				</div>
+				
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Dodaj partnera')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/partner/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

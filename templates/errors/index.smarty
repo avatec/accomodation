@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{Language::$selected}">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="{$app_url}templates/website/images/favicon.ico" type="image/x-icon">
+	<title>Błąd 404 - plik lub ścieżka nie istnieje</title>
+	<meta name="robot" content="noindex,nofollow" />
+	<!--<meta http-equiv="refresh" content="5;url={$app_url}" />//-->
+	<link href="{$app_url}templates/website/css/style.css" rel="stylesheet" media="screen">
+	<link href="{$app_url}templates/errors/css/style.css" rel="stylesheet" media="screen">
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	      <script src="{$app_url}templates/website/js/html5shiv.min.js"></script>
+	      <script src="{$app_url}templates/website/js/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript" src="{$app_url}templates/website/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{$app_url}templates/website/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="logo">
+		<p align="center"><a href="/"><img src="{$app_url}templates/website/images/logo.png" class="img-responsive" alt="..."/></a></p>
+	</div>
+	<div class="container">
+		<div class="page-header text-center">
+			<h1 class="text-center"><small>404</small><br/>Przepraszamy, ale wybrana strona nie istnieje lub została usunięta</h1>
+			<p align="center">Zostaniesz automatycznie przeniesiony na stronę główną serwisu</p>
+		</div>
+		<p class="text-center">
+			<a class="btn btn-primary btn-lg" href="/" role="button">Wróć na stronę główną</a><br/>
+		</p>
+
+	</div>
+</body>
+</html>

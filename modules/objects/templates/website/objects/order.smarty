@@ -1,0 +1,83 @@
+{if isset($promotion)}
+<h3 class="title"><b>Wyróżnienie:</b> <span class="text-success">{Objects::getName($smarty.get.object_id)}</span></h3>
+<p class="lead">Twoja oferta będzie widoczna nad ofertami bez wyróżnienia</p>
+
+<h3 class="title margin-top">Wybierz wyróżnienie</h3>
+<div id="promotion" class="row">
+	{foreach item=item from=$promotion}
+	<div class="col-sm-12 col-md-4">
+		<div class="promotion-item">
+			<h3>{$item.name}</h3>
+			<div class="description">
+				<p class="lead">Czas trwania: {$item.days} dni</p>
+				{if isset($item.description)}<p>{$item.description}</p>{/if}
+			</div>
+			<div class="bottom">
+				<button data-pid="{$item.id}" data-type="{$item.type|implode:","}" type="button" class="btn btn-block btn-link btn-promotion" data-toggle="button" aria-pressed="false" autocomplete="off">wybierz</button>
+			</div>
+		</div>
+	</div>
+	{/foreach}
+</div>
+
+<div id="payment-form">
+	<h3 class="margin-top title">Wybierz formę płatności</h3>
+	<div class="row ">
+		
+		<div class="col-md-3 online-type">
+			<div class="promotion-item">
+				<h3>Płatność przelewem<br/>ONLINE</h3>
+				<div class="bottom">
+					<button type="button" class="btn btn-link btn-payment" data-payment="online" data-toggle="button" aria-pressed="false" autocomplete="off">
+						<span class="fa fa-check"></span> wybrano
+					</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-3 sms-type">
+			<div class="promotion-item">
+				<h3>Płatność za pomocą<br/>kodu SMS</h3>
+				<div class="bottom">
+					<button type="button" class="btn btn-link btn-payment" data-payment="sms" data-toggle="button" aria-pressed="false" autocomplete="off">
+						wybierz
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="order-summary-error">
+	<div class="alert alert-danger">
+		<h3 class="margin-top title">Przepraszamy, ale nie posiadamy opcji płatności tą metodą dla wybranej opcji</h3>
+	</div>
+</div>
+
+{Form::open("POST" , "/payments/begin/")}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+{if !empty($smarty.get.special_id)}
+{Form::hidden("special_id" , $smarty.get.special_id)}
+{/if}
+<div id="order-summary">
+	<div class="form-hidden"></div>
+	<h3 class="margin-top title">Podsumowanie</h3>
+	<div class="alert alert-info">
+		<div class="row">
+			<div class="col-md-6">
+				<ul class="summary-text"></ul>
+			</div>
+			<div class="col-md-6 text-right">
+				<h2>Do zapłaty: <span class="summary-amount">0.00</span> zł</h2>
+				<hr/>
+				<a href="{$app_url}panel/objects/" class="btn btn-default btn-lg"><span class="fa fa-times"></span> Rezygnuję z wyróżnienia</a>
+				<button type="submit" class="btn btn-primary btn-lg"><span class="fa fa-check"></span> Zamawiam i płacę</button>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}
+{else}
+<h3 class="title">{Language::get("objects" , "order_error_header")}</h3>
+<p class="lead">{Language::get("objects" , "order_error_text")}</p>
+{/if}

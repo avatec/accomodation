@@ -1,0 +1,7 @@
+<h1>Wystąpił błąd przy zapytaniu do systemu płatności</h1>
+<p class="alert alert-danger">{$error_msg}</p>
+<hr/>
+<p>
+	<b>Kod błędu: </b>{$error.error}<br/>
+	<b>Treść błędu: </b>{$error.errorMessage}
+</p>

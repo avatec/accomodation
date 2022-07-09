@@ -1,0 +1,31 @@
+/** Kopie kolorów Bootstrap **/
+
+$primary-color: $brand-primary;
+$danger-color: $brand-danger;
+$warning-color: $brand-warning;
+$info-color: $brand-info;
+
+/** Kolory dodatkowe **/
+$secondary-color	: #f8e2cb; //#faa334;
+$location-color 	: #731d3a;
+
+$black				: #000000;
+$white				: #ffffff;
+$gray				: #312c36;
+$orange				: $secondary-color;
+$fuchsia			: #ab2339;
+
+$navigation-bg			: $secondary-color;
+$nav-bg-layer			: $secondary-color;
+$nav-bg-default 		: transparent;
+$nav-element-color		: $white;
+$nav-element-hover-color: $gray;
+$nav-element-hover-bg 	: lighten($black, 40%);
+
+$cookie-text	: #ccc;
+$cookie-link	: $secondary-color;
+
+$header-font: "PT Sans", Helvetica, Arial;
+$text-font: "Lato", Verdana, Arial;
+
+

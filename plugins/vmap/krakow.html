@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Kraków</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<!--<script type="text/javascript" src="jquery-jvectormap-2.0.2.min.js"></script>
+		<script type="text/javascript" src="krakow-vmap.js"></script>
+		<link rel="stylesheet" type="text/css" href="jquery-jvectormap-2.0.2.css" />//-->
+		
+		<script type="text/javascript" src="js/jquery.vmap.min.js"></script>
+		<script type="text/javascript" src="cracov.js"></script>
+		<link rel="stylesheet" type="text/css" href="js/jqvmap.css" />
+		
+		<script type="text/javascript">
+			$(document).ready( function() {
+				jQuery('#map').vectorMap(
+{
+    map: 'mapa',
+    backgroundColor: '#fff',
+    color: '#f4f3f0',
+    enableZoom: false,
+    hoverColor: '#c9dfaf',
+    hoverOpacity: null,
+    selectedColor: '#c9dfaf',
+    selectedRegion: null,
+    showTooltip: true,
+    onRegionClick: function(element, code, region)
+    {
+        var message = 'You clicked "'
+            + region 
+            + '" which has the code: '
+            + code.toUpperCase();
+             
+        alert(message);
+    }
+});
+							
+			});	
+		</script>
+	</head>
+	<body>
+		<div id="map" style="width:800px;height:474px;"></div>
+	</body>
+</html>

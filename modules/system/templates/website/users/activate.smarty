@@ -1,0 +1,10 @@
+{if $result == true}
+<h1 class="page-title">Aktywacja przebiegła pomyślnie</h1>
+<p class="lead">Możesz się teraz zalogować na swoje konto. Kliknij na przycisk poniżej, aby przejść na stronę logowania</p>
+{else}
+<h1 class="page-title">Link aktywacyjny wygasł</h1>
+<p class="lead">Podany przez Ciebie link aktywacyjny wygasł. Oznacza to, że konto zostało już wcześniej potwierdzone i możesz się zalogować na swoje konto. Kliknij na przycisk poniżej, aby przejść na stronę logowania</p>
+{/if}
+
+<hr/>
+<p><a class="btn btn-primary btn-lg" href="{$app_url}panel/login">zaloguj się <span class="fa fa-sign-in"></span></a></p>

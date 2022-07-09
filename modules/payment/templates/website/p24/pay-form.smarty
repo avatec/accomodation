@@ -1,0 +1,110 @@
+<h1 class="title">Formularz płatności</h1>
+{Form::open("POST" , "/payments/process-p24/")}
+{Form::hidden("payment" , $smarty.post.payment)}
+{Form::hidden("object_id" , $smarty.post.object_id)}
+{if !empty($smarty.post.special_id)}
+{Form::hidden("special_id" , $smarty.post.special_id)}
+{/if}
+{Form::hidden("pid" , $smarty.post.pid)}
+{Form::hidden("control" , $data['control'])}
+
+{Form::hidden("p24_session_id" , $data['p24']['p24_session_id'])}
+{Form::hidden("p24_pos_id" , $data['p24']['p24_pos_id'])}
+{Form::hidden("p24_merchant_id" , $data['p24']['p24_merchant_id'])}
+{Form::hidden("p24_amount" , $data['p24']['p24_amount'])}
+{Form::hidden("p24_currency" , $data['p24']['p24_currency'])}
+{Form::hidden("p24_description" , $data['p24']['p24_description'])}
+{Form::hidden("p24_url_return" , $data['p24']['p24_url_return'])}
+{Form::hidden("p24_url_status" , $data['p24']['p24_url_status'])}
+{Form::hidden("p24_transfer_label" , $data['p24']['p24_transfer_label'])}
+{Form::hidden("p24_sign" , $data['p24']['p24_sign'])}
+
+<div class="form-group">
+	<label class="label-control col-md-2">Imię <sup>*</sup></label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "firstname",
+			"required" => true,
+			"value" => $data['firstname']
+		])}
+	</div>
+	<label class="label-control col-md-2">Nazwisko <sup>*</sup></label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "lastname",
+			"required" => true,
+			"value" => $data['lastname']
+		])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="label-control col-md-2">Ulica</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "street"
+		])}
+	</div>
+	<label class="label-control col-md-2">Nr. budynku/mieszkania</label>
+	<div class="col-md-2">
+		{Form::input2([
+			"type" => "text",
+			"name" => "street_n1"
+		])}
+	</div>
+	<div class="col-md-2">
+		{Form::input2([
+			"type" => "text",
+			"name" => "street_n2"
+		])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="label-control col-md-2">Kod pocztowy</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "postcode"
+		])}
+	</div>
+	<label class="label-control col-md-2">Miasto</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "city"
+		])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="label-control col-md-2">E-mail <sup>*</sup></label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "email",
+			"name" => "email",
+			"required" => true,
+			"value" => $data['email']
+		])}
+	</div>
+	<label class="label-control col-md-2">Telefon</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "phone",
+			"value" => $data['phone']
+		])}
+	</div>
+</div>
+
+<p class="text-right">
+	<a href="{$app_url}panel/objects/order/?object_id={$smarty.post.object_id}" class="btn btn-default">
+		<em class="fa fa-chevron-left"></em> Powrót do poprzedniej strony
+	</a>
+	<button type="submit" class="btn btn-primary">
+		Dokonaj płatności <em class="fa fa-chevron-right"></em>
+	</button>
+</p>
+{Form::close()}
+<hr/>
+<p><img src="{$app_url}modules/payment/images/p24.gif" alt="Płatności obsługuje firma dotpay.pl" /></p>

@@ -1,0 +1,224 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{Form::hidden("priority" , Form::$post['priority'])}
+{/if}
+<input type="hidden" name="editable" value="FALSE" />
+
+{Form::hidden("meta_index" , "FALSE")}
+{Form::hidden("meta_follow" , "FALSE")}
+{Form::hidden("redirect" , 0)}
+
+<div class="row">
+	<div class="col-md-7 col-sm-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}{LA::get('cms' , 'edit_title')}{else}{LA::get('cms' , 'create_title')}{/if}</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('content/sections' , 'section_select')}</label>
+					<div class="col-md-10">
+						{if isset(Form::$post['edit'])}
+						<select class="form-control" name="section[]" multiple="true">
+							<option></option>
+							{foreach item=item from=Sections::_get()}
+							<option value="{$item.id}" {if isset(Form::$post['section']) && $item.id|in_array:Form::$post['section']}selected{/if}>{$item.name}</option>
+							{/foreach}
+						</select>
+						{else}
+						{Form::select2([
+							"name" => "section[]",
+							"values" => Sections::_get(),
+							"multiple" => true
+						])}
+						{/if}
+						<small><em>{LA::get('content/sections' , 'section_select_text')}</em></small>
+					</div>
+				</div>
+
+				{** Podmenu pozycji **}
+				{if isset($parent)}
+				<div class="form-group">
+					<label class="col-md-2 control-label">Podmenu pozycji</label>
+					<div class="col-md-10">
+						{Form::select2([
+							"name" => "parent",
+							"values" => $parent,
+							"empty" => true,
+							"empty_name" => "ustaw jako główne menu"
+						])}
+						<small><em>Ustala, czy strona będzie główną czy jest ona podmenu innej głównej strony</em></small>
+					</div>
+				</div>
+				{else}
+				{Form::hidden('parent' , 0)}
+				{/if}
+
+				{** Przekierowanie dla podmenu **}
+				{if isset(Form::$post['id']) && Content::hasSubmenu(Form::$post['id'])}
+				<div class="form-group">
+					<label class="col-md-2 control-label" data-toggle="tooltip" title="Jeżeli jest to menu pierwszego poziomu, i to menu posiada podmenu pod sobą, możesz przekierować link do jego podmenu">Przekierowanie</label>
+					<div class="col-md-10">
+						{Form::select2([
+							"name" => "redirect",
+							"values" => Content::getChilds(Form::$post['id']),
+							"empty" => true,
+							"empty_name" => "bez przekierowania"
+						])}
+					</div>
+				</div>
+				{else}
+				{Form::hidden('redirect' , 0)}
+				{/if}
+
+				{** Nazwa **}
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('cms' , 'table_name')}</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nagłówek</label>
+					<div class="col-md-10">
+						{Form::input("text" , "title")}
+					</div>
+				</div>
+
+				{** Link **}
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('content' , 'content_link_name')}</label>
+					<div class="col-md-10">
+						{Form::input("text" , "rewrite")}
+						<small><em>{LA::get('system' , 'content_link_name_text')}</em></small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="editable_layer">
+			<div class="blog">
+				<div class="blog-header">
+					<h5 class="blog-title">{LA::get('content' , 'content_text')}</h5>
+				</div>
+				<div class="blog-body">
+					{Form::text("text" , "text")}
+					{Kernel::wysiwyg('text', 1, "full", true)}
+				</div>
+				<div class="blog-footer">
+					{if isset(Form::$post['edit']) }
+					<button type="submit" class="btn btn-primary">
+						{LA::get('cms' , 'btn_save_changes')}
+					</button>
+					{else}
+					<button type="submit" class="btn btn-primary">
+						{LA::get('cms' , 'btn_create')}
+					</button>
+					{/if}
+					<a class="btn btn-warning" href="{$return_url}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-5 col-sm-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{LA::get('content' , 'content_options')}</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-4 control-label">{LA::get('cms' , 'table_priority')}</label>
+					<div class="col-md-3">
+						{Form::input("number" , "priority")}
+					</div>
+				</div>
+
+				<div class="form-group">
+		            <label class="col-lg-4 control-label" {Common::tooltip(LA::get('content' , 'content_visibility_hover'))}>{LA::get('cms' , 'table_visibility')}</label>
+		            <div class="col-lg-8">
+						{Form::hidden("visibility" , "FALSE")}
+						{Form::checkbox("visibility" , "TRUE")}
+					</div>
+				</div>
+
+				<div class="form-group">
+		        	<label class="col-lg-4 control-label" {Common::tooltip(LA::get('content' , 'content_editable_hover'))}>{LA::get('content' , 'content_editable')}</label>
+		        	<div class="col-lg-8">
+		            	{Form::checkbox("editable" , "TRUE")}
+		        	</div>
+		        </div>
+
+		        <div class="form-group">
+		        	<label class="col-lg-4 control-label" {Common::tooltip(LA::get('content' , 'content_module_hover'))}>{LA::get('content' , 'content_module')}</label>
+		        	<div class="col-lg-8">
+		            	{Form::select2([
+			            	"name" => "component",
+			            	"values" => Kernel::readComponents(),
+			            	"empty" => false
+		            	])}
+		        	</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{LA::get('cms' , 'meta_table_title')}</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-2 control-label" {Common::tooltip(LA::get('cms' , 'meta_title_hover'))}>{LA::get('cms' , 'meta_title')}</label>
+					<div class="col-md-10">
+					{Form::input('text' , 'meta_title')}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label" {Common::tooltip(LA::get('cms' , 'meta_desc_hover'))}>{LA::get('cms' , 'meta_desc')}</label>
+					<div class="col-md-10">
+					{Form::text('meta_desc' , 'meta_desc')}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label" {Common::tooltip(LA::get('cms' , 'meta_keywords_hover'))}>{LA::get('cms' , 'meta_keywords')}</label>
+					<div class="col-md-10">
+					{Form::text('meta_keys' , 'meta_keys')}
+					</div>
+				</div>
+
+				<div class="form-group">
+
+					<label class="col-lg-2 control-label" {Common::tooltip(LA::get('cms' , 'meta_index_hover'))}>{LA::get('cms' , 'meta_index')}</label>
+					<div class="col-lg-4">
+		            	{Form::checkbox("meta_index" , "TRUE", "")}
+					</div>
+
+					<label class="col-lg-2 control-label" {Common::tooltip(LA::get('cms' , 'meta_follow_hover'))}>{LA::get('cms' , 'meta_follow')}</label>
+					<div class="col-lg-4">
+		            	{Form::checkbox("meta_follow" , "TRUE", "")}
+					</div>
+
+				</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				{else}
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_create')}
+				</button>
+				{/if}
+				<a class="btn btn-warning" href="{$return_url}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+{Form::close()}

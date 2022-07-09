@@ -1,0 +1,57 @@
+{Form::open()}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Lista utworzonych mailingów</h5>
+				<a class="pull-right btn btn-warning" href="{$app_url}admin/newsletter/messages/add/"><i class="fa fa-plus"> </i>&nbsp;utwórz</a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+			
+				{if isset($list)}<div class="table-responsive">
+					<table class="table table-hover no-margin">
+					<thead><tr>
+						<th width="50">ID</th>
+						<th width="250">Temat</th>
+						<th width="180" class="text-center">Planowana data nadania</th>
+						<th width="140" class="text-center">Data dodania</th>
+						<th width="100" class="text-center">Typ</th>
+						<th width="100" class="text-center">Status</th>
+						<th class="text-right">Opcje</th>
+					</tr></thead>
+					<tbody>
+					{foreach item=item from=$list}
+					<tr>
+						<td align="left" valign="middle">{$item.id}</td>
+						<td align="left" valign="middle">{$item.subject}</td>
+						<td class="text-center">{$item.send_date}</td>
+						<td class="text-center">{$item.create_date}</td>
+						<td class="text-center">{NewsletterMessages::_readType($item.type)}</td>
+						<td class="text-center">{NewsletterMessages::_readOutboxStatus($item.status)}</td>
+						<td align="right">
+							{if $item.status !== "FINISH"}
+							<a class="btn btn-sm btn-warning" href="{$app_url}admin/newsletter/messages/send/?id={$item.id}"><i class="fa fa-send"></i> wyślij</a>
+							<a class="btn btn-sm btn-info" href="{$app_url}admin/newsletter/messages/edit/?id={$item.id}"><i class="fa fa-pencil"></i> edycja</a>
+							{else}
+							<a class="btn btn-sm btn-warning" href="{$app_url}admin/newsletter/messages/send/?id={$item.id}"><i class="fa fa-send"></i> wyślij ponownie</a>
+							{/if}
+							<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/newsletter/messages/delete/?id={$item.id}"><i class="fa fa-times"></i> usuń</a>
+						</td>
+					</tr>
+					{/foreach}
+					</tbody><tfoot>
+						<td colspan="7">
+							<a class="pull-right btn btn-warning" href="{$app_url}admin/newsletter/messages/add/"><i class="fa fa-plus"> </i>&nbsp;utwórz</a>
+						</td>
+					</tfoot>
+					</table>
+				</div>{else}
+				<p>Nie utworzono jeszcze żadnych szablonów.</p>
+				{/if}
+			
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

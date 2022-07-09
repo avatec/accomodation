@@ -1,0 +1,25 @@
+#calendar { width: 100%; }
+#calendar .item-row { height: 450px; }
+#calendar .item { width: 380px; max-height: 400px; float: left;  }
+#calendar h4 { text-align: center; font-size: 16pt; margin-top: 20px; padding-bottom: 10px; font-weight: 400; }
+#calendar .weekname { border-top: none; }
+#calendar .month div { 
+	width: 55px; height: 55px; float: left; border: 1px solid #eee; text-align: center; 
+	padding: 12px 0px; margin-left: -1px; margin-top: -1px; cursor: default;
+}
+#calendar .month div:nth-child(7n) {  }
+#calendar .month .day { padding: 5px 0px; cursor: pointer; font-size: 13pt; font-weight: bold; transition: all 150ms linear; }
+#calendar .month .day small { font-weight: normal;font-size: 10pt; }
+#calendar .month .day-disabled { background: #eeeeee; color: #cccccc; cursor: not-allowed; }
+
+#calendar .day-checkin { background: url('../images/checkin.png'); }
+#calendar .day-check { background: #e38888; }
+#calendar .day-checkout { background: url('../images/checkout.png'); }
+
+#calendar.modal-calendar .item { margin-left: 20px; margin-right: 30px;}
+#calendar.modal-calendar .month .day:hover { background: orange; color: #fff; transform: scale(1.2); }
+#calendar.modal-calendar .month .day-disabled:hover { background: #eeeeee; color: #cccccc; transform: scale(1);  }
+
+@media screen and (max-width: 768px) {
+	#calendar h4 { font-size: 12pt; font-weight: bold;}
+}

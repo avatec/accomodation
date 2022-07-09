@@ -1,0 +1,31 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowego{/if} udogodnienia</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/objects/improvement/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

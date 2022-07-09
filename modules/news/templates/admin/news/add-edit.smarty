@@ -1,0 +1,112 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}{LA::get('cms' , 'edit_title')}{else}{LA::get('cms' , 'create_title')}{/if}</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+	            	<label class="col-md-2 control-label" data-toggle="tooltip" title="{LA::get('news','tooltip_category')}" data-container="body">{LA::get('news','table_category')}</label>
+	            	<div class="col-md-4">
+		            	{Form::select("category" , NewsCategory::getSelect())}
+	            	</div>
+
+	            	<label class="col-md-2 control-label" data-toggle="tooltip" title="{LA::get('news','tooltip_status')}" data-container="body">{LA::get('news' , 'table_status')}</label>
+	            	<div class="col-md-4">
+		            	{Form::checkbox("status" , "TRUE", "")}
+	            	</div>
+	            </div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('news' , 'table_title')}</label>
+					<div class="col-md-10">
+						{Form::input("text" , "topic")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('cms' , 'table_create_date')}</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::date("create_date")}
+							<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+						</div>
+					</div>
+				
+					{**
+					<label class="col-md-2 control-label" data-toggle="tooltip" title="{LA::get('news','tooltip_expire')}" data-container="body">{La::get('news','table_expire_date')}</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::date("expire_date")}
+							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+						</div>
+					</div>
+					**}
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('news' , 'table_preface')}</label>
+					<div class="col-md-10">
+						{Form::text("preface" , "preface")}
+						{Kernel::wysiwyg("preface", 1, "full")}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{LA::get('news' , 'table_icon')}</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-4 control-label">{LA::get('cms' , 'select_file')}</label>
+					<div class="col-md-6">
+						{Form::upload("icon")}
+					</div>
+					<div class="col-md-6">
+						{if isset(Form::$post['icon'])}
+						<input type="hidden" name="old_icon" value="{Form::$post['icon']}" />
+						<p><br/><img width="200" class="thumbnail" src="{News::$UploadUrl}icon/{Form::$post['icon']}" alt="" /></p>
+						{/if}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{LA::get('news' , 'table_content')}</h5>
+			</div>
+			<div class="blog-body">
+				{Form::text("content" , "content")}
+				{Kernel::wysiwyg("content" , 1, "full")}
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				{else}
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_create')}
+				</button>
+				{/if}
+				{if !empty($smarty.get.category)}
+				<a class="btn btn-warning" href="{$app_url}admin/news/list/?category={$smarty.get.category}">{LA::get('cms' , 'btn_cancel_and_return')}</a>{/if}
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

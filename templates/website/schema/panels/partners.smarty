@@ -1,0 +1,20 @@
+{if !empty($partners)}<section id="partners">
+	<div class="container">
+		<h2 class="title">{Language::get("cms" , "partner_header")}</h2>
+		<div id="slider-partners" class="carousel slide">
+			<div class="carousel-inner"> 
+			{foreach key=k1 item=i1 from=$partners name=lp}
+			<div class="item{if $smarty.foreach.lp.index==0} active{/if}">
+				{foreach item=i2 from=$i1}
+				<div class="col-xs-12 col-sm-6 col-md-3">
+					{if !empty($i2.link)}<a href="{$i2.link}" target="_blank">{/if}
+					<img class="img-responsive" src="{$app_url}userfiles/partner/{$i2.photo}" alt="{$i2.name}" />
+					{if !empty($i2.link)}</a>{/if}
+				</div>
+				{/foreach}
+			</div>
+			{/foreach}
+			</div>
+		</div>
+	</div>
+</section>{/if}

@@ -1,0 +1,46 @@
+#cwwb {
+	text-align: center;
+	position: fixed;
+	right: 0px;
+	bottom: -100%;
+	z-index: 1;
+	width: 100%;
+	background: #666;
+	padding: 10px 0px;
+	font-size: 12pt;
+	color: #ccc;
+	line-height: 1.4em;
+    animation-delay: .9s;
+	animation: show .9s linear;
+	animation-fill-mode: forwards;
+	-webkit-animation-delay: 2s;
+}
+
+#cwwb a { color: #fff; text-decoration: none; }
+#cwwb a { color: orange; }
+#cwwb button { background: none; border: none; }
+
+#cwwb .text { width: 100%; text-align: center; padding-bottom: 10px;}
+#cwwb .button { width: 100%; padding-top: 0px; color: #fff; text-align: center: }
+#cwwb .button:hover { color: orange; }
+
+@keyframes show {
+  0% {
+    display: block;
+    bottom: -100%;
+  }
+  99% {
+    display: block;
+  }
+  100% {
+    display: none;
+    bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+	#cwwb {
+		width: 100%;
+		bottom: 0px;
+	}
+}

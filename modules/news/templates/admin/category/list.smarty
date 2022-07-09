@@ -1,0 +1,40 @@
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Dostępne kategorie</h5>
+		<a class="pull-right btn btn-warning" data-toggle="tooltip" data-title="{LA::get('cms','btn_add')}" href="{$app_url}admin/news/category/add/"><i class="fa fa-plus"></i></a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+		{if !empty($list)}<div class="table-responsive">
+			<table class="table table-hover">
+			<thead><tr>
+				<th width="50" class="text-left">#</th>
+				<th width="400">Nazwa</th>
+				<th width="100">Ilość newsów</th>
+				<th class="text-right">Opcje</th>
+			</tr></thead>
+			<tbody>
+			{foreach item=item from=$list}
+			<tr>
+				<td>{$item.priority}</td>
+				<td>{$item.name}</td>
+				<td>{$item.num} szt.</td>
+				<td class="text-right">
+					<a class="btn btn-sm btn-primary" data-toggle="tooltip" data-title="Przeglądaj newsy"  href="{$app_url}admin/news/list-by-category/?category={$item.id}"><i class="fa fa-list"></i></a>
+					<a class="btn btn-sm btn-info" data-toggle="tooltip" data-title="{LA::get('cms','btn_edit')}" href="{$app_url}admin/news/category/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+					<a class="btn btn-sm btn-danger confirm" data-toggle="tooltip" data-title="{LA::get('cms','btn_delete')}" href="{$app_url}admin/news/category/delete/?id={$item.id}"><i class="fa fa-trash"></i></a>
+				</td>
+			</tr>
+			{/foreach}
+			</tbody><tfoot>
+				<td colspan="4">
+					<a class="pull-right btn btn-warning" data-toggle="tooltip" data-title="{LA::get('cms','btn_add')}" href="{$app_url}admin/news/category/add/"><i class="fa fa-plus"></i></a>
+				</td>
+			</tfoot>
+			</table>
+		</div>{else}
+		<p>W bazie danych nie utworzono jeszcze żadnych kategorii. Kliknij w przycisk dodaj kategorię, aby utworzyć.</p>
+		{/if}
+	
+	</div>
+</div>

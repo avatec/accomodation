@@ -1,0 +1,76 @@
+{if !empty($Error)}
+<div class="alert alert-danger">
+	<h3>Błędy w formularzu</h3>
+	<ul>
+	{foreach item=item from=$Error}
+	<li>{$item}</li>
+	{/foreach}
+	</ul>
+</div>
+{/if}
+
+<form method="post">
+<input type="hidden" name="module" value="true" />
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6">
+		
+			<h3>Dane z licencji</h3>
+			
+			<div class="form-group">
+				<label class="form-control-static">Imię i nazwisko</label>
+				{Form::input2([ "type" => "text", "name" => "license_name", "placeholder" => "", "required" => true])}
+			</div>
+			
+			<div class="form-group">
+				<label class="form-control-static">Adres e-mail</label>
+				{Form::input2([ "type" => "email", "name" => "license_email", "placeholder" => "", "required" => true])}
+			</div>
+			
+			<div class="form-group">
+				<label class="form-control-static">Klucz licencji</label>
+				{Form::input2([ "type" => "text", id=>"license_key", "name" => "license_key", "placeholder" => "xxxx-xxxx-xxxx-xxxx-xxxx", "maxlength" => "28", "required" => true])}
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6">
+			<h3>Dane dostępowe do bazy danych</h3>
+			
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-8">
+					<div class="form-group">
+						<label class="form-control-static">Host</label>
+						{Form::input2([ "type" => "text", "name" => "db_host", "placeholder" => "localhost", "required" => true])}
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-4">
+					<div class="form-group">
+						<label class="form-control-static">Port</label>
+						{Form::input2([ "type" => "number", "name" => "db_port", "placeholder" => "3306", "required" => true])}
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="form-control-static">Nazwa bazy danych</label>
+				{Form::input2([ "type" => "text", "name" => "db_name", "placeholder" => "", "required" => true])}
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6">
+					<div class="form-group">
+						<label class="form-control-static">Nazwa użytkownika</label>
+						{Form::input2([ "type" => "text", "name" => "db_user", "placeholder" => "", "required" => true])}
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6">
+					<div class="form-group">
+						<label class="form-control-static">Hasło</label>
+						{Form::input2([ "type" => "text", "name" => "db_pass", "placeholder" => "", "required" => true])}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<hr/>
+	<button type="submit" class="btn btn-primary btn-lg pull-right"><span class="fa fa-check"></span> sprawdź czy dane są poprawne i rozpocznij instalację</button>
+</form>

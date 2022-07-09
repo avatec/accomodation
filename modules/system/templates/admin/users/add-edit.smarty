@@ -1,0 +1,204 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowego{/if} użytkownika</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Typ użytkownika</label>
+					<div class="col-md-4">
+						{Form::select("type" , User::$types)}
+						<small><em>Wybierz typ konta dla tego użytkownika</em></small>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Typ konta</label>
+					<div class="col-md-4">
+						{Form::select("user_type" , User::$account_types)}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Login</label>
+					<div class="col-md-4">
+						{Form::input("text" , "login")}
+					</div>
+				</div>
+				
+				{if !isset(Form::$post['edit'])}
+				<div class="form-group">
+					<label class="col-md-4 control-label">Hasło</label>
+					<div class="col-md-4">
+						{Form::input("text" , "pass")}
+					</div>
+					<div class="col-md-2">
+						<button type="button" id="generatePassword" class="btn btn-primary">generuj hasło</button>
+					</div>
+				</div>
+				{/if}
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Imię i nazwisko</label>
+					<div class="col-md-6">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">E-mail</label>
+					<div class="col-md-6">
+						{Form::input("text" , "email", 'mask-alias:\'email\'')}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Telefon kontaktowy</label>
+					<div class="col-md-6">
+						{Form::input("text" , "phone", "required:true")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Osobowość prawna</label>
+					<div class="col-md-6">
+						{Form::select2([ 
+							"name" => "user_account",
+							"values" => User::$account_person,
+							"id" => "user_account"
+						])}
+					</div>
+				</div>
+				
+				<fieldset>
+					<legend>Ochrona danych osobowych</legend>
+	
+					<label class="checkbox">
+						{Form::checkbox("rules[1]", "TRUE", null, true)} {$config.rules_rodo_1}<sup>*</sup>
+					</label>
+					<label class="checkbox">
+						{Form::checkbox("rules[2]", "TRUE", null, true)} {$config.rules_rodo_2}<sup>*</sup>
+					</label>
+					<label class="checkbox">
+						{Form::checkbox("rules[3]", "TRUE")} {$config.rules_rodo_3}
+					</label>
+					<label class="checkbox">
+						{Form::checkbox("rules[4]", "TRUE")} {$config.rules_rodo_4}
+					</label>
+					<br/>
+					<label class="checkbox">
+						{Form::checkbox("rules[5]", "TRUE", null, true)} {Language::get("system" , "user_text_accept_rules")}. <a href="{$app_url}rules">{Language::get("system" , "user_text_read_rules")}</a> <sup>*</sup>
+					</label>
+				</fieldset>
+				<br/>			
+				<fieldset class="he1">
+					<legend>Dane do faktury</legend>
+				
+					<div class="form-group">
+						<label class="col-md-4 control-label">Nazwa firmy</label>
+						<div class="col-md-6">
+							{Form::input("text" , "company_name", "required:true")}
+						</div>
+					</div>
+			
+					<div class="form-group">
+						<label class="col-md-4 control-label">NIP</label>
+						<div class="col-md-6">
+							{Form::input("text" , "company_pin", "required:true")}
+						</div>
+					</div>
+				</fieldset>
+				
+				<fieldset>
+					<legend>Dane teleadresowe</legend>
+				
+					<div class="form-group">
+						<label class="col-md-4 control-label">Imię</label>
+						<div class="col-md-6">
+							{Form::input("text" , "first_name", "required:true")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">Nazwisko</label>
+						<div class="col-md-6">
+							{Form::input("text" , "last_name", "required:true")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">Adres</label>
+						<div class="col-md-6">
+							{Form::input("text" , "street", "required:true")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">Kod pocztowy</label>
+						<div class="col-md-6">
+							{Form::input("text" , "postcode", "required:true")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">Miejscowość</label>
+						<div class="col-md-6">
+							{Form::input("text" , "city", "required:true")}
+						</div>
+					</div>
+				</fieldset>
+
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz pozycję')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/system/users/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Zdjęcie użytkownika</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("photo")}
+					</div>
+					<div class="col-md-6">
+						{if isset(Form::$post['icon'])}
+						<input type="hidden" name="old_photo" value="{Form::$post['icon']}" />
+						<p><br/><img width="200" class="thumbnail" src="{$app_url}userfiles/users/{Form::$post['icon']}" alt="" /></p>
+						{/if}
+					</div>
+				</div>
+
+			</div>
+			{if !empty($config['exclusive'])}<div class="he1">
+				<div class="blog-header">
+					<h5 class="blog-title">Dane do przelewu</h5>
+				</div>
+				<div class="blog-body">
+					<div class="form-group">
+						<label class="col-md-4 control-label">Numer konta</label>
+						<div class="col-md-8">
+							{Form::input("text" , "bank_account")}
+						</div>
+					</div>
+				</div>
+			</div>{/if}
+		</div>
+	</div>
+	
+</div>
+{Form::close()}

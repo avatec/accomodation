@@ -1,0 +1,74 @@
+<fieldset>
+	<legend>Filtrowanie wyników</legend>
+	{Form::open()}
+	<div class="form-group">
+		<label class="control-label col-md-1">Wybierz rok</label>
+		<div class="col-md-1">
+			<select id="yearSelect" class="form-control">
+			{foreach item=item from=$filter.years}
+			<option value="{$item}">{$item}</option>
+			{/foreach}
+			</select>
+		</div>
+		
+		<label class="control-label col-md-1">Wybierz miesiąc</label>
+		<div class="col-md-2">
+			<select id="monthSelect" class="form-control">
+			{foreach item=item from=$filter.months}
+			<option value="{$item}">{Kernel::getMonthName($item)}</option>
+			{/foreach}
+			</select>
+		</div>
+		
+		<div class="col-md-1">
+			<button class="btn btn-primary btn-block">filtruj wyniki</button>
+		</div>
+	</div>
+	{Form::close()}
+</fieldset>
+				
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Utworzone pozycje</h5>
+				<a class="pull-right btn btn-warning" href="{$app_url}admin/objects/prices/add/?object_id={$smarty.get.object_id}&room_id={$smarty.get.room_id}"><i class="fa fa-file-text-o"> </i>&nbsp;dodaj pozycję</a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+				
+			
+				{if isset($list)}<div class="table-responsive">
+					<table class="table no-margin">
+					<thead><tr>
+						<th width="50">#</th>
+						<th width="200">Nazwa</th>
+						<th width="100">Ilość osób</th>
+						<th class="text-right">Opcje</th>
+					</tr></thead>
+					<tbody>
+					{foreach name=l item=item from=$list}
+					<tr data-date="{$item.date|date_format:"%Y-%m"}">
+						<td>{$smarty.foreach.l.iteration}</td>
+						<td align="left">{$item.date}</td>
+						<td align="center"></td>
+						<td align="right">
+							<a class="btn btn-sm btn-info" href="{$app_url}admin/objects/prices/edit/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-pencil"></i> edycja</a>
+							<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/objects/prices/delete/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-times"></i> usuń</a>
+						</td>
+					</tr>
+					{/foreach}
+					</tbody><tfoot>
+						<td colspan="4">
+							
+						</td>
+					</tfoot>
+					</table>
+				</div>{else}
+				<p>W bazie danych nie utworzono jeszcze żadnych pozycji. Kliknij w przycisk dodaj pozycję, aby utworzyć nową.</p>
+				{/if}
+			
+			</div>
+		</div>
+	</div>
+</div>

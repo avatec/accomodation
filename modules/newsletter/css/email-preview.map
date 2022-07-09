@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "email-preview.css",
+	"sources": [
+		"email-preview.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "AAAA,oBAAoB,CAAC;EACpB,UAAU,EAAE,OAAQ;EACpB,KAAK,EAAE,KAAM;EACb,MAAM,EAAE,aAAc;EACtB,OAAO,EAAE,IAAK;EACd,MAAM,EAAE,iBAAkB,GALL",
+	"names": []
+}

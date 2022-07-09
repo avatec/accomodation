@@ -1,0 +1,120 @@
+{if isset($warning_tpl)}
+<div class="alert alert-danger">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<strong>Uwaga!</strong> Widzisz ten komunikat, ponieważ pod podanym adresem nie skonfigurowano wyświetlania strony. Może to oznaczać, że ścieżka zawiera błędy, lub kieruje do nieistniejącego modułu
+</div>
+{else}
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Zalogowany jako <b>{\Modules\Admins::$auth['name']}</b></h5>
+			</div>
+			<div class="blog-body">
+				<div class="row">
+					<h5 class="col-xs-12 col-sm-12 col-md-6">Poprawne logowanie<br/><small class="text-info">{\Modules\Admins::$auth['last_login_date']}</small></h5>
+					<h5 class="col-xs-12 col-sm-12 col-md-6">Błędne logowanie<br/><small class="text-danger">{\Modules\Admins::$auth['error_login_date']}</small></h5>
+				</div>
+				<br/>
+				<a class="btn btn-danger btn-block" href="{$app_url}admin/change-password.html"><span class="fa fa-key"></span> zmień hasło logowania do konta</a>
+				<a class="btn btn-default btn-block" href="{$app_url}admin/logout.html"><span class="fa fa-sign-out"></span> wyloguj się</a>
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Szybki dostęp</b></h5>
+			</div>
+			<div class="blog-body">
+
+				{if \Modules\Admins::$auth['type'] == 1}
+				<a class="btn btn-default" href="{$app_url}admin/changelog.html"><i class="fa fa-book fa-2x"></i><br/><small>Ostatnie<br/>zmiany</small></a>
+				<a class="btn btn-default" href="#" id="makeBackup"><i class="fa fa-cogs fa-2x"></i><br/><small>Wykonaj<br/>kopię zapasową</small></a>
+				{/if}
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Informacje o systemie</h5>
+			</div>
+			<div class="blog-body">
+				{if isset($version)}
+				<table class="table table-hover table-stripped"><tbody><tr>
+					<th>Wersja</th>
+					<td>{$version.version}</td>
+				</tr><tr>
+					<th>Build</th>
+					<td>{$version.build}</td>
+				</tr><tr>
+					<th>Data wersji</th>
+					<td>{$version.date}</td>
+				</tr></tbody></table>
+				{/if}
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+		<div class="blog blog-danger">
+			<div class="blog-header">
+				<h5 class="blog-title">Informacje warte uwagii</b></h5>
+			</div>
+			<div class="blog-body">
+				<ul class="list-group">
+					{if empty($config.default_email)}<li class="list-group-item"><span class="fa fa-warning"></span> <span class="label label-danger">KONFIGURACJA > Podstawowa</label> - uzupełnij domyślny adres e-mail</li>{/if}
+					{if $config.service_blocked == "TRUE"}<li class="list-group-item"><span class="fa fa-warning"></span> <span class="label label-danger">KONFIGURACJA > Podstawowa</span> twój serwis jest w trybie administracyjnym</li>{/if}
+					{if empty($config.google_api_key)}<li class="list-group-item"><span class="fa fa-warning"></span> <span class="label label-danger">KONFIGURACJA > Podstawowa</span> nie skonfigurowano klucza Google API</li>{/if}
+					{if empty($config.google_stats)}<li class="list-group-item"><span class="fa fa-warning"></span> <span class="label label-danger">KONFIGURACJA > Podstawowa</span> nie skonfigurowano statystyk Google Analitics</li>{/if}
+					{if empty($config.facebook_app_id)}<li class="list-group-item"><span class="fa fa-warning"></span> <span class="label label-danger">KONFIGURACJA > Społecznościowe</span> logowanie przez facebooka nie będzie dostępne dopuki nie podasz kluczów: App ID oraz Secret</li>{/if}
+					{if $config.smtp == "FALSE"}<li class="list-group-item"><span class="fa fa-warning"></span> <span class="label label-danger">KONFIGURACJA > Smtp</span> zalecamy konfigurację skrzynki e-mail w domenie Twojego serwisu do wysyłania wiadomości e-mail</li>{/if}
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			{if isset($avatec_news)}<div class="col-xs-12 col-sm-12 col-md-6">
+				<div class="blog blog-info">
+					<div class="blog-header">
+						<h5 class="blog-title">Aktualności od AVATEC</h5>
+					</div>
+					<div class="blog-body">
+						<div class="blog-content">
+						<ul class="recent-posts">
+						{foreach item=item from=$avatec_news}
+							<li class="post">
+								{if !empty($item.image)}<img class="blog-avatar" src="{$item.image}" />{/if}
+								<div class="details">
+									<h5 class="blog-title">{$item.title}</h5>
+									<p>{$item.text}</p>
+									{if !empty($item.link)}<br/>
+									<p><a href="{$item.link}" class="btn btn-primary btn-xs pull-right">zobacz więcej &raquo;</a></p>
+									{/if}
+								</div>
+							</li>
+						{/foreach}
+						</ul>
+						</div>
+					</div>
+				</div>
+			</div>{/if}
+			<div class="col-xs-12 col-sm-12 col-md-6">
+				<div class="blog blog-info">
+					<div class="blog-header">
+						<h5 class="blog-title">Ostatnia aktualizacja</h5>
+					</div>
+					<div class="blog-body">
+						<div class="blog-content">
+						<ul class="recent-posts">
+						{foreach item=item from=$change_log name=lp}{if $smarty.foreach.lp.iteration<=2}
+							<li class="post">
+								<h5 class="blog-title">{$item.version} <small>{$item.date} {$item.time}</small></h5>
+								<p>{$item->description|nl2br}</p>
+							</li>
+						{/if}{/foreach}
+						</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{/if}

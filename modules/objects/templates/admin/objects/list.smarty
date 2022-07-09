@@ -1,0 +1,145 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog blog-primary">
+			<div class="blog-header">
+				<h5 class="blog-title">Wyszukiwarka</h5>
+			</div>
+			<div class="blog-body">
+				{Form::open("GET",null,null,false)}
+				<div class="form-group">
+					<label class="control-label col-md-1" data-toggle="tooltip" title="Wyszukiwanie po: id, nazwa, miejscowosc, email, telefon">Fraza</label>
+					<div class="col-md-5">
+						{Form::input2([ 
+							"type" => "text",
+							"name" => "q",
+							"placeholder" => "id / nazwa / miejscowosc / email / telefon"
+						])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-1">Województwo</label>
+					<div class="col-md-2">
+						{Form::select2([
+							"name" => "s",
+							"values" => ObjectsStates::getSelect(),
+							"empty" => "wszystkie"
+						])}
+					</div>
+					
+					<label class="control-label col-md-1">Typ obiektu</label>
+					<div class="col-md-2">
+						{Form::select2([
+							"name" => "t",
+							"values" => ObjectsTypes::getSelect(),
+							"empty" => "wszystkie"
+						])}
+					</div>
+					
+					{if $config['announcement_moderate'] == "TRUE"}
+					<label class="control-label col-md-1">Status</label>
+					<div class="col-md-2">
+						{Form::select2([
+							"name" => "status",
+							"values" => Objects::$Status,
+							"empty" => "wszystkie"
+						])}
+					</div>
+					{/if}
+					
+					<div class="col-sm-1 text-right">
+						<button type="submit" class="btn btn-block btn-primary">
+							<span class="fa fa-search"></span>
+						</button>
+					</div>
+				</div>
+				{Form::close()}
+			</div>
+		</div>
+	</div>
+</div>
+
+{Form::open()}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		
+		{Paginate::get()}
+		{if isset($list)}<div class="table-responsive">
+			<table class="table table-admin table-hover no-margin">
+			<thead><tr>
+				<th width="50">#</th>
+				<th width="200">Nazwa</th>
+				<th width="150" class="text-center">Użytkownik</th>
+				<th width="150" class="text-center">Wyświetlanie</th>
+				<th width="150" class="text-center">Wyróżnienie</th>
+				<th width="150" class="text-center">Promocja na głównej</th>
+				<th width="150" class="text-center">Status</th>
+				<th class="text-right">Opcje</th>
+			</tr></thead>
+			<tbody>
+			{foreach key=key name=l item=item from=$list}
+			<tr id="row-{$key}">
+				<td>{$item.id}</td>
+				<td align="left"><b>{$item.name}</b><br/>{$item.address}<br/>{$item.postcode} {$item.city}</td>
+				<td align="center">
+					<p>
+						<span class="badge badge-primary" data-toggle="tooltip" title="Login użytkownika">{User::getField('login' , $item.uid)}</span>
+					</p>
+					<p>
+						<a href="{$app_url}admin/objects/list/?uid={$item.uid}" class="btn btn-info btn-xs">obiekty użytkownika</a>
+					</p>
+				</td>
+				<td align="center">{Objects::readExpire($item.id, "VIEW" , $item.view_expire, true)}</td>
+				<td align="center">{Objects::readExpire($item.id, "SEARCH" , $item.search_expire, true)}</td>
+				<td align="center">{Objects::readExpire($item.id, "MAIN" , $item.main_expire, true)}</td>
+				<td align="center">
+					{if $config['announcement_moderate'] == "TRUE"}
+					<p>
+					{Objects::_getStatusName( $item.status , true )}
+					</p>
+					<p>
+					{if $item.status=="DISABLED" OR $item.status=="PENDING"}
+					<a href="{$app_url}admin/objects/set-status/?id={$item.id}&status=ACTIVE&row={$key}" class="btn btn-info btn-xs"><em class="fa fa-check"></em> potwierdź</a>
+					{else}
+					<a href="{$app_url}admin/objects/set-status/?id={$item.id}&status=DISABLED&row={$key}" class="btn btn-warning btn-xs"><em class="fa fa-check"></em>  wyłącz</a>
+					{/if}
+					</p>
+					{else}
+					nie dotyczy
+					{/if}
+				</td>
+				<td align="right">
+					<div class="btn-group">
+						<a type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" data-container="btn-group"><i class="fa fa-list"></i> <span class="caret"></span></a>
+						<ul class="dropdown-menu dropdown-menu-right" role="menu">
+							{if !isset($config['basic'])}<li role="presentation"><a href="{$app_url}admin/special/object-list/?object_id={$item.id}">oferty specjalne</a></li>{/if}
+							{if $config['announcement_comments'] == "TRUE"}
+							<li role="presentation"><a href="{$app_url}admin/objects/comments/list/?object_id={$item.id}">opinie [{$item.num_comments}]</a></li>
+							{/if}
+							{if !isset($config['basic'])}<li role="presentation"><a href="{$app_url}admin/objects/rooms/list/?object_id={$item.id}">pokoje [{$item.num_rooms}]</a></li>{/if}
+							<li role="presentation"><a href="{$app_url}admin/objects/photos/list/?object_id={$item.id}">zdjęcia [{$item.num_photos}]</a></li>
+							{if !isset($config['basic']) && $config['announcement_video'] == "TRUE"}
+							<li role="presentation"><a href="{$app_url}admin/objects/video/list/?object_id={$item.id}">wideo [{$item.num_videos}]</a></li>
+							{/if}
+							{if User::getUserType( $item['uid'] ) == "ADMIN" || User::getUserType( $item['uid'] ) == "MOD"}
+							<li role="separator" class="divider"></li>
+							<li role="presentation"><a href="{$app_url}admin/system/users/account-for-object/?object_id={$item.id}">stwórz konto użytkownika</a></li>
+							{/if}
+						</ul>
+					</div>
+					<a class="btn btn-sm btn-info" href="{$app_url}admin/objects/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+					<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/objects/delete/?id={$item.id}"><i class="fa fa-trash"></i></a>
+				</td>
+			</tr>
+			{/foreach}
+			</tbody><tfoot><tr>
+				<td colspan="9" class="text-right"><a class="btn btn-warning" href="{$app_url}admin/objects/add/"><i class="fa fa-plus"> </i>&nbsp;dodaj obiekt</a></td>
+			</table>
+		</div>{else}
+		<p>W bazie danych nie utworzono jeszcze żadnych pozycji. Kliknij w przycisk dodaj pozycję, aby utworzyć nową.</p>
+		<p><a class="btn btn-warning" href="{$app_url}admin/objects/add/"><i class="fa fa-plus"> </i>&nbsp;dodaj obiekt</a></p>
+		{/if}
+		{Paginate::get()}
+			
+	</div>
+</div>
+{Form::close()}

@@ -1,0 +1,39 @@
+<!-- Menu start -->
+	<div id='menu'>
+		{Core\Backend\Navigation::get()}
+	</div>
+	<!-- Menu End -->
+	{**
+	<!-- Freebies Starts -->
+	<div class="freebies">
+
+		<!-- Sidebar Extras -->
+		<div class="sidebar-addons">
+			<ul class="views">
+				<li>
+					<i class="fa fa-circle-o text-success"></i>
+					<div class="details">
+						<p>Signups</p>
+					</div>
+					<span class="label label-success">8</span>
+				</li>
+				<li>
+					<i class="fa fa-circle-o text-info"></i>
+					<div class="details">
+						<p>Users Online</p>
+					</div>
+					<span class="label label-info">7</span>
+				</li>
+				<li>
+					<i class="fa fa-circle-o text-danger"></i>
+					<div class="details">
+						<p>Images Uploaded</p>
+					</div>
+					<span class="label label-danger">4</span>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+	<!-- Freebies Starts -->
+	**}

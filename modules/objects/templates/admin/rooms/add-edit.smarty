@@ -1,0 +1,67 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+<div class="row">
+	<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowego{/if} pokoju</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa pokoju</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Ilość osób</label>
+					<div class="col-md-3">
+						{Form::input("text" , "persons")}
+					</div>
+					<label class="col-md-1 control-label">Cena</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::input("text" , "amount")}
+							<span class="input-group-addon">zł</span>
+						</div>
+					</div>
+					<label class="col-md-1 control-label">za</label>
+					<div class="col-md-2">
+						{Form::select("amount_type" , ObjectsRooms::$AmountTypes)}
+					</div>
+				</div>
+				
+				<fieldset>
+					<legend>Wyposażenie</legend>
+					{if isset($equipment)}{foreach key=key item=item from=$equipment}
+					<div class="col-md-6">
+					{Form::checkbox("equipment[{$item.id}]", true, $item.name)}
+					</div>
+					{/foreach}{/if}
+				</fieldset>
+				
+				<br/>
+				<fieldset>
+					<legend>Opis pokoju</legend>
+					{Form::text("description","description")}
+					{Kernel::wysiwyg("description")}
+				</fieldset>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/objects/rooms/list/?object_id={$smarty.get.object_id}">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

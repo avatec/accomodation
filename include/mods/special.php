@@ -1,0 +1,2 @@
+<?php
+Kernel::template("content");

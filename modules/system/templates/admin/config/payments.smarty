@@ -1,0 +1,163 @@
+{Form::open()}
+{Form::hidden("service_blocked" , "FALSE")}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Wybierz domyślną bramkę płatności</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+	            	<label class="col-lg-3 control-label">Wybierz bramkę płatności</label>
+		            <div class="col-lg-9">
+                        {Form::select('payments_module' , $payments_modules)}
+		            </div>
+	            </div>
+
+	            <div id="layer-dotpay" class="layerhide">
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">ID</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'dotpay_id' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">PIN</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'dotpay_pin' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Nazwa</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'dotpay_pinfo' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Email</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'dotpay_pemail' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Adres IP</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'dotpay_ip' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Tryb testowy</label>
+			            <div class="col-lg-9">
+	                        {Form::select2([ 'name' => 'dotpay_testmode', 'values' => System::$truefalse ])}
+			            </div>
+	            	</div>
+	            </div>
+
+	            <div id="layer-p24" class="layerhide">
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Pos ID</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'p24_pos_id' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Klucz do zamówień</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'p24_order_key' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Klucz do CRC</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'p24_crc_key' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Adres IP</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'p24_ip' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Tryb testowy</label>
+			            <div class="col-lg-9">
+	                        {Form::select2([ 'name' => 'p24_testmode', 'values' => System::$truefalse ])}
+			            </div>
+	            	</div>
+	            </div>
+
+				<div id="layer-tpay" class="layerhide">
+					<p class="alert alert-warning">Wersja beta - mogą występować problemy z działaniem tej bramki płatności. Używaj tylko na własną odpowiedzialność.</p>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Merchant ID</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'tpay_merchant_id' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Secret</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'tpay_secret' ])}
+			            </div>
+	            	</div>
+
+					<div class="form-group">
+	            		<label class="col-lg-3 control-label">Adresy IP</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'tpay_ip' ])}
+							<small>Oddzielone przecinkami</small>
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Nazwa</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'tpay_info' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Email</label>
+			            <div class="col-lg-9">
+	                        {Form::input2([ 'type' => 'text' , 'name' => 'tpay_email' ])}
+			            </div>
+	            	</div>
+
+	            	<div class="form-group">
+	            		<label class="col-lg-3 control-label">Tryb testowy</label>
+			            <div class="col-lg-9">
+	                        {Form::select2([ 'name' => 'tpay_testmode', 'values' => System::$truefalse ])}
+			            </div>
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+            		<label class="col-lg-3 control-label">Generuj logi</label>
+		            <div class="col-lg-9">
+                        {Form::select2([ 'name' => 'payment_create_logs', 'values' => System::$truefalse ])}
+		            </div>
+            	</div>
+
+	            <div id="layer-payu" class="layerhide">
+	            	<p>Moduł nie zaimplementowany</p>
+	            </div>
+
+			</div>
+			<div class="blog-footer text-right">
+				{Form::submit("Zapisz zmiany")}
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

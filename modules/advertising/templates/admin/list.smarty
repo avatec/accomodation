@@ -1,0 +1,99 @@
+<div class="blog blog-primary">
+	<div class="blog-header">
+		<h5 class="blog-title">Wyszukiwarka</h5>
+	</div>
+	<div class="blog-body">
+		{Form::open("GET",null,null,false)}
+		<div class="form-group">
+			<label class="control-label col-md-1">Typ</label>
+			<div class="col-md-2">
+				{Form::select2([
+					"name" => "t",
+					"values" => Advertising::$types,
+					"empty" => "wszystkie"
+				])}
+			</div>
+			<label class="control-label col-md-1">Położenie</label>
+			<div class="col-md-4">
+				{Form::select2([
+					"name" => "p",
+					"values" => Advertising::$places,
+					"empty" => "wszystkie"
+				])}
+			</div>
+		</div>
+		<div class="form-group">
+			
+			<label class="control-label col-md-1">Od dnia</label>
+			<div class="col-md-2">
+				<div class="input-group">
+					<div class="input-group-addon"><em class="fa fa-calendar"></em></div>
+					{Form::date("ds")}
+				</div>
+			</div>
+			<label class="control-label col-md-1">do dnia</label>
+			<div class="col-md-2">
+				<div class="input-group">
+					<div class="input-group-addon"><em class="fa fa-calendar"></em></div>
+					{Form::date("de")}
+				</div>
+			</div>
+			
+			
+			
+			<div class="col-md-1 text-right">
+				<button type="submit" class="btn btn-block btn-primary">
+					<span class="fa fa-search"></span>
+				</button>
+			</div>
+		</div>
+		{Form::close()}
+	</div>
+</div>
+<br/>
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Reklamy w bazie danych</h5>
+		<a href="{$app_url}admin/advertising/create/" class="btn btn-primary pull-right"><span class="fa fa-plus"></span> dodaj nową</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+		<div class="table-responsive">
+			<table class="table table-hover table-stripped no-margin">
+			<thead><tr>
+				<th width="50">Lp.</th>
+				<th width="200">Nazwa własna reklamy</th>
+				<th width="100">Typ</th>
+				<th width="100">Położenie</th>
+				<th width="200" class="text-cente">Kod na stronie</th>
+				<th width="200" class="text-right">Opcje</th>
+			</tr></thead><tbody>
+			{if $list}{foreach from=$list item=item name=lp}
+			<tr>
+				<td>{$smarty.foreach.lp.iteration}</td>
+				<td>{$item.name}<br/><span class="label label-info"><i class="fa fa-calendar"></i> od {$item.date_start}{if $item.date_end}{if $item.date_end!='0000-00-00'} do {$item.date_end}{else} do bezterminowo{/if}{/if}</span></td>
+				<td>
+				{if $item.type=="IMAGE"}plik graficzny{/if}
+				{if $item.type=="TEXT"}reklama tekstowa{/if}
+				</td>
+				<td align="center"><span class="label label-primary">
+				{Advertising::get_place( $item.place )}
+				</span></td>
+				<td><code>&#123;Advertising::show('{$item.place}')&#125;</code></td>
+				<td class="text-right">
+					<a {Common::tooltip('edycja')} href="{$app_url}admin/advertising/edit/?id={$item.id}" class="btn btn-sm btn-info"><span class="fa fa-pencil"></span></a>
+					<a {Common::tooltip('usuń')} href="{$app_url}admin/advertising/delete/?id={$item.id}" class="btn btn-sm btn-danger confirm"><span class="fa fa-trash"></span></a>
+				</td>
+			</tr>
+			{/foreach}{else}
+			<tr class="middle">
+				<td colspan="6">brak wyników</td>
+			</tr>
+			{/if}
+			</tbody></table>
+		</div>
+	</div>
+	<div class="blog-footer text-right">
+		<a href="{$app_url}admin/advertising/create/" class="btn btn-primary"><span class="fa fa-plus"></span> dodaj nową</a>
+	</div>
+</div>

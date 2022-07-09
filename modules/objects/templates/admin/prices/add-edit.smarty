@@ -1,0 +1,121 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+{Form::hidden("room_id" , $smarty.get.room_id)}
+<div class="row">
+	<div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowego zakresu cenowego{/if}</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+					<label class="col-md-1 control-label">Od daty</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							<span class="input-group-addon"><em class="fa fa-calendar"></em></span>
+							{Form::date("date_start")}
+						</div>
+					</div>
+					<label class="col-md-1 control-label">Do daty</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							<span class="input-group-addon"><em class="fa fa-calendar"></em></span>
+							{Form::date("date_end")}
+							
+						</div>
+					</div>
+					<label class="col-md-1 control-label">Kwota</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							{Form::input("text" , "amount")}
+							<span class="input-group-addon">zł</span>
+						</div>
+					</div>
+				</div>
+				
+				<fieldset>
+					<legend>Uwzględniaj</legend>
+
+					<div class="col-md-12">
+						<div class="form-group">
+							<div class="col-md-1">
+								<label class="control-label">Poniedziałek</label><br/>
+								{Form::checkbox("week[]", "1", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>
+							<div class="col-md-1">
+								<label class="control-label">Wtorek</label><br/>
+								{Form::checkbox("week[]", "2", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>	
+							<div class="col-md-1">
+								<label class="control-label">Środa</label><br/>
+								{Form::checkbox("week[]", "3", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>	
+							<div class="col-md-1">
+								<label class="control-label">Czwartek</label><br/>
+								{Form::checkbox("week[]", "4", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>	
+							<div class="col-md-1">
+								<label class="control-label">Piątek</label><br/>
+								{Form::checkbox("week[]", "5", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>	
+							<div class="col-md-1">
+								<label class="control-label">Sobota</label><br/>
+								{Form::checkbox("week[]", "6", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>	
+							<div class="col-md-1">
+								<label class="control-label">Niedziela</label><br/>
+								{Form::checkbox("week[]", "0", null, null, "data-size:mini,data-on-text:TAK,data-off-text:NIE")}
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/objects/rooms/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="clearfix"></div>
+
+		
+
+</div>
+{Form::close()}
+
+<script>$(document).ready( function() {
+$("input[type=checkbox]").bootstrapSwitch({
+	onText: "tak",
+	onText: "nie",
+	size: "mini"
+});
+$(".dataPicker").datetimepicker({
+    lang: 'pl',
+    i18n:{
+		de:{
+			months:[
+			'Styczeń','Luty','Marzec','Kwiecień',
+			'Maj','Czerwiec','Lipiec','Sierpień',
+			'Wrzesień','Październik','Listopad','Grudzień'
+			],
+			dayOfWeek:[
+			"Nd", "Pn", "Wt", "Śr", 
+			"Cz", "Pt", "So",
+			]
+		}
+	},
+	timepicker: false,
+	format:'Y-m-d'
+});
+});</script>

@@ -1,0 +1,150 @@
+{Form::open("post")}
+
+<h3 class="title">Termin rezerwacji: {ObjectsRooms::getName($room_id)}</h3>
+
+<input type="hidden" id="checkin" name="checkin" value="" />
+<input type="hidden" id="checkout" name="checkout" value="" />
+<input type="hidden" id="days" name="days" value="0" />
+<input type="hidden" id="res_adult" name="res_adult" value="1" />
+<input type="hidden" id="res_child1" name="res_child1" value="0" />
+<input type="hidden" id="res_child2" name="res_child2" value="0" />
+<input type="hidden" id="res_amount" name="amount" value="0" />
+<input type="hidden" id="res_advance_amount" name="advance_amount" value="0" />
+
+<div id="errorNotice" class="alert alert-danger">
+	<div class="row">
+		<div class="col-md-1"><em class="fa fa-info fa-3x"></em></div>
+		<div class="col-md-11">
+			Sprawdź swoją datę rezerwacji, ponieważ w wybrałeś termin już zarezerwowany
+		</div>
+	</div>
+</div>
+
+<div class="booking">
+	<div id="calendar-checkin" class="item col-xs-12 col-sm-6">
+		<small>Data przyjazdu</small>
+		<div class="row">
+			<div class="col-xs-3 col-sm-4 text-center"><span class="item-day">-</span></div>
+			<div class="col-xs-6 col-sm-6">
+				<span class="item-month"><b>wybierz</b> dzień</span>
+				<span class="item-day-name">rozpoczęcia</span>
+			</div>
+			<div class="col-xs-3 col-sm-2 text-center">
+				<em class="fa fa-calendar fa-2x"></em>
+			</div>
+		</div>
+	</div>
+	<div id="calendar-checkout" class="item col-xs-12 col-sm-6">
+		<small>Data Wyjazdu</small>
+		<div class="row">
+			<div class="col-xs-3 col-sm-4 text-center"><span class="item-day">-</span></div>
+			<div class="col-xs-6 col-sm-6">
+				<span class="item-month"><b>wybierz</b> dzień</span>
+				<span class="item-day-name">powrotu</span>
+			</div>
+			<div class="col-xs-3 col-sm-2 text-center">
+				<em class="fa fa-calendar fa-2x"></em>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-2 item disabled text-center">
+		Dorośli
+		<br/>
+		<big class="adult">1</big>
+		<p>
+		<a id="adultPlus" class="btn btn-default btn-sm">+</a>
+		<a id="adultMinus" class="btn btn-default btn-sm">-</a>
+		</p>
+	</div>
+	<div class="col-xs-12 col-sm-2 item disabled text-center">
+		Dziecko 3-12 lat
+		<br/>
+		<big class="child1">0</big>
+		<p>
+		<a id="child1Plus" class="btn btn-default btn-sm">+</a>
+		<a id="child1Minus" class="btn btn-default btn-sm">-</a>
+		</p>
+	</div>
+	<div class="col-xs-12 col-sm-2 item disabled text-center">
+		Dziecko do 3 lat
+		<br/>
+		<big class="child2">0</big>
+		<p>
+		<a id="child2Plus" class="btn btn-default btn-sm">+</a>
+		<a id="child2Minus" class="btn btn-default btn-sm">-</a>
+		</p>
+	</div>
+	<div class="col-xs-12 col-sm-6 item disabled ">
+		<div class="col-xs-6 col-sm-6">
+		<small>Ilość noclegów</small><br/>
+		<span class="item-days">-</span>
+		</div>
+		<div class="col-xs-6 col-sm-6">
+		<small>Łączna cena za pobyt</small><br/>
+		<span class="item-cost">0</span> zł
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<br/>
+</div>
+
+<div class="modal fade" id="calendarModal" role="dialog" aria-labelledby="calendarLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="calendarLabel" data-text-checkin="przyjazdu" data-text-checkout="wyjazdu">Wybierz datę <span></span></h4>
+			</div>
+			<div class="modal-body">
+				{Form::hidden("object_id" , $object.id)}
+				{if isset($room.id)}{Form::hidden("room_id" , $room.id)}{/if}
+
+				<div id="calendar" class="modal-calendar">
+					<div class="table-responsive">
+					{$calendar}
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<h3 class="title text-right">Zaliczka wymagana do wpłaty <b><span class="item-advance">0</span> zł</b></h3>
+
+<h3 class="title">Dane osoby rezerwującej</h3>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+			<label class="control-label col-md-2">Imię</label>
+			<div class="col-md-10">
+				{Form::input("text" , "first_name")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">Nazwisko</label>
+			<div class="col-md-10">
+				{Form::input("text" , "last_name")}
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label class="control-label col-md-2">Telefon</label>
+			<div class="col-md-10">
+				{Form::input("text" , "phone")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">E-mail</label>
+			<div class="col-md-10">
+				{Form::input("text" , "email")}
+			</div>
+		</div>
+	</div>
+</div>
+
+<p class="text-right"><button id="countAmount" type="submit" class="btn btn-primary btn-lg">rezerwuj miejsce</button></p>
+{Form::close()}
+

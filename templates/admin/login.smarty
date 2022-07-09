@@ -1,0 +1,146 @@
+{strip}<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Dostęp wymaga zalogowania - Avatec Accomodation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex,nofollow">
+	<meta name="author" content="Avatec.pl">
+
+	<link href="{$app_url}templates/admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{$app_url}templates/admin/css/animate.css" rel="stylesheet">
+	<!--<link href="{$app_url}templates/admin/css/main.css" rel="stylesheet">//-->
+	<link href="{$app_url}templates/admin/css/login.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$app_url}templates/admin/css/font-awesome.min.css">
+	<script src="{$app_url}templates/admin/js/respond.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="{$app_url}templates/admin/js/html5shiv.js"></script>
+	<![endif]-->
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="{$app_url}templates/admin/img/favicon/favicon.png">
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-push-4 col-md-4 col-sm-push-3 col-sm-6 col-sx-12">
+			<div class="login-container">
+				<div class="login-wrapper animated fadeInDown">
+					<div id="login" class="show">
+						<div class="login-header">
+							<h4>ACCOMODATION - Strefa wymaga logowania</h4>
+						</div>
+						{if !empty($messages.error)}<div class="alert alert-warning">
+							{foreach item=item from=$messages.error}
+							{$item}
+							{/foreach}
+						</div>{/if}
+						{Form::open("post" , "/admin/login.html")}
+							<div class="form-group has-feedback">
+								<label class="control-label" for="userName">Login</label>
+								{Form::input('text' , 'login')}
+								<i class="fa fa-user text-info form-control-feedback"></i>
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="passWord">Hasło</label>
+								{Form::input('password' , 'password')}
+								<i class="fa fa-key text-danger form-control-feedback"></i>
+							</div>
+							<div class="row">
+								<input type="submit" value="Zaloguj mnie" class="btn btn-danger btn-lg btn-block">
+							</div>
+						{Form::close()}
+						<p>
+							<small>Copyright (c) 2010-{$smarty.now|date_format:"%Y"} Avatec.pl. Wszystkie prawa zastrzeżone</small>
+						</p>
+
+						{**<a href="#forgot-pwd" class="underline text-info">Zapomniałeś hasła ?</a>
+						<a href="#register">Don't have an account? <span class="text-danger">Sign Up</span></a>**}
+					</div>
+
+					{**<div id="register" class="form-action hide">
+						<div class="login-header">
+							<h4>Sign Up for Everest</h4>
+						</div>
+						<form action="index.html">
+							<div class="form-group has-feedback">
+								<label class="control-label" for="userName1">User Name</label>
+								<input type="text" class="form-control" id="userName1">
+								<i class="fa fa-user form-control-feedback"></i>
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="password1">Password</label>
+								<input type="text" class="form-control" id="password1">
+								<i class="fa fa-key form-control-feedback"></i>
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="password2">Confirm password</label>
+								<input type="text" class="form-control" id="password2">
+								<i class="fa fa-key form-control-feedback"></i>
+							</div>
+							<input type="submit" value="Sign Up" class="btn btn-danger btn-lg btn-block">
+						</form>
+						<a href="#login">Already have an account? <span class="text-danger">Sign In</span></a>
+					</div>
+
+					<div id="forgot-pwd" class="form-action hide">
+						<div class="login-header">
+							<h4>Przywracanie hasła</h4>
+						</div>
+						<form action="index.html">
+							<div class="form-group has-feedback">
+								<label class="control-label" for="password3">Password</label>
+								<input type="text" class="form-control" id="password3">
+								<i class="fa fa-key form-control-feedback"></i>
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="password4">Confirm password</label>
+								<input type="text" class="form-control" id="password4">
+								<i class="fa fa-key form-control-feedback"></i>
+							</div>
+							<input type="submit" value="Reset" class="btn btn-danger btn-lg btn-block">
+						</form>
+						<a href="#login">Don't have an account? <span class="text-danger">Zaloguj się</span></a>
+					</div>
+					**}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="{$app_url}templates/admin/js/jquery.js"></script>
+<script src="{$app_url}templates/admin/js/bootstrap.min.js"></script>
+{**
+<script type="text/javascript">
+	(function($) {
+		// constants
+		var SHOW_CLASS = 'show',
+			HIDE_CLASS = 'hide',
+			ACTIVE_CLASS = 'active';
+
+		$('a').on('click', function(e){
+			e.preventDefault();
+			var a = $(this),
+			href = a.attr('href');
+
+			$('.active').removeClass(ACTIVE_CLASS);
+			a.addClass(ACTIVE_CLASS);
+
+			$('.show')
+			.removeClass(SHOW_CLASS)
+			.addClass(HIDE_CLASS)
+			.hide();
+
+			$(href)
+			.removeClass(HIDE_CLASS)
+			.addClass(SHOW_CLASS)
+			.hide()
+			.fadeIn(550);
+		});
+	})(jQuery);
+</script>
+**}
+</body>
+</html>{/strip}

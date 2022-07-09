@@ -1,0 +1,50 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{Form::hidden("priority" , Form::$post['priority'])}
+{/if}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}{LA::get('cms' , 'edit_title')}{else}{LA::get('cms' , 'create_title')}{/if}</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('cms' , 'table_priority')}</label>
+					<div class="col-md-1">
+						{Form::input("text" , "priority")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('cms' , 'table_name')}</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('cms' , 'table_rewrite')}</label>
+					<div class="col-md-10">
+						{Form::input("text" , "rewrite")}
+					</div>
+				</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				{else}
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_create')}
+				</button>
+				{/if}
+				<a class="btn btn-warning" href="{$app_url}admin/system/sections/list/">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+			</div>
+		</div>
+	</div>		
+</div>
+{Form::close()}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="{Language::$selected}">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Cache-Control" content="public, max-age:180">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="{$app_url}templates/website/images/favicon.ico" type="image/x-icon">
+	<title>{if isset($meta.title)}{$meta.title}{/if}</title>
+	<meta name="keywords" content="{if isset($meta.keywords)}{$meta.keywords}{/if}" />
+	<meta name="description" content="{if isset($meta.description)}{$meta.description}{/if}" />
+	<meta name="author" content="Grzegorz Miskiewicz - www.avatec.pl" />
+	<meta name="copyright" content="&copy; 2016-{$smarty.now|date_format:"%Y"} Avatec" />
+	<meta name="robot" content="{if isset($meta.index)}index{else}noindex{/if},{if isset($meta.follow)}follow{else}nofollow{/if}" />
+
+	<meta property="og:url"           content="{$app_request_url}" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="{if isset($meta.title)}{$meta.title}{/if}" />
+	<meta property="og:description"   content="{if isset($meta.description)}{$meta.description}{/if}" />
+	<meta property="og:image"         content="{if isset(Kernel::$facebook_image)}{Kernel::$facebook_image}{else}{$app_url}templates/website/images/facebook.jpg{/if}" />
+
+	<link href="{$app_url}templates/website/css/style.css" rel="stylesheet">
+	<link href="{$app_url}templates/website/css/bootstrap-select.min.css" rel="stylesheet" media="screen">
+	<link href="{$app_url}templates/website/css/font-awesome.min.css" rel="stylesheet">
+	<link href="{$app_url}templates/website/css/flags/css/flag-icon.min.css" rel="stylesheet" media="screen">
+	<link href="{$app_url}templates/website/css/checkbox-x.min.css" rel="stylesheet" media="screen">
+	{if Kernel::$Alertify == true}
+	<link href="{$app_url}plugins/alertify/css/alertify.core.css" rel="stylesheet" media="screen">
+	<link href="{$app_url}plugins/alertify/css/alertify.default.css" rel="stylesheet" media="screen">
+	{/if}
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	      <script src="{$app_url}templates/website/js/html5shiv.min.js"></script>
+	      <script src="{$app_url}templates/website/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	{if Kernel::$Alertify == true}
+	<script src="{$app_url}plugins/alertify/alertify.min.js"></script>
+	{/if}
+	{if Kernel::$CkEditor == true}
+	<script src="{$app_url}include/js/ckeditor/ckeditor.js"></script>
+	<script src="{$app_url}include/js/ckeditor/adapters/jquery.js"></script>
+	{/if}
+
+    {if !empty($css)}{foreach item=item from=$css}
+	<link href="{$item}" rel="stylesheet" media="screen">
+	{/foreach}{/if}
+
+	{if !empty( $assets.css )}
+	{foreach item=item from=$assets.css}
+	<link href="{$item}" rel="stylesheet" media="screen">
+	{/foreach}
+	{/if}
+
+	{if Kernel::$GoogleMaps == true}
+	<script src="https://maps.googleapis.com/maps/api/js{if isset($config.google_api_key)}?key={$config.google_api_key}&{else}?{/if}v=3.exp"></script>
+	{/if}
+	{if isset($config.google_tools)}{$config.google_tools}{/if}
+
+	{if !empty($config['facebook_messager'])}
+		{if $config['facebook_messager'] == "TRUE" && isset($config['facebook_app_id']) && isset($config['facebook_page_id'])}
+		<div id="fb-root"></div>
+		<script async defer src="https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js"></script>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<script>
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId            : '{$config['facebook_app_id']}',
+		      autoLogAppEvents : true,
+		      xfbml            : true,
+		      version          : 'v3.3'
+		    });
+		  };
+		</script>
+
+		<div class="fb-customerchat" attribution=setup_tool page_id="{$config['facebook_page_id']}"></div>
+		{/if}
+	{/if}
+
+	<script async src="https://cdn.ampproject.org/v0.js"></script>
+
+	{if !empty($config.facebook_app_id)}{strip}
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v3.3&appId={$config.facebook_app_id}&autoLogAppEvents=1"></script>
+	{/strip}{/if}
+</head>
+<body>
+
+	{include file="`$app_path`templates/website/body.smarty"}
+
+	<script type="text/javascript" src="{$app_url}templates/website/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{$app_url}templates/website/js/checkbox-x.min.js"></script>
+	<script type="text/javascript" src="{$app_url}templates/website/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="{$app_url}templates/website/js/cookieww/cookieww.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('body').cmsciw({
+			text: "{Language::get('cms' , 'cookie_bar_text')}" + " <a href=\"{$app_url}polityka-prywatnosci\">{Language::get('cms' , 'cookie_bar_link')}</a>",
+			button: '<span class="fa fa-check"></span> {Language::get('cms' , 'cookie_bar_link_text')}'
+		});
+	});
+	</script>
+	
+	{if !empty($javascript)}
+	{foreach item=item from=$javascript}
+	<script src="{$item}"></script>
+	{/foreach}
+	{/if}
+
+	{if !empty($assets.js)}
+	{foreach item=item from=$assets.js}
+	<script src="{$item}"></script>
+	{/foreach}
+	{/if}
+
+	<script type="text/javascript" src="{$app_url}templates/website/js/script.js"></script>
+	{if isset($config['google_stats'])}<script>
+	(function(i,s,o,g,r,a,m){ i['GoogleAnalyticsObject']=r; i[r]=i[r]||function() { (i[r].q=i[r].q||[]).push(arguments) },i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', '{$config['google_stats']}', 'auto'); ga('send', 'pageview');
+	</script>
+	{/if}
+</body>
+</html>

@@ -1,0 +1,73 @@
+<h3 class="title">Rozliczenia wpłaconych zaliczek</h3>
+
+		{Form::open("GET",null,false,false)}
+		<div class="panel panel-info">
+			<div class="panel-heading">Filtrowanie według daty</div>
+			<div class="panel-body">
+				<div class="col-xs-5 col-sm-3 col-lg-3">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+						{Form::date("start_date")}
+					</div>
+				</div>
+				<div class="col-xs-5 col-sm-3 col-lg-3">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+						{Form::date("end_date")}
+					</div>
+				</div>
+				<div class="col-xs-2 col-sm-2 col-lg-2">
+					<button type="submit" class="btn btn-primary btn-block">
+					<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		{Form::close()}
+
+
+
+{if isset($smarty.get.object_id)}{Form::hidden("object_id" , $smarty.get.object_id)}{/if}
+{if isset($smarty.get.room_id)}{Form::hidden("room_id" , $smarty.get.room_id)}{/if}
+
+{if isset($list)}
+<div class="table-responsive">
+	<table class="table table-hover table-admin-list"><thead><tr>
+		<th width="50">Lp.</th>
+		<th width="180">Przedmiot rezerwacji</th>
+		<th width="180">Osoba rezerwująca</th>
+		<th class="text-center" width="160">Data od - do</th>
+		<th class="text-center" width="100">Zaliczka</th>
+		<th class="text-center" width="100">Prowizja serwisu</th>
+		<th class="text-center" width="120">Kwota do wypłaty</th>
+	</tr></thead><tbody>
+	{foreach item=item from=$list name=lp}
+	<tr class="{if $item.payment_status == "CANCEL"} danger{/if}{if $item.payment_status=="CONFIRM"} success{/if}{if $item.payment_status=="NEW"} warning{/if}">
+		<td>{$smarty.foreach.lp.iteration}</td>
+		<td><b>{Objects::getName($item.object_id)}</b><br/>{ObjectsRooms::getName($item.room_id)}</td>
+		<td>
+			<b>{$item.first_name}  {$item.last_name}</b><br/>
+			<em class="fa fa-phone"></em> {$item.phone}<br/>
+			<em class="fa fa-envelope"></em> {$item.email}
+		</td>
+		<td class="text-center">
+			<em class="fa fa-calendar"></em> {$item.checkin} - {$item.checkout}<br/>
+			<b>Pobyt: {$item.days} {if $item.days==1}dzień{/if}{if $item.days>1}dni{/if}</b>
+		</td>
+		<td class="text-center">{$item.advance_amount} zł</td>
+		<td class="text-center">{assign commission User::getField("commission", $item['uid'])} {if $commission && $item.payment=="TRUE"}{Kernel::currency($item.advance_amount - ($item.advance_amount/($commission/10)))} zł{else}b/d{/if}</td>
+		<td class="text-center">{if $item.settlement == "FALSE"}<b>{Kernel::currency($item.advance_amount/($commission/10))} zł</b>{else}<span class="label label-info">wypłacono {Kernel::currency($item.settlement_amount)} zł</span><br/><span class="label label-info">{$item.settlement_date}</span>{/if}</td>
+	</tr>
+	{/foreach}
+	</tbody>
+	</table>
+</div>
+{else}
+<p class="alert alert-warning">Brak rozliczeń dla wybranego zakresu czasowego</p>
+{/if}
+
+{**{if isset($calendar)}
+<div id="calendar">
+	{$calendar}
+</div>
+{/if}**}

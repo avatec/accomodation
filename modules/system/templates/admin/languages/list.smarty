@@ -1,0 +1,27 @@
+{Form::open()}
+<div class="blog">
+    <div class="blog-header">
+        <h5 class="blog-title">Tłumaczenia dla {Language::get_selected()}</h5>
+    </div>
+    <div class="blog-body">
+        {if !empty($list)}
+        <table class="table table-hover"><thead>
+            <tr>
+                <th width="350">Kod</th>
+                <th>Tłumaczenie</th>
+            </tr>
+        </thead><tbody>
+        {foreach $list as $item}
+            <tr>
+                <th><input type="text" readonly value="{$item.slug}" class="form-control"/></th>
+                <th><input type="text" name="translate[{$item.slug}]" value="{$item.value}" class="form-control">
+            </tr>
+        {/foreach}
+        </tbody></table>
+        {/if}
+    </div>
+    <div class="blog-footer">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+    </div>
+</div>
+{Form::close()}

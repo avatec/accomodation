@@ -1,0 +1,86 @@
+{Form::open()}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowej{/if} opcji wyróżnienia</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-2 control-label">Rodzaj wyróżnienia</label>
+					<div class="col-md-10">
+						{Form::select2([ "name" => "what" , "required" => true, "values" => Promotion::$Promotion ])}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Rodzaje płatności</label>
+					<div class="col-md-10">
+						{foreach item=item from=Promotion::$Type}
+						<label class="checkbox">{Form::checkbox("type[]" , $item['id'], $item['name'])}</label>
+						{/foreach}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Opis</label>
+					<div class="col-md-10">
+						{Form::input("text" , "description")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Ilość dni</label>
+					<div class="col-md-10">
+						{Form::input("number" , "days")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Kwota dla przelewu</label>
+					<div class="col-md-2">
+						{Form::input("text" , "amount_online")}
+					</div>
+					
+					<label class="col-md-2 control-label">Kwota dla SMS</label>
+					<div class="col-md-2">
+						{Form::input("text" , "amount_sms")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label" data-toggle="tooltip" data-title="Wprowadź numer telefonu usługodawcy na którego ma zostać wysłany SMS">Numer SMS <span class="badge badge-info"><em class="fa fa-info"></em></span></label>
+					<div class="col-md-2">
+						{Form::input("number" , "sms_number")}
+					</div>
+					
+					<label class="col-md-2 control-label" data-toggle="tooltip" data-title="Wprowadź treść jaką należy wysłać w celu uzyskania kodu">Treść SMS <span class="badge badge-info"><em class="fa fa-info"></em></span></label>
+					<div class="col-md-2">
+						{Form::input("text" , "sms_text")}
+					</div>
+				</div>
+				
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/system/promotion/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

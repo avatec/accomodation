@@ -1,0 +1,33 @@
+<header>
+	<div id="topofpage"></div>
+	<section id="user-menu">
+		<div class="container">
+			<div class="pull-left">
+				{if User::$user['id'] > 0}
+				<span class="badge">{Language::get("system" , "user_text_login_as")}: <u>{User::$user['login']}</u></span>
+				{if User::$user['user_type'] == "OWNER"}
+				<a href="{$app_url}panel/objects/">{Language::get("system" , "user_btn_offers")}</a>
+				{if !empty($config.exclusive)}
+				<a href="{$app_url}panel/booking/">{Language::get("booking" , "btn_booking_list")} <span class="label label-default">{$stats.booking.new}</span></a>
+				<a href="{$app_url}panel/settlement/">{Language::get("booking" , "user_btn_settlement")}</a>
+				{/if}
+				{/if}
+				<a href="{$app_url}panel/account">{Language::get("system" , "user_btn_account")}</a>
+				<a href="{$app_url}panel/change-password">{Language::get("system" , "user_btn_change_password")}</a>
+				<a href="{$app_url}panel/logout">{Language::get("system" , "user_btn_logout")}</a>
+				
+				{else}
+				<a href="{$app_url}panel/login">{Language::get("system" , "user_btn_login")}</a>
+				<a href="{$app_url}panel/register">{Language::get("system" , "user_btn_register")}</a>
+				<a href="{$app_url}panel/password-reset">{Language::get("system" , "user_btn_password_forget")}</a>
+				{/if}
+			</div>
+			<div class="languages pull-right">
+				<a class="lang-item{if Language::$selected=="pl"} selected{/if}" href="{$app_url}language-pl/?redirect={$app_request_url}"><em class="flag-icon flag-icon-pl"></em></a>
+				<a class="lang-item{if Language::$selected=="en"} selected{/if}" href="{$app_url}language-en/?redirect={$app_request_url}"><em class="flag-icon flag-icon-gb"></em></a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</section>
+	{include file="`$app_path`templates/website/schema/panels/top/_menu.smarty"}
+</header>

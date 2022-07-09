@@ -1,0 +1,62 @@
+<div class="row">
+	<div class="col-xs-8 col-md-8">
+		<h3 class="title">{Language::get("objects" , "objects_header_list")}</h3>
+	</div>
+	<div class="col-xs-4 col-md-4 text-right">
+		<a class="btn btn-warning btn-lg" href="{$app_url}panel/objects/add/"><span class="fa fa-plus"></span> {Language::get("objects" , "btn_add_new_1")}</a>
+	</div>
+</div>
+<hr/>
+
+
+{if $config['announcement_moderate'] == "TRUE"}
+<ul id="panel-list-nav" role="tablist" class="nav nav-tabs">
+	<li role="presentation" class="active"><a aria-controls="pla" data-toggle="tab" href="#pla" role="tab">Aktywne</a></li>
+	<li role="presentation"><a aria-controls="plw" data-toggle="tab" href="#plw" role="tab">Oczekujące na akceptację</a></li>
+	<li role="presentation"><a aria-controls="pld" data-toggle="tab" href="#pld" role="tab">Wyłączone</a></li>
+</ul>
+
+<div id="panel-list-objects" class="tab-content">
+	<div id="pla" role="tabpanel" class="tab-pane in active">
+		{Paginate::get()}
+		{foreach item=item from=$list name=lp}{if $item.status=="ACTIVE"}
+		{include file="`$app_path`modules/objects/templates/website/objects/_list_items.smarty"}
+		{/if}{/foreach}
+		{Paginate::get()}
+	</div>
+	<div id="plw" role="tabpanel" class="tab-pane">
+		<div class="alert alert-warning">Te obiekty pojawią się na stronie po akceptacji przez administratora serwisu</div>
+		
+		{Paginate::get()}
+		{foreach item=item from=$list name=lp}{if $item.status=="PENDING"}
+
+		{include file="`$app_path`modules/objects/templates/website/objects/_list_items.smarty"}
+
+		{/if}{/foreach}
+		{Paginate::get()}
+	</div>
+	
+	<div id="pld" role="tabpanel" class="tab-pane">
+		<div class="alert alert-warning">Te obiekty zostały wyłączone przez administratora serwisu</div>
+
+		{Paginate::get()}
+		{foreach item=item from=$list name=lp}{if $item.status=="DISABLED"}
+
+		{include file="`$app_path`modules/objects/templates/website/objects/_list_items.smarty"}
+
+		{/if}{/foreach}
+		{Paginate::get()}
+		</div>
+	</div>
+</div>
+{else}
+{Paginate::get()}
+<div class="row">
+{foreach item=item from=$list name=lp}
+{include file="`$app_path`modules/objects/templates/website/objects/_list_items.smarty"}
+{/foreach}
+</div>
+{Paginate::get()}
+{/if}
+
+	

@@ -1,0 +1,114 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+{if (isset($messages.notice)) || (isset($messages.error)) || (isset($messages.warning)) || (isset($messages.info))}
+<div id="panel-status-bar" class="panel-status-bar {if isset($messages.notice)}success{/if}{if isset($messages.error)}error{/if}{if isset($messages.warning)}warning{/if}{if isset($messages.info)}info{/if}">
+	<div class="container">
+		<div class="col-md-1 panel-icon">
+			{if isset($messages.notice)}<em class="fa fa-check-circle-o fa-2x"></em>{/if}
+			{if isset($messages.error)}<em class="fa fa-exclamation-circle fa-2x"></em>{/if}
+			{if isset($messages.warning)}<em class="fa fa-exclamation-triangle fa-2x"></em>{/if}
+			{if isset($messages.info)}<em class="fa fa-info-circle fa-2x"></em>{/if}
+		</div>
+		<div class="col-md-11">
+			{if isset($messages.notice)}{$messages.notice}{/if}
+			{if isset($messages.error)}{$messages.error}{/if}
+			{if isset($messages.warning)}{$messages.warning}{/if}
+			{if isset($messages.info)}{$messages.info}{/if}
+		</div>
+	</div>
+	<a class="panel-close"><span class="fa fa-times"></span></a>
+</div>{/if}
+<div class="container" id="content">
+	<div class="row">
+		<div class="col-lg-8 content-left">
+			<h2>{Language::get("cms" , "contact_form")}</h2>
+			
+			{Form::open("POST")}
+			<div class="form-group">
+				<label for="inputName" class="col-sm-4 control-label">{Language::get("cms" , "contact_first_last_name")}: <sup>*</sup></label>
+				<div class="col-sm-8">
+					{Form::input2([
+					"type" => "text",
+					"name" => "name",
+					"placeholder" => Language::get("cms" , "contact_name_placeholder"),
+					"required" => true
+					])}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputEmail" class="col-sm-4 control-label">{Language::get("cms" , "contact_email_address")}: <sup>*</sup></label>
+				<div class="col-sm-8">
+					{Form::input2([
+					"type" => "email",
+					"name" => "email",
+					"placeholder" => Language::get("cms" , "contact_email_placeholder"),
+					"required" => true
+					])}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPhone" class="col-sm-4 control-label">{Language::get("cms" , "contact_phone_number")}:</label>
+				<div class="col-sm-8">
+					{Form::input2([
+					"type"=>"text",
+					"name"=>"phone",
+					"placeholder" => Language::get("cms" , "contact_phone_placeholder")
+					])}
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPhone" class="col-sm-4 control-label">{Language::get("cms" , "contact_message")}: <sup>*</sup></label>
+				<div class="col-sm-8">
+					{Form::text2([
+					"name" => "text",
+					"id" => "text",
+					"placeholder" => Language::get("cms" , "contact_msg_placeholder"),
+					"required" => true
+					])}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+				<label><small>{Form::checkbox("rules[1]", "TRUE", null, true)} {$config.rules_rodo_1}<sup>*</sup></small></label>
+				<label><small>{Form::checkbox("rules[2]", "TRUE", null, true)} {$config.rules_rodo_2}</small></label>
+				<label><small>{Form::checkbox("rules[3]", "TRUE")} {$config.rules_rodo_3}</small></label>
+				</div>
+			</div>
+			
+			{if isset($config.google_recaptcha_sitekey) && isset($config.google_recaptcha_secretkey)}
+			<div class="form-group"><div class="col-sm-offset-4 col-sm-8">
+				<br/>
+				<script src='https://www.google.com/recaptcha/api.js'></script>
+				<div class="g-recaptcha" data-sitekey="{$config.google_recaptcha_sitekey}"></div>
+			</div></div>
+			{/if}
+					
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button type="submit" role="button" class="btn btn-primary btn-block btn-lg"><span class="fa fa-envelope"></span> {Language::get("cms" , "contact_btn_send")}</button>
+				</div>
+			</div>
+			{Form::close()}
+		</div>
+		<div class="col-lg-4 content-right">
+			<h2>{Language::get("cms" , "contact_company_name")}</h2>
+			<p>
+				{if isset($config.service_name)}<b>{$config.service_name}</b><br>{/if}
+				{if isset($config.service_address_2)}{$config.service_address_2}<br>{/if}
+				{if isset($config.service_postcode_2) && isset($config.service_city_2)}{$config.service_postcode_2} {$config.service_city_2}<br><br>{/if}
+
+				{if !empty($config.service_phone_1)}{Language::get("cms" , "contact_phone")}: {$config.service_phone_1}<br>{/if}
+				{if !empty($config.service_phone_2)}{Language::get("cms" , "contact_phone")}: {$config.service_phone_2}<br>{/if}
+				{if !empty($config.contact_email)}{Language::get("cms" , "contact_email")}: {mailto address="`$config.default_email`" encode="hex"}<br>{/if}
+				<br>
+				{if !empty($config.bank_name) && !empty($config.bank_account)}<b>{Language::get("cms" , "contact_bank_account")}</b>:<br>
+				{$config.bank_name}<br>
+				{$config.bank_account}
+				{/if}
+			</p>
+		</div>
+	</div>
+</div>
+{if $config['show_partners_main'] == "TRUE"}
+{include file="`$app_path`templates/website/schema/panels/partners.smarty"}
+{/if}
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

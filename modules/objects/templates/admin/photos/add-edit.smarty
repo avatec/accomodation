@@ -1,0 +1,38 @@
+{Form::open('post', null, true)}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Dodawanie nowego{/if} zdjęcia</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-4 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("file")}
+					</div>
+					<div class="col-md-6">
+						{if isset(Form::$post['file'])}
+						<input type="hidden" name="old_file" value="{Form::$post['file']}" />
+						<p><br/><img width="200" class="thumbnail" src="{$app_url}userfiles/objects/photos/{Form::$post['file']}" alt="" /></p>
+						{/if}
+					</div>
+				</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Dodaj zdjęcie')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/objects/photos/list/?object_id={$smarty.get.object_id}">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

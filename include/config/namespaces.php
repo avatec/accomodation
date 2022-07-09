@@ -1,0 +1,30 @@
+<?php
+	use AvatecAccomodation\Kernel as Kernel;
+	use AvatecAccomodation\System as System;
+	use AvatecAccomodation\Language as Language;
+	use AvatecAccomodation\User as User;
+	use AvatecAccomodation\Content as Content;
+	use AvatecAccomodation\Email as Email;
+	use AvatecAccomodation\Text as Text;
+	use AvatecAccomodation\Promotion as Promotion;
+	use AvatecAccomodation\Objects as Objects;
+	use AvatecAccomodation\ObjectsPhotos as ObjectsPhotos;
+	use AvatecAccomodation\ObjectsVideos as ObjectsVideos;
+	use AvatecAccomodation\ObjectsRooms as ObjectsRooms;
+	use AvatecAccomodation\ObjectsPrices as ObjectsPrices;
+	use AvatecAccomodation\ObjectsComments as ObjectsComments;
+	use AvatecAccomodation\ObjectsStates as ObjectsStates;
+	use AvatecAccomodation\ObjectsCountrys as ObjectsCountrys;
+	use AvatecAccomodation\ObjectsTypes as ObjectsTypes;
+	use AvatecAccomodation\ObjectsLocation as ObjectsLocation;
+	use AvatecAccomodation\ObjectsDistance as ObjectsDistance;
+	use AvatecAccomodation\ObjectsEquipment as ObjectsEquipment;
+	use AvatecAccomodation\ObjectsImprovement as ObjectsImprovement;
+	use AvatecAccomodation\Slider as Slider;
+	use AvatecAccomodation\Partner as Partner;
+	use AvatecAccomodation\Request as Request;
+	use AvatecAccomodation\Db as Db;
+	use AvatecAccomodation\Error as Error;
+	use AvatecAccomodation\Payment as Payment;
+	use AvatecAccomodation\Route as Route;
+?>

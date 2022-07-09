@@ -1,0 +1,100 @@
+{Form::open()}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Umowa z użytkownikiem</h5>
+			</div>
+			<div class="blog-body">
+			
+				{Form::submit("Zapisz zmiany")}		
+				<br/><br/>
+				
+				<fieldset>
+					<legend>Treść regulaminu dla wersji biznesowej</legend>
+					<code>
+					<p>
+						<em><b>Znaczniki do podmiany</b></em><br/><br/>
+		            	<b>[u_name]</b> nazwa właściciela<br/>
+						<b>[u_address]</b> adres właściciela <br/>
+						<b>[u_postcode]</b> kod pocztowy właściciela <br/>
+						<b>[u_city]</b> miejscowość właściciela <br/>
+						<b>[u_represent]</b> reprezentant właściciela <br/>
+						<b>[u_represent_name]</b> nazwisko reprezentanta właściciela <br/>
+						<b>[u_pin]</b> numer nip właściciela <br/>
+						<b>[u_phone]</b> numer telefonu właściciela <br/>
+						<b>[u_email]</b> adres e-mail właściciela<br/>
+					</p>
+					</code>
+					
+					{Form::text('rules_business' , 'rules_business')}
+				</fieldset>
+				{Kernel::wysiwyg("rules_business")}
+				
+				<fieldset>
+					<legend>Treść regulaminu dla wersji prywatnej</legend>
+					<code>
+					<p>
+						<em><b>Znaczniki do podmiany</b></em><br/><br/>
+		            	<b>[u_name]</b> nazwa właściciela<br/>
+						<b>[u_address]</b> adres właściciela<br/>
+						<b>[u_postcode]</b> kod pocztowy właściciela<br/> 
+						<b>[u_city]</b> miejscowość właściciela<br/>
+						<b>[u_pid]</b> numer pesel właściciela<br/>
+						<b>[u_phone]</b> numer telefonu właściciela<br/>
+						<b>[u_email]</b> adres e-mail właściciela<br/>
+					</p>
+					</code>
+					
+					{Form::text('rules_private' , 'rules_private')}
+				</fieldset>
+				{Kernel::wysiwyg("rules_private")}
+				
+				<fieldset>
+					<legend>Treść regulaminu dział I</legend>
+					<code>
+					<p>
+						<em><b>Znaczniki do podmiany</b></em><br/><br/>
+		            	<b>[n_address]</b> adres obiektu<br/>
+						<b>[n_postcode]</b> kod pocztowy obiektu<br/>
+						<b>[n_city]</b> miejscowość obiektu<br/>
+						<b>[n_area]</b> powierzchnia całkowita<br/>
+						<b>[n_floor]</b> piętro<br/>
+						<b>[n_rooms]</b> ilość pomieszczeń<br/>
+						<b>[n_types]</b> wyszczególnione pomieszczenia
+					</p>
+					</code>
+					
+					{Form::text('rules_d1' , 'rules_d1')}
+				</fieldset>
+				{Kernel::wysiwyg("rules_d1")}
+				
+				<fieldset>
+					<legend>Treść regulaminu dział II</legend>
+					
+					{Form::text('rules_d2' , 'rules_d2')}
+				</fieldset>
+				{Kernel::wysiwyg("rules_d2")}
+				
+				<fieldset>
+					<legend>Treść regulaminu dział III</legend>
+					
+					{Form::text('rules_d3' , 'rules_d3')}
+				</fieldset>
+				{Kernel::wysiwyg("rules_d3")}
+				
+				<fieldset>
+					<legend>Treść regulaminu dział IV</legend>
+					
+					{Form::text('rules_d4' , 'rules_d4')}
+				</fieldset>
+				{Kernel::wysiwyg("rules_d4")}
+				
+				<br/><br/>
+				{Form::submit("Zapisz zmiany")}		
+				
+	        </div>
+		</div>
+	</div>
+</div>
+{Form::close()}

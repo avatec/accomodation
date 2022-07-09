@@ -1,0 +1,49 @@
+<h2 class="title">{Language::get('objects' , 'comments_header_list')}</h2>
+{Text::getByName("comments-list")}
+<fieldset>
+	{if !empty($list)}
+	<p class="lead">{Language::get("objects" , "comments_found")}: <b>{$count}</b></p>
+	
+	{foreach name=l item=item from=$list}
+	<div class="col-md-12 panel-item-box {if $item.status=="MARK-TO-DELETE"}mark-to-delete{/if}">
+		<div class="row">
+			<div class="col-md-3">
+				<h4>{$item.name}<br/><small>{Language::get('objects' , 'comments_create_date_text')}: {$item.create_date}</h4>
+				<p>
+					<b>{Language::get('objects' , 'comments_rank_text')}: </b> {$item.rank}<br/>
+					<em class="fa fa-thumbs-o-up"></em> {$item.helpful} <em class="fa fa-thumbs-o-down"></em> {$item.unhelpful}
+				</p>
+				<p>
+					{if $item.status=="PENDING"}<span class="label label-danger">{Language::get("objects" , "comments_accept_need")}</span>{/if}
+					{if $item.status=="ACTIVE"}<span class="label label-success">{Language::get("objects" , "comments_active")}</span>{/if}
+					{if $item.status=="MARK-TO-DELETE"}<span class="label label-primary">{Language::get("objects" , "comments_mark_to_delete")}</span>{/if}
+				</p>
+			</div>
+			<div class="col-md-7">
+				<h4>{Language::get('objects' , 'comments_edit_text')}:</h4>
+				<div class="text">
+				{$item.text}
+				</div>
+			</div>
+			<div class="col-md-2">
+				{if $item.status=="PENDING"}
+					<a class="btn btn-sm btn-info btn-block" href="{$app_url}panel/objects/comments/accept/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-check"></i> {Language::get('objects' , 'btn_accept')}</a>
+				{/if}
+				{if $item.status!=="MARK-TO-DELETE"}
+				<a class="btn btn-sm btn-info btn-block" href="{$app_url}panel/objects/comments/edit/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-pencil"></i> {Language::get('objects' , 'btn_edit')}</a>
+				<a class="btn btn-sm btn-danger btn-block confirm" href="{$app_url}panel/objects/comments/mark-to-delete/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-trash"></i> {Language::get('objects' , 'btn_mark_to_delete')}</a>
+				{else}
+				<p class="text text-danger text-center"><b></b></p>
+				{/if}
+			</div>
+		</div>
+	</div>
+	{/foreach}
+	{else}
+	<div class="alert alert-primary">
+	{Language::get('objects' , 'comments_text_empty')}
+	</div>
+	{/if}
+</fieldset>
+<hr/>
+<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>

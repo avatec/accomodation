@@ -1,0 +1,170 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Informacje przed korektą</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-3 control-label">Numer faktury</label>
+					<div class="col-md-7">
+						{Form::input("text" , "invoice_number")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">NIP</label>
+					<div class="col-md-7">
+						{Form::select("pin", BusinessContrahents::_getSelect())}
+					</div>
+					<div class="col-md-2">
+						<button type="button" disabled class="btn btn-primary">nowy <span class="fa fa-plus"></span></button>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-3 control-label">Data wystawienia</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::date("create_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Data sprzedaży</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::date("sell_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Termin płatności</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::date("payment_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+					<div class="col-md-4">
+						{if Form::$post['edit'] == "TRUE"}
+						{Form::checkbox("payment" , Form::$post['payment'] , "zapłacono")} 
+						{else}
+						{Form::checkbox("payment" , "TRUE" , "zapłacono")} 
+						{/if}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Forma płatności</label>
+					<div class="col-md-7">
+						{Form::input("text" , "payment_label")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Miejsce wystawienia</label>
+					<div class="col-md-3">{Form::input("text" , "place")}</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Uwagi do faktury</label>
+					<div class="col-md-7">
+						{Form::input("text" , "notice")}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Informacje po korekcie</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-3 control-label">Numer faktury</label>
+					<div class="col-md-7">
+						{Form::input("text" , "invoice_number")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">NIP</label>
+					<div class="col-md-7">
+						{Form::select("pin", BusinessContrahents::_getSelect())}
+					</div>
+					<div class="col-md-2">
+						<button type="button" disabled class="btn btn-primary">nowy <span class="fa fa-plus"></span></button>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-3 control-label">Data wystawienia</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::date("create_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Data sprzedaży</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::date("sell_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Termin płatności</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::date("payment_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+					<div class="col-md-4">
+						{if Form::$post['edit'] == "TRUE"}
+						{Form::checkbox("payment" , Form::$post['payment'] , "zapłacono")} 
+						{else}
+						{Form::checkbox("payment" , "TRUE" , "zapłacono")} 
+						{/if}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Forma płatności</label>
+					<div class="col-md-7">
+						{Form::input("text" , "payment_label")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Miejsce wystawienia</label>
+					<div class="col-md-3">{Form::input("text" , "place")}</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Uwagi do faktury</label>
+					<div class="col-md-7">
+						{Form::input("text" , "notice")}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="clearfix"></div>
+	
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog-body">
+			{if isset(Form::$post['edit']) }
+			{Form::submit("Zapisz zmiany")}
+			{else}
+			{Form::submit('Utwórz')}
+			{/if}
+			<a class="btn btn-warning" href="{$app_url}admin/contrahent/list/">Anuluj i wróć do listy</a>
+		</div>
+	</div>
+</div>
+{Form::close()}

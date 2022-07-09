@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Wysłane</h5>
+			</div>
+			<div class="blog-body">
+			
+				{if isset($list)}<div class="table-responsive">
+					<table class="table no-margin">
+					<thead><tr>
+						<th width="50">ID</th>
+						<th width="250">E-mail</th>
+						<th width="150">Status</th>
+						<th width="100" class="text-center">Data wysyłki</th>
+						{**<th width="100" class="text-center">Odczytana</th>**}
+					</tr></thead>
+					<tbody>
+					{foreach item=item from=$list}
+					<tr>
+						<td align="left" valign="middle">{$item.id}</td>
+						<td align="left" valign="middle">{$item.email}</td>
+						<td class="valign-middle">{NewsletterMessages::_readStatus($item.status)}</td>
+						<td class="text-center">{if isset($item.sent_date)}{$item.sent_date}{else}<span class="label label-primary">oczekuje w kolejce</span>{/if}</td>
+						{**<td class="text-center">{if $item.readed == "TRUE"}<span class="label label-success">tak</span>{else}<span class="label label-danger">nie</span>{/if}</td>**}
+					</tr>
+					{/foreach}
+					</tbody>
+					</table>
+				</div>{else}
+				<p>Skrzynka wiadomości wysłanych jest pusta</p>
+				{/if}
+			
+			</div>
+		</div>
+	</div>
+</div>

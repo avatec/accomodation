@@ -1,0 +1,364 @@
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		{Form::open("POST",null,true,true)}
+		{Form::hidden("show_slider_main" , "FALSE")}
+		{Form::hidden("show_shortcuts_main" , "FALSE")}
+		{Form::hidden("show_partners_main" , "FALSE")}
+		{Form::hidden("show_special_main" , "FALSE")}
+		{Form::hidden("show_news_main" , "FALSE")}
+		
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Strona główna serwisu</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+	            	<label class="col-xs-6 control-label">Pokazuj slider na głównej</label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([
+                        	"name" => "show_slider_main",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label">Pokazuj lokalizacje na głównej</label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([
+                        	"name" => "show_shortcuts_main",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label">Pokazuj partnerów na głównej</label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([
+                        	"name" => "show_partners_main",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label">Pokazuj aktualności na głównej</label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([
+                        	"name" => "show_news_main",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+		            </div>
+	            </div>
+	            
+	            {if !isset($config['basic'])}
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Włączając tą opcję na stronie głównej pojawią się bloki z ofertami specjalnymi.">Pokazuj oferty specjalne na głównej <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([
+                        	"name" => "show_special_main",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+		            </div>
+	            </div>
+	            {/if}
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Sposób wyświetlania ogłoszeń promowanych na stronie głównej">Promowane na głównej <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::select2([
+                        	"name" => "promoted_main_type",
+                        	"values" => System::$PromotedMainTypes
+                        ])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Zdefiniuj ile ogłoszeń promowanych ma pojawiać się na stronie głównej pod sliderem. Zalecane wartości dla szablonu domyślnego: 3,6,9">Ilość na wiersz <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::input2([
+	                        "type" => "number",
+                        	"name" => "promoted_main_amount",
+                        	"minvalue" => 3
+                        ])}
+		            </div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}		
+			</div>
+		</div>
+		{Form::close()}
+		{Form::open()}
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Konfiguracja zdjęć{if !isset($config['basic'])} i wideo{/if}</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+	            	<label class="col-xs-4 control-label">Ilość zdjęć na obiekt</label>
+		            <div class="col-xs-4">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_max_photos",
+	                        	"min" => "1",
+	                        	"max" => "100"
+	                        ])}
+	                        <div class="input-group-addon">szt</div>
+                        </div>
+		            </div>
+	            </div>
+
+	            {if !isset($config['basic'])}
+	            <div class="form-group">
+	            	<label class="col-xs-4 control-label">Ilość wideo na obiekt</label>
+		            <div class="col-xs-4">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_max_videos",
+	                        	"min" => "1",
+	                        	"max" => "100"
+	                        ])}
+	                        <div class="input-group-addon">szt</div>
+                        </div>
+		            </div>
+	            </div>
+	            {/if}
+	            
+				<legend>Zdjęcia pełnowymiarowe</legend>
+				<div class="form-group">
+	            	<label class="col-xs-4 control-label">Szerokosć</label>
+		            <div class="col-xs-6">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_photo_width",
+	                        	"min" => "320",
+	                        	"max" => "1920"
+	                        ])}
+	                        <div class="input-group-addon">px</div>
+                        </div>
+		            </div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-xs-4 control-label">Wysokość</label>
+		            <div class="col-xs-6">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_photo_height",
+	                        	"min" => "400",
+	                        	"max" => "1280"
+	                        ])}
+	                        <div class="input-group-addon">px</div>
+                        </div>
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-4 control-label">Jakość</label>
+		            <div class="col-xs-6">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_photo_quality",
+	                        	"min" => "10",
+	                        	"max" => "100"
+	                        ])}
+	                        <div class="input-group-addon">px</div>
+                        </div>
+		            </div>
+	            </div>
+	            
+	            <legend>Miniaturki zdjęć</legend>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-4 control-label">Szerokosć</label>
+		            <div class="col-xs-6">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_thumb_width",
+	                        	"min" => "150",
+	                        	"max" => "800"
+	                        ])}
+	                        <div class="input-group-addon">px</div>
+                        </div>
+		            </div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-xs-4 control-label">Wysokość</label>
+		            <div class="col-xs-6">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_thumb_height",
+	                        	"min" => "100",
+	                        	"max" => "800"
+	                        ])}
+	                        <div class="input-group-addon">px</div>
+                        </div>
+		            </div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}		
+			</div>
+		</div>
+		{Form::close()}
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		{Form::open()}
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Konfiguracja wyszukiwarki</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+	            	<label class="col-xs-4 control-label" data-toggle="tooltip" data-title="W wynikach wyszukiwania pojawia się domyślnie po 4 obiekty w rzędzie, dlatego zalecamy wprowadzanie wartości podzielnej przez 4 np. 4,8,12,16,20...">Ilość na stronę</label>
+		            <div class="col-xs-6">
+		            	<div class="input-group">
+	                        {Form::input2([
+	                        	"type" => "number",
+	                        	"name" => "announcement_search_perpage",
+	                        	"min" => "1",
+	                        	"max" => "100"
+	                        ])}
+	                        <div class="input-group-addon">szt.</div>
+                        </div>
+		            </div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}		
+			</div>
+		</div>
+		{Form::close()}
+		
+		{Form::open()}
+		{Form::hidden("announcement_create" , "FALSE")}
+		{Form::hidden("announcement_pay_as_view" , "FALSE")}
+		{Form::hidden("announcement_comments" , "FALSE")}
+		{Form::hidden("announcement_navigate" , "FALSE")}
+		{Form::hidden("announcement_video" , "FALSE")}
+		{Form::hidden("announcement_email" , "FALSE")}
+		{Form::hidden("announcement_moderate" , "FALSE")}
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Konfiguracja obiektów</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Jeżeli serwis ma być serwisem jednego regionu, zaznacz tą opcję">Serwis regionalny <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([ "id" => "announcement_region", "name" => "announcement_region", "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+		            </div>
+	            </div>
+				
+				<div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Jeżeli ustawione na tak, obiekt będzie widoczny bez konieczności wykupienia abonamentu wyświetlania. Ustawienie na nie umożliwi dodawanie obiektów, jednak będą się one wyświetlać w serwisie tylko po opłaceniu abonamentu wyświetlania">Opłata za wyświetlanie <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([ "id" => "announcement_create", "name" => "announcement_create", "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+		            </div>
+	            </div>
+	            
+				{**<div class="blockedHidden">
+		            <div class="form-group">
+		            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Jeżeli ustawione na tak, obiekt będzie można podbijać w pozycji wyszukiwania za pomocą płatności lub za darmo raz na 14 dni. Opcja jest dostępna tylko i wyłącznie gdy <b>Opłata za wyświetlanie</b> jest włączona">Podbijanie pozycji obiektu <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+			            <div class="col-xs-6">
+	                        {Form::checkbox2([ "id" => "pay_display", "name" => "announcement_pay_as_view", "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+			            </div>
+		            </div>
+	            </div>**}
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Włącznie lub wyłączenie opcji wystawiania opini dotyczących obiektu">Opinie dot. obiektu <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([ "name" => "announcement_comments" , "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Włącznie lub wyłączenie przycisku nawiguj do tego miejsca">Button nawiguj do tego miejsca <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2(["name" => "announcement_navigate", "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+		            </div>
+	            </div>
+	            
+	            {if !isset($config['basic'])}
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Włącznie lub wyłączenie możliwości dodawania filmów z YouTube">Filmy z Youtube w ofercie <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2(["name" => "announcement_video", "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+		            </div>
+	            </div>
+	            {/if}
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Włącznie lub wyłączenie wyświetlania adresu e-mail obiektu w ofercie">Prezentacja e-mail <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2(["name" => "announcement_email", "value" => "TRUE", "data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-xs-6 control-label" data-toggle="tooltip" data-title="Włączając tą opcję po dodaniu obiektu do serwisu będzie wymagane zaakceptowanie go przez administratora. Każda edycja tego obiektu również wymusi zaakceptowanie zmian przez administratora.">Moderowanie obiektów <em class="badge badge-info"><span class="fa fa-info"></span></em></label>
+		            <div class="col-xs-6">
+                        {Form::checkbox2([
+                        	"name" => "announcement_moderate",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']
+                        ])}
+		            </div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}		
+			</div>
+		</div>
+		{Form::close()}
+		
+		{Form::open("POST",null,true,true)}
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Znak wodny na zdjęciach</h5>
+			</div>
+			<div class="blog-body">
+				<p class="alert alert-info">Zalecany wymiar to 450px na 100px (wysokość można zmodyfikować w zależności od logotypu). Format pliku PNG24 (przezroczyste tło)</p>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("watermark" , null, null, 'image/png')}
+					</div>
+				</div>
+			</div>
+			<div class="blog-footer">
+				<button type="submit" class="btn btn-primary btn-upload">Zapisz zmiany</button>
+			</div>
+			<div class="blog-header">
+				<h5 class="blog-title">Podgląd</h5>
+			</div>
+			<div class="blog-body">
+				<div id="watermark" class="thumbnail">
+					<img id="main_image" src="/templates/admin/img/preview.jpg" alt="" />
+					<img id="watermark_preview" src="{$preview_watermark}" alt="" />
+				</div>
+				<small>Photo by <a href="https://unsplash.com/photos/jn7uVeCdf6U?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jarosław Ceborski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></small>
+
+			</div>
+		</div>
+		{Form::close()}
+	</div>
+</div>

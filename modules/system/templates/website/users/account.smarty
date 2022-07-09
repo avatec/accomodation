@@ -1,0 +1,127 @@
+<h3 class="title">{Language::get("system" , "user_header_my_account")}</h3>
+
+{Form::open()}
+<div class="row">
+	<div class="col-md-6">
+		{if User::$user['user_type'] == "SELECT"}
+		<div class="form-group well">
+			<div class="alert alert-warning">
+				Zalogowałeś się przez konto facebook - prosimy o wybranie rodzaju konta. Jeżeli jesteś właścicielem / managerem lub zarządcą obiektu noclegowego i chcesz go dodać do bazy danych - wybierz opcję <b>Właściciel/Zarządca</b> - w przeciwnym wypadku wybierz <b>Użytkownik</b>.
+			</div>
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_account_type")}</label>
+			<div class="col-md-6">
+				{Form::select2([
+				"name" => "user_type",
+				"values" => User::$account_types,
+				"empty" => "wybierz",
+				"required" => true
+				])}
+				<div class="help-block with-errors"></div>
+			</div>
+		</div>
+		{/if}
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_email")}</label>
+			<div class="col-md-6">
+				{Form::input("email" , "email", "required:true")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_contact_phone")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "phone")}
+			</div>
+		</div>
+		<br/>
+		<h3 class="title">{Language::get("system" , "user_header_protection_of_personal_data")}</h3>
+			
+		{Text::getByName("user-register-personal-data-protection-1", true)}
+		
+		<label><small>{Form::checkbox("rules[1]", "TRUE", null, true)} {$config.rules_rodo_1}<sup>*</sup></small></label>
+		<label><small>{Form::checkbox("rules[2]", "TRUE", null, true)} {$config.rules_rodo_2}<sup>*</sup></small></label>
+		<label><small>{Form::checkbox("rules[3]", "TRUE")} {$config.rules_rodo_3}</small></label>
+		<label><small>{Form::checkbox("rules[4]", "TRUE")} {$config.rules_rodo_4}</small></label>
+		<br/>
+		<label><small>{Form::checkbox("rules[5]", "TRUE", null, true)} {Language::get("system" , "user_text_accept_rules")}. <a href="{$app_url}rules">{Language::get("system" , "user_text_read_rules")}</a> <sup>*</sup></small></label>
+		
+		{Text::getByName("user-register-personal-data-protection-2", true)}
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_account_person")}</label>
+			<div class="col-md-6">
+				{Form::select("user_account" , User::$account_person)}
+			</div>
+		</div>
+		<div class="form-group he1">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_company_name")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "company_name", "required:true")}
+			</div>
+		</div>
+	
+		<div class="form-group he1">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_company_pin")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "company_pin", "required:true")}
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_name")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "first_name", "required:true")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_surname")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "last_name", "required:true")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_address")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "street")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_postcode")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "postcode")}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">{Language::get("system" , "user_form_label_city")}</label>
+			<div class="col-md-6">
+				{Form::input("text" , "city")}
+			</div>
+		</div>
+	</div>
+</div>
+<hr/>
+<p class="text-right col-md-11">
+<button type="submit" id="submitSaveProfile" class="btn btn-lg btn-primary">
+	{Language::get("system" , "user_btn_save")}
+</button>
+</p>
+{Form::close()}
+
+{Form::open()}
+<input type="hidden" name="uid" value="{User::$user['id']}" />
+<div class="row">
+	<div class="col-xs-12 col-md-6">
+		<h3 class="title">{Language::get("system" , "user_header_delete_my_account")}</h3>
+		{Text::getByName("user-delete-account", true)}
+		<br/><br/>
+		<fieldset>
+			<label>{Form::checkbox("delete_account", "TRUE", null, true)} {Language::get("system" , "user_delete_my_account_checkbox")}</label>
+			<br/>
+			
+			<button type="submit" class="btn btn-lg btn-danger">
+				{Language::get("system" , "user_btn_delete_account")}
+			</button>
+		</fieldset>
+	</div>
+</div>
+{Form::close()}

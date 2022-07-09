@@ -1,0 +1,64 @@
+{Form::open()}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowej{/if} treści wiadomości e-mail</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Typ</label>
+					<div class="col-md-10">
+						{Form::select("type" , Emails::$types)}
+						<small><em>Ustala, czy strona będzie główną czy jest ona podmenu innej głównej strony</em></small>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Treść</h5>
+			</div>
+			<div class="blog-body text-center">
+				{Form::text("value" , "value")}
+				{Kernel::wysiwyg('value', 1, 'full', true)}
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Opis informacyjny pola</h5>
+			</div>
+			<div class="blog-body text-center">
+				{Form::text("description" , "description")}
+				{Kernel::wysiwyg('description', 1, 'basic', true)}
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz pozycję')}
+				{/if}
+
+				<a class="btn btn-warning" href="{$app_url}admin/system/emails/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

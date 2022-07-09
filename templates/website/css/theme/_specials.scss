@@ -1,0 +1,84 @@
+/**
+ * Oferty specjalne #9c2528
+ */
+ 
+#special { 
+	background: #fff; 
+	padding: 25px 0px; 
+	
+	h2.title {
+		color: $primary-color;
+		text-transform: uppercase;
+		padding-bottom: 12px;
+	}
+	
+	.thumbnail { 
+		background: transparent; 
+		border: none;
+	}
+	
+	.item { 
+		position: relative; 
+	    h4 { 
+		    position: absolute; 
+		    top:0px; 
+		    left:4px;
+		    margin-top:4px;
+		    padding: 10px 0px; 
+		    width: calc( 100% - 8px ); 
+		    height: 40px;
+		    color: $white; 
+		    font-size: 1.5em; 
+		    font-weight: 300; 
+		    text-transform: uppercase; 
+		    -moz-transition: all 250ms ease-in;
+			-o-transition: all 250ms ease-in;
+			-ms-transition: all 250ms ease-in;
+	        transition: all 250ms ease-in;
+	        background: rgba( $primary-color, 0.8);
+	        @media screen and (max-width: $screen-sm) {
+		        font-size: 1.3em;
+	        }
+		} 
+		
+		.btn-check-offer {
+			display: block;
+			position: absolute;
+			width: calc(100% - 10px);
+			bottom: 20px;
+			left: 4px;
+		}
+		
+		button { 
+			display: none;
+			margin: 0 auto 0 auto;
+			-moz-transition: all 250ms ease-in;
+			-o-transition: all 250ms ease-in;
+			-ms-transition: all 250ms ease-in;
+	        transition: all 250ms ease-in;
+	        background: transparent;
+	        color: #fff;
+	        padding: 8px 20px;
+	        text-shadow: 1px 1px 1px #000;
+	        &:hover {
+				background: rgba(0,0,0,.5);
+			}
+		}
+		
+	    &:hover {
+		    h4 { 
+			    margin-top:4px;
+			    padding-top: 25%;
+			    display: block; 
+			    background: rgba(0,0,0,0.6); 
+			    color: $white; 
+			    height: calc(100% - 8px);
+			}
+			button {
+				display: block;
+			}
+	    }
+	    
+	}
+	
+}

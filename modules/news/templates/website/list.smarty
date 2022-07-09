@@ -1,0 +1,35 @@
+{if !empty($news.list)}
+<div class="panel-news">
+{foreach item=item from=$news.list name=lp}
+	<div class="box-news">
+		{if !empty($item.icon)}<div class="box-header">
+			<a href="{$item.link}"><img src="{News::$UploadUrl}icon/{$item.icon}" alt="{$item.topic} photo" class="img-responsive" /></a>
+			<h2 class="title">{$item.topic}</h2>
+		</div>{/if}
+		<div class="box-body">
+			{if empty($item.icon)}<h2 class="title">{$item.topic}</h2>{/if}
+			<p>
+				<span class="label label-info"><i class="fa fa-calendar"></i>&nbsp;{Common::dateAsText($item.create_date)}</span>
+				<span class="label label-warning"><i class="fa fa-tag"></i>{NewsCategory::getNameById($item.category)}</span>
+			</p>
+			{$item.preface}
+		</div>
+		<div class="box-footer">
+			<div class="row">
+				<div class="col-xs-6">
+					
+				</div>
+				<div class="col-xs-6 text-right">
+					<a href="{$item.link}" class="btn btn-default btn-sm">
+						{Language::get('news' , 'read_more')}
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	{if $smarty.foreach.lp.last !== true}<hr/>{/if}
+{/foreach}
+</div>
+{/if}
+
+{Paginate::get()}

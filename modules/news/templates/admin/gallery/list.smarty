@@ -1,0 +1,74 @@
+<script type="text/javascript">
+	var bootstrapSwitchOption = 'delete';
+</script>
+
+{Form::open()}
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Zdjęcia</h5>
+		<div class="pull-right">
+			<button id="deleteAll" type="submit" disabled class="btn btn-danger"><span class="fa fa-trash"></span> usuń zaznaczone</button>
+			<a class="btn btn-warning" href="{$app_url}admin/news/gallery/add/?news_id={$smarty.get.news_id}&category={$smarty.get.category}"><i class="fa fa-plus"> </i>&nbsp;dodaj</a>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+	
+		{foreach item=item from=$list}
+		<div class="col-md-3 thumbnail">
+			<form class="form-horizontal" method="post"><div class="row">
+			<input type="hidden" name="save-priority" value="true" />
+				<label class="control-label col-md-4">
+					Kolejność
+				</label>
+				<div class="col-md-4">
+					<input class="form-control input-sm" name="priority[{$item.id}]" value="{$item.priority}" onclick="this.select()" />
+				</div>
+				<div class="col-md-4">
+					<button id="savePriority" class="btn btn-primary btn-sm">zapisz</button>
+				</div>
+			</div></form>
+			<br/>
+			<div class="clearfix"></div>
+			<a class="thumbnail img-responsive" rel="lightbox">
+				<img src="{$app_url}userfiles/news/gallery/thumbs/{$item.photo}" alt="{$item.photo}"/>
+			</a>
+			<p class="text-center">
+				<a data-toggle="tooltip" data-title="{LA::get('cms' , 'btn_edit')}" class="btn btn-primary btn-sm" href="{$app_url}admin/news/gallery/edit/?id={$item.id}&news_id={$item.news_id}&category={$smarty.get.category}"><i class="fa fa-pencil"></i></a>
+				<a data-toggle="tooltip" data-title="{LA::get('cms' , 'btn_delete')}" class="btn btn-danger btn-sm confirm" href="{$app_url}admin/news/gallery/delete/?id={$item.id}&file={$item.photo}&news_id={$item.news_id}&category={$smarty.get.category}"><i class="fa fa-trash"></i></a>
+				<input class="switch" type="checkbox" name="delete[{$item.id}]" value="{$item.photo}" />
+			</p>
+		</div>
+		{/foreach}
+		
+	</div>
+</div>
+{Form::close()}
+<style type="text/css">
+.thumbnail { height: 320px; }
+.thumbnail a { max-height: 200px; overflow: hidden; }
+</style>
+
+<script type="text/javascript">
+$(document).ready( function() {
+	var text = $("#deleteAll").text();
+
+	$('.switch').on('switchChange.bootstrapSwitch',function (event, state) {  
+		var enabled = 0;   
+		
+		$(".switch").each( function() {
+			if( $(this).bootstrapSwitch('state') == true ) {
+				$("#deleteAll").prop("disabled" , false);
+				enabled++;
+			}
+		});
+		if(enabled == 0) {
+			$("#deleteAll").prop("disabled" , true);
+			$("#deleteAll").html(text);
+		} else {
+			$("#deleteAll").html(text + " [" + enabled + "]");
+		}
+	});
+});
+</script>

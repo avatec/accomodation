@@ -1,0 +1,64 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowego{/if} typu obiektu</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Ocena </label>
+					<div class="col-md-5">
+						{Form::select("rank" , ObjectsComments::$RankSelect)}
+					</div>
+					<div class="col-md-5">
+						<p style="padding-top:12px;"><em class="fa fa-thumbs-o-up"></em> {Form::$post['helpful']} <em class="fa fa-thumbs-o-down"></em> {Form::$post['unhelpful']}</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Imię i nazwisko</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Status</label>
+					<div class="col-md-10">
+						{Form::select("status" , ObjectsComments::$StatusSelect)}
+					</div>
+				</div>
+				
+				{if !empty(Form::$post['text_corrected'])}<div class="form-group">
+					<label class="col-md-2 control-label">Treść poprawiona</label>
+					<div class="col-md-10">
+						{Form::text("text_corrected" , "text_corrected", null, "10,10")}
+					</div>
+				</div>{/if}
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Treść oryginalna</label>
+					<div class="col-md-10">
+						{Form::text("text" , "text", null, "10,10")}
+					</div>
+				</div>
+				
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz')}
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/objects/comments/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

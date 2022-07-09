@@ -1,0 +1,49 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Podstawowe informacje</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label data-toggle="tooltip" title="" class="col-md-2 control-label">Adres e-mail</label>
+					<div class="col-md-8">
+						<div class="input-group">
+							<div class="input-group-addon"><span class="fa fa-envelope"></span></div>
+							{Form::input("email" , "email")}
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Wiadomości będą wysyłane tylko do osób o statuse potwierdzony, który oznacza, że osoba zapisująca się do newslettera klikneła w link aktywacyjny." class="col-md-2 control-label">Status</label>
+					<div class="col-md-8">
+						{Form::select("status" , Newsletter::$status)}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Okreśa pochodzenie adresu e-mail. W przypadku, jeżeli zostaje zaimportowane z pliku, wartość będzie zaimportowane. Dodane z formularza będą miały status dodane z formularza" class="col-md-2 control-label">Pochodzenie</label>
+					<div class="col-md-8">
+						{Form::select("source" , Newsletter::$source)}
+					</div>
+				</div>
+
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Dodaj do bazy')}
+				{/if}
+		
+				<a class="btn btn-warning" href="{$app_url}admin/newsletter/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

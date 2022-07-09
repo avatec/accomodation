@@ -1,0 +1,14 @@
+.photo-item { position: relative; }
+.photo-item:hover .hidden-options { display: block; }
+.photo-item:hover .img-thumbnail { opacity: 0.5; }
+.photo-item .hidden-options { 
+	position: absolute; top: 35%; left: 45%; 
+	font-size: 2em; display: none; 
+	background: rgba(0,0,0,0.7); 
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+.photo-item .hidden-options a { color: #fff; padding: 5px 10px; }
+.photo-item .hidden-options a:hover { color: orange;  }
+.photo-item .hidden-options .active { color: rgb(250, 255, 140); }

@@ -1,0 +1,28 @@
+<section id="slider" style="background: url('{Slider::getForNow()}');">
+	<div class="container">
+		
+		<div class="search-block">
+			<form action="{$app_url}search" method="get" class="form-horizontal">
+			{Form::hidden("quicksearch" , "true")}
+				<div class="col-xs-12 col-sm-12 col-md-10">
+					<div class="input-group">
+						<input type="text" name="q" class="form-control input-lg" placeholder="{Language::get("cms" , "search_name")}" />
+						<div class="input-group-addon">
+							<select name="t" class="form-control">
+								<option value="name">{Language::get("cms" , "search_byname")}</option>
+								<option value="city">{Language::get("cms" , "search_city")}</option>
+								<option value="state">{Language::get("cms" , "search_state")}</option>
+								<option value="type">{Language::get("cms" , "search_type")}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2">
+					<button type="submit" class="btn btn-primary btn-block btn-lg">
+						<span class="fa fa-search"></span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>

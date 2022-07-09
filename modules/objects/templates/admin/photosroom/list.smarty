@@ -1,0 +1,30 @@
+{Form::open()}
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Zdjęcia</h5>
+		<a class="pull-right btn btn-warning" href="{$app_url}admin/objects/photosroom/add/?room_id={$smarty.get.room_id}"><i class="fa fa-plus"> </i>&nbsp;dodaj zdjęcie</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+		
+		<ul id="sortable" class="photo-list admin-list">
+		{foreach item=item from=$list}
+		<li data-id="{$item.id}" data-priority="{$item.priority}">
+			<a class="thumbnail img-responsive" rel="lightbox">
+				<img src="{$app_url}userfiles/rooms/photos/thumbs/{$item.file}" alt="{$item.file}"/>
+			</a>
+			<p class="text-center">
+				{if $item.main=="FALSE"}
+					<a class="btn btn-warning btn-sm" href="{$app_url}admin/objects/photosroom/make-main/?id={$item.id}&room_id={$smarty.get.room_id}">ustaw jako główne</a>
+				{else}
+					<span class="btn btn-info btn-sm">zdjęcie główne</span>
+				{/if}
+				<a class="btn btn-primary btn-sm" href="{$app_url}admin/objects/photosroom/edit/?id={$item.id}&room_id={$smarty.get.room_id}">edycja</a>
+				<a class="btn btn-danger btn-sm confirm" href="{$app_url}admin/objects/photosroom/delete/?id={$item.id}&file={$item.file}&room_id={$smarty.get.room_id}">usuń</a>
+			</p>
+		</li>
+		{/foreach}
+		</ul>
+	</div>
+</div>
+{Form::close()}

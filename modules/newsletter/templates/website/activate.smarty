@@ -1,0 +1,14 @@
+<div class="title-header">
+	<h2>Subskrypcja newslettera</h2>
+	<hr class="line" />
+</div>
+
+{if $result == true}
+<div class="alert alert-info">
+	{Text::getByName("newsletter-subscribe-confirm")}
+</div>
+{else}
+<div class="alert alert-danger">
+	{Text::getByName("newsletter-subscribe-error")}
+</div>
+{/if}

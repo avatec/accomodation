@@ -1,0 +1,30 @@
+<h1 class="title">Formularz płatności</h1>
+
+{if !empty($data.banklist)}
+<form id="tpay-payment" class="tpay-form" action="https://secure.tpay.com" method="POST" accept-charset="UTF-8">
+    <div class="tpay-banklist">
+    {foreach item=item from=$data.banklist}
+        <div class="bank-item">
+            <h5>{$item.name}</h5>
+            <img src="{$item.img}" alt="{$item.name}" />
+            <input type="radio" name="group" value="{$item.id}" required />
+        </div>
+    {/foreach}
+    </div>
+
+    {foreach key=key item=item from=$data.data}
+    <input type="hidden" name="{$key}" value="{$item}" />
+    {/foreach}
+
+    <br/>
+    <div class="form-group">
+    	{Form::checkbox("accept_tos" , "1" , 'Akceptuje <a href="https://secure.tpay.com/regulamin.pdf" target="_blank">regulamin</a> serwisu tpay.com.')}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Zamawiam i płacę za pomocą tpay.com kwotę {$data.data.amount} zł
+    </button>
+</form>
+{else}
+<p>Wystąpił nieoczekiwany błąd. Upewnij się, że skonfigurowałeś TPay poprawnie</p>
+{/if}

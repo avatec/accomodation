@@ -1,0 +1,25 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+<div id="panel">
+	{if (isset($messages.notice)) || (isset($messages.error)) || (isset($messages.warning)) || (isset($messages.info))}
+	<div id="panel-status-bar" class="panel-status-bar {if isset($messages.notice)}success{/if}{if isset($messages.error)}error{/if}{if isset($messages.warning)}warning{/if}{if isset($messages.info)}info{/if}">
+		<div class="container">
+			<div class="col-md-1 panel-icon">
+				{if isset($messages.notice)}<em class="fa fa-check-circle-o fa-2x"></em>{/if}
+				{if isset($messages.error)}<em class="fa fa-exclamation-circle fa-2x"></em>{/if}
+				{if isset($messages.warning)}<em class="fa fa-exclamation-triangle fa-2x"></em>{/if}
+				{if isset($messages.info)}<em class="fa fa-info-circle fa-2x"></em>{/if}
+			</div>
+			<div class="col-md-11">
+				{if isset($messages.notice)}{$messages.notice}{/if}
+				{if isset($messages.error)}{$messages.error}{/if}
+				{if isset($messages.warning)}{$messages.warning}{/if}
+				{if isset($messages.info)}{$messages.info}{/if}
+			</div>
+		</div>
+		<a class="panel-close"><span class="fa fa-times"></span></a>
+	</div>{/if}
+	<div class="container">
+	{include file="`$app_path`modules/`$tpl.module`/templates/website/`$tpl.file`"}
+	</div>
+</div>
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

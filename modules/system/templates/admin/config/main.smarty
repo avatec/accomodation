@@ -1,0 +1,199 @@
+<div class="row">
+	{Form::open("POST",null,true)}
+	{Form::hidden("service_blocked" , "FALSE")}
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Podstawowa konfiguracja</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+	            	<label class="col-lg-3 control-label">Domyślny adres e-mail</label>
+		            <div class="col-lg-9">
+		            	<div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            {Form::input('text' , 'default_email' , 'mask-alias:\'email\'')}
+                        </div>
+                        <small>Na ten adres e-mail będą wysyłane wiadomości z formularza kontaktowego</small>
+		            </div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="Zaznacz tę opcję, jeśli chcesz zablokować dostęp do Twojego serwisu">Blokada serwisu</label>
+	            	<div class="col-lg-9">
+		            	{Form::checkbox2([
+		            		"name" => "service_blocked",
+		            		"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']
+                        ])}
+	            	</div>
+	            </div>
+
+	            <div class="form-group blockedHidden">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="Wpisz treść, która będzie widoczna gdy serwis zostanie zablokowany">Treść dla strony blokady</label>
+	            	<div class="col-lg-9">
+		            	{Form::text("service_blocked_text" , "service_blocked_text")}
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="W tym miejscu wklej numer wygenerowany przez statystyki google np. UA-xxxxxxxxx-x">Statystyki google</label>
+	            	<div class="col-lg-9">
+		            	{Form::text("google_stats" , "google_stats")}
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="W tym miejscu wklej kod wygenerowany przez Google Webmaster Tools">Google webmaster tools</label>
+	            	<div class="col-lg-9">
+		            	{Form::text("google_tools" , "google_tools")}
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="W tym miejscu wklej kod Google MAPS API">Google Maps API Key</label>
+	            	<div class="col-lg-9">
+		            	{Form::input("text" , "google_api_key")}
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="W tym miejscu wklej kod Site Key - Google ReCaptcha">ReCaptcha Site Key</label>
+	            	<div class="col-lg-9">
+		            	{Form::input("text" , "google_recaptcha_sitekey")}
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="W tym miejscu wklej kod Secret Key - Google ReCaptcha">ReCaptcha Secret Key</label>
+	            	<div class="col-lg-9">
+		            	{Form::input("text" , "google_recaptcha_secretkey")}
+	            	</div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Treści przy rejestracji</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-3 control-label">Zgoda na przetwarzanie danych osobowych (wymagane)</label>
+					<div class="col-md-9">
+						{Form::text2([ "name" => "rules_rodo_1", "rows"=>"10"])}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-3 control-label">Zgoda na komunikację mailową (wymagane)</label>
+					<div class="col-md-9">
+						{Form::text2([ "name" => "rules_rodo_2", "rows"=>"10"])}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-3 control-label">Zgoda na komunikację telefoniczną</label>
+					<div class="col-md-9">
+						{Form::text2([ "name" => "rules_rodo_3", "rows"=>"10"])}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-3 control-label">Zgoda na udostępnianie danych w celach marketingowych</label>
+					<div class="col-md-9">
+						{Form::text2([ "name" => "rules_rodo_4", "rows"=>"10"])}
+					</div>
+				</div>
+
+				{**
+				<div class="form-group">
+					<label class="col-md-3 control-label">Informacje prawne</label>
+					<div class="col-md-9">
+						{Form::text2([ "name" => "rules_register", "rows"=>"10"])}
+					</div>
+				</div>
+				**}
+
+			</div>
+			<div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}
+			</div>
+		</div>
+	</div>
+	{Form::close()}
+	{Form::open("POST",null,true)}
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Logotyp serwisu</h5>
+			</div>
+			<div class="blog-body">
+				<p class="alert alert-info">Zalecane wymiary 768x170px, format PNG24 tło przezroczyste</p>
+				<p class="alert alert-warning">UWAGA ! Niektóre przeglądarki takie jak Chrome lub Firefox posiadają system cache dla obrazków, co skutkuje opóźnionym pojawieniem się podmienionego logotypu. Jeżeli po uploadzie, logotyp pozostaje stary, należy najpierw oczyścić pamięć cache przeglądarki, a następnie odświeżyć tą stronę.</p>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("website_logo", null, null, 'image/png')}
+					</div>
+					<div class="col-md-6">
+						{if !empty(Form::$post['website_logo'])}
+						<input type="hidden" name="old_website_logo" value="{Form::$post['website_logo']}" />
+						<br/>
+						<p class="thumbnail"><img width="300" src="{$app_url}templates/website/images/{Form::$post['website_logo']}?hash={$hash}" alt="" /></p>
+						{else}
+						<img width="300" class="thumbnail" src="{$app_url}templates/website/images/logo.png" alt="" />
+						{/if}
+					</div>
+				</div>
+
+			</div>
+			<div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}
+			</div>
+		</div>
+	</div>
+	{Form::close()}
+	{if !isset($config['basic'])}
+	{Form::open("POST",null,true)}
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">SMSGateway.me integracja</h5>
+			</div>
+			<div class="blog-body">
+				<p class="alert alert-info">
+					Aby uruchomić tą usługę w swoim serwisie potrzebny jest telefon oparty o system android. Prosimy o założenie konta w serwisie <a href="https://smsgateway.me" target="_blank">smsgateway.me</a>, następnie należy pobrać aplikację na swój telefon <a href="https://play.google.com/store/apps/details?id=networked.solutions.sms.gateway.api" target="_blank">pobierz aplikację</a>. Na sam koniec wpisujemy w poniższe pola login i hasło do konta smsgateway.me oraz numer urządzenia (Device ID) w poniższym formularzu.
+				</p>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="Numer ID urządzenia">Login</label>
+	            	<div class="col-lg-9">
+		            	{Form::input("text" , "smsgateway_login")}
+	            	</div>
+	            </div>
+
+	             <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="Numer ID urządzenia">Hasło</label>
+	            	<div class="col-lg-9">
+		            	{Form::input("password" , "smsgateway_password")}
+	            	</div>
+	            </div>
+
+	            <div class="form-group">
+	            	<label class="col-lg-3 control-label" data-toggle="tooltip" title="Numer ID urządzenia">Device ID</label>
+	            	<div class="col-lg-9">
+		            	{Form::input("text" , "smsgateway_device_id")}
+	            	</div>
+	            </div>
+			</div>
+			<div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}
+			</div>
+		</div>
+	</div>
+	{Form::close()}
+	{/if}
+</div>

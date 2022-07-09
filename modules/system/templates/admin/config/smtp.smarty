@@ -1,0 +1,159 @@
+{Form::open()}
+{Form::hidden("smtp" , "FALSE")}
+{Form::hidden("smtp_auth" , "FALSE")}
+{Form::hidden("smtp_ssl" , "FALSE")}
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Konfiguracja konta SMTP</h5>
+			</div>
+			<div class="blog-body">
+			
+				<div class="form-group">
+	            	<label class="col-lg-6 control-label" data-toggle="tooltip" title="Zaznacz tę opcję, aby maile ze strony były wysyłane z podanego konta SMTP">Używaj serwera SMTP:</label>
+	            	<div class="col-lg-6">
+		            	{Form::checkbox2([
+		            		"name" => "smtp",
+		            		"value" => "TRUE", 
+		            		"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+		            	])}
+	            	</div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-lg-6 control-label" data-toggle="tooltip" title="Zaznacz tę opcję, aby włączyć uwierzytelnianie">Serwer wymaga uwierzytelnienia:</label>
+	            	<div class="col-lg-6">
+		            	{Form::checkbox2([
+		            	"name" => "smtp_auth",
+		            	"value" => "TRUE", 
+		            	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+		            	])}
+	            	</div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-lg-6 control-label" data-toggle="tooltip" title="Zaznacz tę opcję, aby włączyć połączenie poprzez SSL">Połączenie bezpieczne SSL:</label>
+	            	<div class="col-lg-6">
+		            	{Form::checkbox2([
+		            	"name" => "smtp_ssl",
+		            	"value" => "TRUE", 
+		            	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+		            	])}
+	            	</div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+		        {Form::submit("Zapisz zmiany")}	
+			</div>    
+	       
+		</div>
+	</div>
+	
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Testowanie konta SMTP</h5>
+			</div>
+			<div class="blog-body">
+			
+				<div class="form-group">
+	            	<label class="col-md-12" data-toggle="tooltip" title="Podaj adres e-mail na który ma zostać wysłana wiadomość kontrolna">Podaj adres e-mail i ustaw suwak na Wł:</label>
+	            	<div class="col-md-2">
+	            		{Form::checkbox2([
+		            	"name" => "test-mail",
+		            	"value" => "TRUE", 
+		            	"data" => [ 'data-on-text="Wł"', 'data-off-text="Wył"']
+		            	])}
+	            	</div>
+	            	<div class="col-md-10">{Form::input2([
+	            		"type" => "email", 
+	            		"name" => "email",
+	            		"placeholder" => "Podaj adres e-mail, na który zostanie wysłana wiadomość, jeżeli konfiguracja SMTP jest poprawna"
+	            	])}</div>
+	            </div>
+	        </div>
+	        <div class="blog-footer">
+				{Form::submit("Zapisz zmiany")}	
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Konfiguracja konta SMTP</h5>
+			</div>
+			<div class="blog-body">
+            	<div class="form-group">
+                    <label class="col-md-3 control-label">Nazwa nadawcy:</label>
+                    <div class="col-md-9">
+	                    <div class="input-group">
+	                        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+	                            {Form::input('text' , 'smtp_from' , "required:")}
+	                    </div>
+	                    <small>np. Jan Kowalski</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">E-mail nadawcy:</label>
+                    <div class="col-md-9">
+	                    <div class="input-group">
+	                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+	                        {Form::input('text' , 'smtp_email' , "required,mask-alias:email")}
+	                    </div>
+	                    <small>Adres e-mail powinien być zawarty w domenie Twojego systemu</small>
+	                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Adres serwera:</label>
+					<div class="col-md-9">
+	                    <div class="input-group">
+	                        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+	                        {Form::input('text' , 'smtp_host' , "required:")}
+	                    </div>
+	                    <small>np. imap.avatec.pl</small>
+	                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nazwa użytkownika:</label>
+					<div class="col-md-9">
+	                    <div class="input-group">
+	                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+	                        {Form::input('text' , 'smtp_username' , "required:")}
+	                    </div>
+	                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Hasło:</label>
+                    <div class="col-md-9">
+                    	<div class="input-group">
+                        	<span class="input-group-addon"><i class="fa fa-key"></i></span>
+							{Form::input('password' , 'smtp_password' , "required:")}
+						</div>
+					</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Port:</label>
+                    <div class="col-md-9">
+	                    <div class="input-group">
+	                        <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+	                        {Form::input('text' , 'smtp_port' , "required:")}
+	                    </div>
+	                    <small>domyślna wartość bez SSL <b>587</b>, z SSL <b>465</b></small>
+                    </div>
+                </div>
+			</div>
+			<div class="blog-footer">
+	            {Form::submit("Zapisz zmiany")}		
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

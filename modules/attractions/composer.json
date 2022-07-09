@@ -1,0 +1,37 @@
+{
+    "name": "avatec/attractions",
+    "description": "Avatec Framework - Attractions module",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "type": "avatec-module",
+    "require": {
+        "composer/installers": "~1.0",
+        "php": ">=7.1"
+    },
+    "authors" : [
+        {
+            "name": "Grzegorz Miskiewicz",
+            "email": "biuro@avatec.pl",
+            "homepage": "https://www.avatec.pl",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "Avatec Framework",
+                "version": "1.0",
+                "source": {
+                    "url": "https://github.com/avatec/attractions",
+                    "type": "git"
+                }
+            }
+        }
+    ],
+    "extra": {
+        "installer-paths": {
+            "modules/{$name}": ["avatec/attractions"]
+        }
+    }
+}

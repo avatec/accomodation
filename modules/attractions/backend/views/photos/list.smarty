@@ -1,0 +1,126 @@
+{Form::open()}
+
+<input type="hidden" name="attractions_id" value="{$smarty.get.attractions_id}" id="attractions_id"/>
+<input type="hidden" name="token" value="{\Modules\Admins::$auth['token']}" id="token" />
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title pull-left">Zdjęcia</h5>
+		<div class="pull-right">
+			<a class="btn btn-info" href="{$app_module}list/">
+				<i class="fa fa-chevron-left"></i> {LA::get('cms' , 'btn_cancel_and_return')}
+			</a>
+			{if !empty($list)}
+			<button type="submit" class="btn btn-primary">
+				<i class="fa fa-check"></i> {LA::get('cms' , 'btn_save_changes')}
+			</button>
+
+			<button id="deleteAll" type="submit" disabled class="btn btn-danger"><span class="fa fa-trash"></span> usuń zaznaczone</button>
+			{/if}
+			<button class="btn btn-warning btn-file" href="{$app_module}photos/add">
+				<i class="fa fa-plus"> </i>&nbsp;dodaj zdjęcia do galerii
+				<input type="file" name="upload[]" multiple/>
+			</button>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+		{if empty($list)}
+		<p class="alert alert-info">Nie dodano jeszcze zdjęć do tej galerii</p>
+		{else}
+		<div id="photos-list" class="gallery-container">
+			{foreach item=item from=$list name=lp}
+			<div class="gallery-item">
+				<div class="gallery-photo">
+					<div class="number">
+						{$smarty.foreach.lp.iteration}
+					</div>
+					<div class="mark-delete element-{$smarty.foreach.lp.iteration} hidden">
+						<i class="fa fa-trash"></i>
+					</div>
+					<img src="{$item.photo_thumb_url}" alt="zdjęcie {$smarty.foreach.lp.iteration}" />
+					<div class="checkbox-delete">
+						<span class="help-text"><h5>{if !empty($item.alt)}<small>Alt</small>{$item.alt}{/if}</h5></span>
+						<input class="switch" data-element="{$smarty.foreach.lp.iteration}" type="checkbox" name="delete[{$item.photo_id}]" value="{$item.photo}" />
+						<span class="help-text">Zaznacz aby usunąć</span>
+					</div>
+				</div>
+				<div class="gallery-footer">
+					<div class="input-group">
+						<div class="input-group-addon">Kolejność</div>
+						<input class="form-control" name="priority[{$item.photo_id}]" value="{$item.priority}" onclick="this.select()" />
+						<div class="input-group-btn">
+							<a class="btn btn-primary" href="{$app_module}edit/?photo_id={$item.photo_id}&{$app_query}"><i class="fa fa-pencil"></i></a>
+							<a class="btn btn-danger" href="{$app_module}delete/?photo_id={$item.photo_id}&{$app_query}"><i class="fa fa-trash"></i></a>
+							<button type="submit" class="btn btn-success"><i class="fa fa-save"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{/if}
+	</div>
+</div>
+{Form::close()}
+
+<script type="text/javascript">
+	$("input[type=checkbox]").bootstrapSwitch({
+		onText: '<i class="fa fa-check"></i>',
+		offText: '<i class="fa fa-times"></i>',
+		onColor: 'danger',
+		offColor: 'success',
+		labelText: 'usuń'
+	});
+</script>
+<script type="text/javascript">
+$(document).ready( function() {
+	var text = $("#deleteAll").text();
+
+	$('.switch').on('switchChange.bootstrapSwitch',function (event, state) {
+		var enabled = 0;
+		var el = $(this).data('element');
+		var ch = $(this).is(':checked');
+
+		if( ch == true ) {
+			if( $(".element-" + el ).hasClass('hidden') == true ) {
+				$(".element-" + el ).removeClass('hidden');
+			}
+		} else {
+			$(".element-" + el ).addClass('hidden');
+		}
+
+
+		$(".switch").each( function() {
+			if( $(this).bootstrapSwitch('state') == true ) {
+				$("#deleteAll").prop("disabled" , false);
+				enabled++;
+			}
+		});
+		if(enabled == 0) {
+			$("#deleteAll").prop("disabled" , true);
+			$("#deleteAll").html(text);
+		} else {
+			$("#deleteAll").html(text + " [" + enabled + "]");
+
+		}
+	});
+});
+</script>
+
+<div id="ModalUploadProgress" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Upload plików</h4>
+			</div>
+			<div class="modal-body">
+				<progress id="progressbar" class="progressbar" value="0" max="100"></progress>
+				<p>Załadowano <span id="upload-status">0/0</span> plików</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+			</div>
+		</div>
+	</div>
+</div>

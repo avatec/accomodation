@@ -1,0 +1,2 @@
+<h2 class="title">{Language::get("system" , "user_header_logout")}</h2>
+<p class="lead"></p>

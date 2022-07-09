@@ -1,0 +1,18 @@
+{if !empty($news.archive)}
+<div class="panel-news">
+{foreach item=item from=$news.archive name=lp}
+	<div class="box-news">
+		<div class="box-news-left">{Common::dateAsText($item.create_date)}</div>
+		<div class="box-news-right">
+			<p><strong>{$item.topic}</strong></p>
+			<p>{$item.preface}</p>
+			<br/>
+			<a href="{$item.link}" class="btn btn-default">{Language::get('news' , 'read_more')} <span class="fa fa-angle-double-right"></span></a>
+		</div>
+	</div>
+	{if !$smarty.foreach.lp.last}<hr/>{/if}
+{/foreach}
+</div>
+{/if}
+
+{Paginate::get()}

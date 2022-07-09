@@ -1,0 +1,29 @@
+#partners { 
+	padding: 25px 0px; 
+	overflow: hidden; 
+	h2 { 
+		text-align: center; 
+		font-size: 1em; 
+		border-bottom: 1px dotted darken($white,20%); 
+		padding-bottom: 10px; 
+	}
+	.item {
+		cursor: pointer;
+		div img { 
+			height: 100px;
+			-webkit-transition: all 1s ease;
+		     -moz-transition: all 1s ease;
+		       -o-transition: all 1s ease;
+		      -ms-transition: all 1s ease;
+		          transition: all 1s ease;  
+	    }
+	    div:hover img {
+		    -webkit-filter: brightness( 170% );
+	    }
+	}
+}
+
+@media screen and (max-width: 768px) {
+		.item div,
+		.item div img { margin: 0 auto 0 auto; }
+	}

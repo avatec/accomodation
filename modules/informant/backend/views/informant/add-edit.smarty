@@ -1,0 +1,199 @@
+{Form::open("POST", null, true)}
+<div class="row">
+    <div class="col-sm-12 col-md-7">
+        <div class="blog">
+        	<div class="blog-header">
+                <h5 class="blog-title"><i class="fa fa-pencil fa-fw"></i> Dane szczegółowe</h5>
+            </div>
+            <div class="blog-body">
+                <div class="form-group">
+					<label class="control-label col-md-2">Nazwa</label>
+                    <div class="col-md-10">
+                        {Form::input2([
+                            "type" => "text",
+                            "name" => "name",
+                            "maxlength" => "200",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="control-label col-md-2">Adres</label>
+                    <div class="col-md-10">
+                        {Form::input2([
+                            "type" => "text",
+                            "name" => "address",
+                            "maxlength" => "250",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="control-label col-md-2">Kod pocztowy</label>
+                    <div class="col-md-2">
+                        {Form::input2([
+                            "type" => "text",
+                            "name" => "postcode",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+					<label class="control-label col-md-2">Miejscowość</label>
+                    <div class="col-md-6">
+                        {Form::input2([
+                            "type" => "text",
+                            "name" => "city",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Kategoria</label>
+                    <div class="col-md-10">
+                        {Form::select2([
+                            "name" => "state_id",
+                            "values" => $states
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="control-label col-md-2">Telefon</label>
+                    <div class="col-md-2">
+                        {Form::input2([
+                            "type" => "text",
+                            "name" => "phone",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+                    <label class="control-label col-md-2">E-mail</label>
+                    <div class="col-md-6">
+                        {Form::input2([
+                            "type" => "email",
+                            "name" => "email",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="control-label col-md-2">Adres www</label>
+                    <div class="col-md-10">
+                        {Form::input2([
+                            "type" => "url",
+                            "name" => "www",
+                            "class" => "form-control",
+                            "placeholder" => "http://"
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="control-label col-md-2">Godziny otwarcia</label>
+                    <div class="col-md-10">
+                        {Form::input2([
+                            "type" => "text",
+                            "name" => "open_hours",
+                            "class" => "form-control"
+                        ])}
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-footer">
+                {if isset(Form::$post['edit']) }
+                <button type="submit" class="btn btn-primary">
+                    {LA::get('cms' , 'btn_save_changes')}
+                </button>
+                {else}
+                <button type="submit" class="btn btn-primary">
+                    {LA::get('cms' , 'btn_create')}
+                </button>
+                {/if}
+                <a class="btn btn-warning" href="{$app_admin_url}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-5">
+        {** Atrybuty **}
+        <div class="blog">
+        	<div class="blog-header">
+                <h5 class="blog-title"><i class="fa fa-pencil fa-fw"></i> Atrybuty</h5>
+            </div>
+            <div class="blog-body">
+                <div class="form-group">
+                    <label class="control-label col-md-4">Kategoria</label>
+                    <div class="col-md-8">
+                        {Form::select2([
+                            "name" => "category_id",
+                            "values" => $category
+                        ])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Widoczność</label>
+                    <div class="col-md-8">
+                        {Form::hidden("visibility" , 0)}
+                        {Form::checkbox("visibility" , 1)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4">Data utworzenia</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            {Form::input2([
+                                "name" => "create_date",
+                                "type" => "text",
+                                "class" => "form-control dataPicker"
+                            ])}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-footer">
+                {if isset(Form::$post['edit']) }
+                <button type="submit" class="btn btn-primary">
+                    {LA::get('cms' , 'btn_save_changes')}
+                </button>
+                {else}
+                <button type="submit" class="btn btn-primary">
+                    {LA::get('cms' , 'btn_create')}
+                </button>
+                {/if}
+                <a class="btn btn-warning" href="{$app_admin_url}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+            </div>
+        </div>
+
+        {** Upload zdjęcia **}
+        <div class="blog">
+        	<div class="blog-header">
+                <h5 class="blog-title"><i class="fa fa-photo fa-fw"></i> Zdjęcie</h5>
+            </div>
+            <div class="blog-body">
+                {if !empty( Form::$post['photo']['thumb'] ) && empty(Form::$post['blank'])}
+                <div class="well">
+                    {Form::checkbox("delete_photo" , 1)} zaznacz, aby usunąć zdjęcie
+                </div>
+
+                <div class="well">
+                    <img src="{Form::$post['photo']['thumb']}" alt="Podgląd zdjęcia" class="img-responsive"/>
+                </div>
+                {/if}
+
+                <button type="button" class="btn btn-primary btn-file btn-block" data-empty="wybierz plik" data-selected="wybrano plik">
+                    {Form::upload("photo")} <span><i class="fa fa-upload"></i> kliknij, aby wybrać plik</span>
+                </button>
+            </div>
+            <div class="blog-footer">
+                {if isset(Form::$post['edit']) }
+                <button type="submit" class="btn btn-primary">
+                    {LA::get('cms' , 'btn_save_changes')}
+                </button>
+                {else}
+                <button type="submit" class="btn btn-primary">
+                    {LA::get('cms' , 'btn_create')}
+                </button>
+                {/if}
+                <a class="btn btn-warning" href="{$app_admin_url}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{Form::close()}

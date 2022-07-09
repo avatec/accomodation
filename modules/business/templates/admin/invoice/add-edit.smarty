@@ -1,0 +1,185 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Kontrahent</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-3 control-label">Numer faktury</label>
+					<div class="col-md-7">
+						{if empty(Form::$post['edit'])}
+						{Form::input2([ "type" => "text" , "name" => "invoice_number", "value" => $invoice_number, "readonly" => false ])}
+						{else}
+						{Form::input2([ "type" => "text" , "name" => "invoice_number", "readonly" => false ])}
+						{/if}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Kontrahent</label>
+					<div class="col-md-7">
+						{Form::select2(["name" => "contrahent_id", "values" => BusinessContrahents::_getSelect(), "empty" => "wybierz kontrahenta"])}
+					</div>
+					<div class="col-md-2">
+						<a type="button" class="btn btn-primary" target="_blank" href="{$app_url}admin/business/contrahent/add/?return={$app_request_url}">nowy <span class="fa fa-plus"></span></a>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-3 control-label">Data wystawienia</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{if isset(Form::$post['edit']) AND (Form::$post['edit'] == "TRUE")}
+							{Form::date2([
+							"type" => "text",
+							"name" => "create_date"
+							])}
+							{else}
+							{Form::date2([
+							"type" => "text",
+							"name" => "create_date",
+							"value" => date('Y-m-d')
+							])}
+							{/if}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Data sprzedaży</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{if isset(Form::$post['edit']) AND (Form::$post['edit'] == "TRUE")}
+							{Form::date2([
+							"type" => "text",
+							"name" => "sell_date"
+							])}
+							{else}
+							{Form::date2([
+							"type" => "text",
+							"name" => "sell_date",
+							"value" => $now
+							])}
+							{/if}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Termin płatności</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::date("payment_date")}
+							<span class="input-group-addon"><em class="fa fa-calendar"></em>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Płatność dokonana?</label>
+					<div class="col-md-3">
+						{if isset(Form::$post['edit']) AND (Form::$post['edit'] == "TRUE") AND (Form::$post['payment'] == "TRUE")}
+						{Form::checkbox2(["name" => "payment" , "value" => "TRUE" , "data" => [ "data-on-text=\"tak\"", "data-off-text=\"nie\"" ]])}  
+						{else}
+						{Form::checkbox2(["name" => "payment" , "value" => "TRUE" , "data" => [ "data-on-text=\"tak\"", "data-off-text=\"nie\"" ]])} 
+						{/if}
+					</div>
+				</div>
+				<div class="payment_amount form-group">
+					<label class="col-md-3 control-label">Wpłacona kwota</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::input("text" , "payment_amount" , "mask-alias:currency")}
+							<div class="input-group-addon">
+								zł
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Forma płatności</label>
+					<div class="col-md-7">
+						{Form::input("text" , "payment_label")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Miejsce wystawienia</label>
+					<div class="col-md-3">
+					{if isset(Form::$post['edit']) AND (Form::$post['edit'] == "TRUE")}
+					{Form::input2([ "type" => "text", "name" => "place" ])}
+					{else}
+					{Form::input2([ "type" => "text", "name" => "place", "value" => $invoice_city ])}
+					{/if}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Uwagi do faktury</label>
+					<div class="col-md-7">
+						{Form::input("text" , "notice")}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-body">
+				<div class="table-responsive">
+				<table class="table table-hover"><thead>
+					<th width="250">Nazwa produktu/usługi</th>
+					<th width="50">Ilość</th>
+					<th width="100">Typ</th>
+					<th width="100">Cena netto</th>
+					<th width="70">VAT</th>
+					<th width="100">Podatek VAT</th>
+					<th width="100">Cena brutto</th>
+					<th width="100">Razem brutto</th>
+					<th width="20"></th>
+				</tr></thead><tbody id="invoiceAddInput"><tr class="item-row bg-default">
+					<td>{Form::input("text" , "item_name")}</td>
+					<td>{Form::input2([ "type" => "number", "id" => "item_num", "name" => "item_num", "value" => "1"])}</td>
+					<td>{Form::select2(["id" => "item_num_type", "name" => "item_num_type" , "values" => BusinessInvoice::$type, "selected" => "szt"])}</td>
+					<td>{Form::input("text" , "item_price_netto")}</td>
+					<td>{Form::select2([ "id" => "item_vat", "name" => "item_vat" , "values" => BusinessInvoice::$vat, "selected" => "23"])}</td>
+					<td>{Form::input2(["type" => "text" , "id" => "item_price_vat", "name" => "item_price_vat", "readonly" => true])}</td>
+					<td>{Form::input("text" , "item_price_brutto")}</td>
+					<td>{Form::input2([ "type" => "text", "id" => "item_price_brutto_all", "name" => "item_price_brutto_all", "readonly" => true])}</td>	
+					<td><span class="fa fa-spinner fa-spin fa-2x" style="display:none;"></span><button type="button" id="btnAddItem" class="btn btn-primary btn-sm"><span class="fa fa-plus"></span></button></td>
+				</tr>{**{if !empty(Form::$post['edit'])}
+				{foreach key=key item=item from=Form::$post['items']}
+				<tr>
+					<td><span class="form-control disable">{$item.name}</span></td>
+					<td><span class="form-control">{$item.num}</span></td>
+					<td><span class="form-control">{$item.num_type}</span></td>
+					<td><span class="form-control">{Kernel::currency($item.price_netto)}</span></td>
+					<td><span class="form-control">{$item.vat}%</span></td>
+					<td><span class="form-control">{Kernel::currency($item.price_vat)}</span></td>
+					<td><span class="form-control">{Kernel::currency($item.price_brutto)}</span></td>
+					<td><span class="form-control">{Kernel::currency($item.price_brutto_all)}</span></td>	
+					<td><button type="button" class="btn btn-primary btn-sm itemDeleteS" data-id="{$smarty.get.id}" data-key="{$key}"><span class="fa fa-remove"></span></button></td>
+				</tr>
+				{/foreach}
+				{/if}**}</tbody></table>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="clearfix"></div>
+	
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog-body">
+			{if isset(Form::$post['edit']) }
+			{Form::submit("Zapisz zmiany")}
+			{else}
+			{Form::submit('Utwórz')}
+			{/if}
+			<a class="btn btn-warning" href="{$app_url}admin/business/invoice/list/">Anuluj i wróć do listy</a>
+		</div>
+	</div>
+</div>
+{Form::close()}

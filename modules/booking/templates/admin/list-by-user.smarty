@@ -1,0 +1,117 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="success-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Prowizja od zaliczki</small>
+						<h3 class="no-margin no-padding">{$data.user_commission} %</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="danger-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Wpłacone zaliczki</small>
+						<h3 class="no-margin no-padding">{Kernel::currency($data.payment_amount)} zł</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-2">
+				<div class="danger-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Należna kwota</small>
+						<h3 class="no-margin no-padding">{Kernel::currency($data.payment_amount - ($data.payment_amount/($data.user_commission/10)))} zł</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				{Form::open("GET",null,false,false)}
+				{Form::hidden("uid" , $smarty.get.uid)}
+				<div class="panel">
+					<div class="panel-body">
+						<div class="col-xs-6 col-sm-6 col-md-5">
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+								{Form::date("start_date")}
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-5">
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+								{Form::date("end_date")}
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-2">
+							<button type="submit" class="btn btn-primary btn-block">
+							<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				{Form::close()}
+			</div>
+		</div>
+		<br/>
+		{Form::open("POST" , "/admin/booking/payoff/")}
+		{Form::hidden("uid" , $smarty.get.uid)}
+		{if !empty($list)}
+		<div class="panel panel-info">
+			<div class="panel-body">
+				<button id="CheckboxAll" type="button" class="btn btn-primary">zaznacz wszystkie</button>
+				<button type="submit" class="btn btn-info">zleć wypłatę dla zaznaczonych</button>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover table-admin-list"><thead><tr>
+				<th width="50"></th>
+				<th width="50">Lp.</th>
+				<th width="200">Przedmiot rezerwacji</th>
+				<th width="200">Osoba rezerwująca</th>
+				<th class="text-center" width="160">Data od - do</th>
+				<th class="text-center" width="100">Zaliczka</th>
+				<th class="text-center" width="100">Prowizja</th>
+				<th class="text-center" width="120">Kwota do wypłaty</th>
+				<th class="text-center" width="150">Płatność</th>
+				<th class="text-right">Opcje</th>
+			</tr></thead><tbody>
+			{foreach item=item from=$list name=lp}
+			<tr class="{if $item.payment_status == "CANCEL"} danger{/if}{if $item.payment_status=="CONFIRM"} success{/if}{if $item.payment_status=="NEW"} warning{/if}">
+				<td><input type="checkbox" name="selectid[{$item.id}]" value="TRUE" /></td>
+				<td>{$smarty.foreach.lp.iteration}</td>
+				<td><b>{Objects::getName($item.object_id)}</b><br/>{ObjectsRooms::getName($item.room_id)}</td>
+				<td>
+					<b>{$item.first_name}  {$item.last_name}</b><br/>
+					<em class="fa fa-phone"></em> {$item.phone}<br/>
+					<em class="fa fa-envelope"></em> {$item.email}
+				</td>
+				<td class="text-center">
+					<em class="fa fa-calendar"></em> {$item.checkin} - {$item.checkout}<br/>
+					<b>Pobyt: {$item.days} {if $item.days==1}dzień{/if}{if $item.days>1}dni{/if}</b>
+				</td>
+				<td class="text-center">{$item.advance_amount} zł</td>
+				<td class="text-center">{assign commission User::getField("commission", $item['uid'])} {if $commission && $item.payment=="TRUE"}{Kernel::currency($item.advance_amount - ($item.advance_amount/($commission/10)))} zł{else}b/d{/if}</td>
+				<td class="text-center">{if $item.settlement == "FALSE"}<b>{Kernel::currency($item.advance_amount/($commission/10))} zł</b>{else}<span class="label label-info">wypłacono</span>{/if}</td>
+				<td class="text-center">
+					{Booking::readPaymentStatus($item['payment_status'], true)}
+					{if $item.payment=="FALSE"}
+					<span class="label label-warning">płatność niezaksięgowana</span><br/><br/>
+					{else}
+					<span class="label label-success">zaksięgowano {$item.payment_date|date_format: "%Y-%m-%d"}</span>
+					{/if}
+				</td>
+				<td class="text-right">
+					<a data-toggle="tooltip" title="Zlecono wypłatę" data-placement="top" data-container="body" class="btn btn-primary btn-sm" href="{$app_url}admin/booking/edit/?id={$item.id}">
+						<i class="fa fa-bank"></i>
+					</a>
+				</td>
+			</tr>
+			{/foreach}
+			</tbody>
+			</table>
+		</div>{else}
+		<p class="alert alert-danger">Brak danych dla wybranego zakresu</p>
+		{/if}
+		{Form::close()}
+	</div>
+</div>

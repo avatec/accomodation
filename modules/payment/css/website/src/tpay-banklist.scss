@@ -1,0 +1,67 @@
+.tpay-banklist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .bank-item {
+        text-align: center;
+        width: calc( 100% / 3 - .25rem );
+        height: 100px;
+
+        margin-right: .25rem;
+        margin-bottom: .25rem;
+        padding: .5rem;
+
+        transition: all 250ms linear;
+
+        border: 1px solid silver;
+
+        cursor: pointer;
+
+        img {
+            width: auto;
+            height: 50px;
+            transition: all 250ms linear;
+        }
+
+        h5 {
+            font-size: 16px;
+            transition: all 250ms linear;
+        }
+
+        input {
+            display: none;
+        }
+
+        &.selected {
+            background: darken( white, 10% );
+            color: white;
+            img {
+                max-width: 100%;
+                height: 70px;
+                max-height: 70px;
+            }
+            h5 {
+                font-size: 0px;
+            }
+        }
+
+        &:hover {
+            background: darken( white, 5% );
+            &.selected {
+                background: darken( white, 10% );
+                color: white;
+                img {
+                    max-width: 100%;
+                    height: 70px;
+                    max-height: 70px;
+                }
+                h5 {
+                    font-size: 0px;
+                }
+            }
+        }
+    }
+}

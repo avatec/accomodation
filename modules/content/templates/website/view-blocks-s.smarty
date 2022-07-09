@@ -1,0 +1,53 @@
+<div class="container container-sidebar">
+    <div class="row">
+        <div class="container">
+            <div class="header">
+                <h2><img src="/images/logo-2.png" alt="">Sportowcy</h2>
+                <h6><a href="/sportowcy"><span class="fal fa-angle-left mr-1"></span>Powrót do listy</a></h6>
+            </div>
+            <div class="row justify-content-center justify-content-md-between">
+                <div class="col-12 col-md-7 col-lg-8 col-x2-9 col-left">
+                    <div class="row">
+                        <div class="col-12 d-lg-none">
+                            <div class="header-article">
+                                <h4>Sabina Durok, 20 lat</h4>
+                                <h5><span class="fas fa-award"></span> Mistrzyni Polski Powerlifting</h5>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-5 col-left-sport">
+                            <img src="{$view.photo_preview}" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-12 col-lg-7 col-right-sport">
+                            <div class="header-article">
+                                <h4>{$view.name} {$view.name_2}, {$view.wiek} lat</h4>
+                                <h5><span class="fas fa-award"></span> {$view.text_1}</h5>
+                            </div>
+                            {$view.description}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-8 col-md-5 col-lg-4 col-x2-3 col-sidebar">
+                    <h4>Poznaj innych sportowców</h4>
+                        {foreach item=item from=$list_b}
+                            <div class="box-short">
+                                <div class="img-short">
+                                    <img src="{$item.photo_preview}" alt="" class="img-fluid">
+                                </div>
+                                <div class="text-short">
+                                    <h6>{$item.name} {$item.name_2}</h6>
+                                    <h6 class="subtitle"><span class="fas fa-award"></span> {$item.text_1}</h6>
+                                    <a href="{$item.link_s}" class="link-short">Poznaj historię<span class="fal fa-angle-right ml-1"></span></a>
+                                </div>
+                            </div>
+                        {/foreach}
+                    {if !empty($view.banner)}
+                        <div class="box-offer">
+                            <img src="{$view.banner.file_url}" alt="{$view.banner.name}" class="img-fluid">
+                            <a class="btn btn-secondary" href="{$view.banner.btn_link}" role="button">{$view.banner.btn_name}</a>
+                        </div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

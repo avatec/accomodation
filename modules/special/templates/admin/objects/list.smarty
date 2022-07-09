@@ -1,0 +1,45 @@
+{Form::open()}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title pull-left">Oferty specjalne</h5>
+				<a class="btn btn-info btn-sm pull-right" href="{$app_url}admin/special/object-edit/?object_id={$smarty.get.object_id}"><i class="fa fa-plus"></i></a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+				<div class="table-responsive">
+				<table class="table no-margin table-hover"><thead>
+					<tr>
+						<th>Lp.</th>
+						<th>Oferta specjalna</th>
+						<th>Wygasa dnia</th>
+						<th></th>
+					</tr>
+				</thead><tbody>
+				{foreach item=item from=$list.ordered name=lp}
+				<tr>
+					<td>{$smarty.foreach.lp.iteration}.</td>
+					<td>{SpecialOffers::getName($item.special_id)}</td>
+					<td>{$item.expire_date}</td>
+					<td class="text-right">
+						<a class="btn btn-info btn-xs" href="{$app_url}admin/special/object-edit/?object_id={$smarty.get.object_id}&id={$item.id}"><i class="fa fa-pencil"></i></a>
+						<a class="btn btn-primary btn-xs" href="{$app_url}admin/special/object-delete/?object_id={$smarty.get.object_id}&id={$item.id}"><i class="fa fa-trash"></i></a>
+					</td>
+				</tr>
+				{/foreach}
+				</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="blog-footer text-right">
+				<a class="btn btn-info btn-sm" href="{$app_url}admin/special/object-edit/?object_id={$smarty.get.object_id}"><i class="fa fa-plus"></i></a>
+				<button type="submit" class="btn btn-sm btn-primary">
+					<i class="fa fa-save"></i> zapisz zmiany
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

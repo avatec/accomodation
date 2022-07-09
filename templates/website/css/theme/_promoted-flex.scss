@@ -1,0 +1,249 @@
+/** Slider promotion **/
+#promotion-horizontal {
+	position: relative;
+
+	.crsl-wrap {
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: center;
+		align-items:stretch;
+		align-content:space-between;
+		width: 100%;
+		transition: all 150ms linear;
+		
+		.crsl-item {
+			margin-right: 20px;
+			width: 32.333%;
+			margin-right: 10px;
+			padding-bottom: 20px;
+			.img-figure {
+				position: relative;
+				img {
+					position: relative;
+					z-index:9;
+					width: 100%;
+					height: 350px;
+					object-fit: cover;
+					-webkit-transition: all 1s ease;
+					-moz-transition: all 1s ease;
+					-ms-transition: all 1s ease;
+					-o-transition: all 1s ease;
+					transition: all 1s ease;
+				}
+				.cat {
+					background: $fuchsia;
+					color: #fff;
+					text-transform: uppercase;
+					position: absolute;
+					left: 0;
+					top: 20px;
+					z-index: 100;
+					padding: 3px 15px;
+				}
+				
+				.cat-video {
+					background: $brand-danger;
+					color: #fff;
+					text-transform: uppercase;
+					position: absolute;
+					left: 0;
+					top: 50px;
+					z-index: 1;
+					padding: 3px 15px;
+				}
+				&:hover {
+					.title {
+						margin-top: -50px;
+						background: $white;
+					}
+					.description {
+						opacity: 1;
+						margin-top: 0px;
+					}
+				}
+			}
+			
+			.title {
+				position: relative;
+				z-index:10;
+				padding: 25px 0px;
+				height: 100px;
+				h1 {
+					margin: 0;
+					text-transform: uppercase;
+					font-weight: bold;
+					font-size: 19px;
+					text-align: center;
+					a {
+						color: #232323;
+					}
+				}
+				
+				.city-link {
+					display: block;
+					margin: 0;
+					text-transform: uppercase;
+					font-weight: 400;
+					font-size: 14px;
+					color: #3D6AA2;
+					text-align: center;
+					line-height: 28px;
+					color: #3D6AA2;
+				}
+				
+				-webkit-transition: all 250ms ease;
+				-moz-transition: all 250ms ease;
+				-ms-transition: all 250ms ease;
+				-o-transition: all 250ms ease;
+				transition: all 250ms ease;
+			}
+			
+			.description {
+				font-weight: normal;
+				line-height: 22px;
+				word-break: break-word;
+				text-align: center;
+				opacity: 0;
+				margin-top: 20px;
+				-webkit-transition: all 250ms ease;
+				-moz-transition: all 250ms ease;
+				-ms-transition: all 250ms ease;
+				-o-transition: all 250ms ease;
+				transition: all 250ms ease;
+			}
+		}
+	}
+	
+	// Slider nav
+	.crsl-nav {
+		.previous,
+		.next {
+			position: absolute;
+			z-index: 9999;
+			top: 50%;
+			font-size: 22pt;
+			background: rgba(0,0,0,.22);
+			padding: 6px 5px;
+			text-align: center;
+			color: #fff;
+			width: 50px;
+			height: 50px;
+			border-radius: 90px;
+			&:hover {
+				background: rgba(0,0,0,.85);
+			}
+		}
+		.previous {
+			left: 55px;
+			padding-right: 10px;
+		}
+		.next {
+			right: 55px;
+			padding-left: 10px;
+		}
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	#promotion-horizontal {
+		.crsl-wrap {
+			display: flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: center;
+			align-items:stretch;
+			align-content:center;
+			width: 100%;
+			.crsl-item {
+				width: 48%;
+				margin-right: 10px;
+				padding-bottom: 20px;
+				.img-figure {
+					img {
+						width: 100%;
+						height: 250px;
+					}
+					
+					.description {
+						opacity: 1;
+						margin-top: 0px;
+					}
+					
+					&:hover {
+						.title {
+							margin-top: 0px;
+						}
+						.description {
+							margin-top: 0px;
+						}
+					}
+				}
+			}
+		}
+		.crsl-nav {
+			.previous {
+				left: 0px;
+			}
+			.next {
+				right: 0px;
+			}
+		}
+	}
+}
+
+// Smarphones 320px
+
+@media screen and (max-width: 640px) {
+	#promotion-horizontal {
+		.crsl-wrap {
+			display: flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: center;
+			align-items:stretch;
+			align-content:center;
+			width: 100%;
+			.crsl-item {
+				width: 100%;
+				margin-right: 0px;
+				padding-bottom: 20px;
+				.img-figure {
+					img {
+						height:auto;
+						width: 100%;
+						height: 250px;
+					}
+					
+					.description {
+						opacity: 1;
+						margin-top: 0px;
+					}
+					
+					&:hover {
+						.title {
+							margin-top: 0px;
+						}
+						.description {
+							margin-top: 0px;
+						}
+					}
+				}
+			}
+		}
+		.crsl-nav {
+			.previous {
+				display: none;
+				left: 0px;
+			}
+			.next {
+				display: none;
+				right: 0px;
+			}
+		}
+	}
+}

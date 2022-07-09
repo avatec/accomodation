@@ -1,0 +1,68 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog blog-default">
+			<div class="blog-header">
+				<h5 class="blog-title">
+					{if isset(Form::$post['edit'])}{LA::get('cms' , 'edit_title')}{else}{LA::get('cms' , 'create_title')}{/if}
+				</h5>
+			</div>
+			<div class="blog-body">
+			
+				<div class="form-group layer-admin">
+					<label class="col-md-2 control-label">{LA::get('admins','label_type')}</label>
+					<div class="col-md-3">
+						{Form::select("type" , Modules\Admins::$types)}
+					</div>
+					
+					<label class="col-md-1 control-label">{LA::get('admins','label_name')}</label>
+					<div class="col-md-4">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('admins','label_email')}</label>
+					<div class="col-md-8">
+						{Form::input("text" , "email", 'mask-alias:\'email\'')}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">{LA::get('admins','label_login')}</label>
+					<div class="col-md-4">
+						{Form::input("text" , "login")}
+					</div>
+
+				{if !isset(Form::$post['edit'])}
+
+					<label class="col-md-1 control-label">{LA::get('admins','label_password')}</label>
+					<div class="col-md-3">
+						{Form::input2([ "type" => "text" , "name" => "password", "id" => "password" ])}
+					</div>
+					<div class="col-md-2">
+						<button type="button" id="generatePassword" class="btn btn-primary btn-block">
+							{LA::get('admins','btn_generate_password')}
+						</button>
+					</div>
+				</div>
+				{/if}
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				{else}
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_create')}
+				</button>
+				{/if}
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

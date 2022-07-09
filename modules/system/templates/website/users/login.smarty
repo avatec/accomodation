@@ -1,0 +1,48 @@
+<div class="col-md-4">
+	<h3 class="title">{Language::get("system" , "user_header_login")}</h3>
+
+	{if !empty(User::$Error)}
+	<div class="alert alert-danger">
+	<p>{Language::get("system" , "user_error_login")}</p>
+	</div>
+	{/if}
+
+	{Form::open()}
+	<div class="form-group">
+		<div class="col-md-10">
+			{Form::input2([
+				"type" => "text",
+				"name" => "login",
+				"placeholder" => {Language::get("system" , "user_form_label_login")}
+			])}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-10">
+			{Form::input2([
+				"type" => "password",
+				"name" => "password",
+				"placeholder" => {Language::get("system" , "user_form_label_password")}
+			])}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-10 text-right">
+			<button type="submit" class="btn btn-primary">{Language::get("system" , "user_btn_login")}</button>
+			<a class="btn btn-danger" href="{$app_url}panel/password-reset">{Language::get("system" , "user_btn_password_forget")}</a>
+
+			{if !empty($config.facebook_app_id)}<div class="text-line"><span>lub</span></div>
+
+			<a href="{if isset($fb_login_url)}{$fb_login_url|htmlspecialchars}{else}{$app_url}fb/login/{/if}" class="btn btn-primary btn-sm btn-block btn-facebook">
+				<span class="fa fa-facebook"></span> {Language::get("system" , "user_btn_login_fb")}
+			</a>{/if}
+		</div>
+	</div>
+</div>
+<div class="col-md-8">
+	<h3 class="title">{Language::get("system" , "user_header_no_account")}</h3>
+	<p class="lead">{Text::getByName("user-no-account")}</p>
+
+	<p><a class="btn btn-warning" href="{$app_url}panel/register">{Language::get("system" , "user_btn_register")}</a></p>
+</div>
+<div class="clearfix"></div>

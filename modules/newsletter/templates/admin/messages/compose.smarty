@@ -1,0 +1,46 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header bg-primary">
+				<h5 class="blog-title text-white">Ustawienia wysyłki</h5>
+			</div>
+			<div class="blog-body">				
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Wprowadź temat wiadomości" class="col-md-2 control-label">Temat wiadomości</label>
+					<div class="col-md-8">
+						{Form::input("text" , "subject")}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header bg-primary">
+				<h5 class="blog-title text-white">Treść wiadomości</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					{Form::text2([
+						"id" => "text",
+						"name" => "text",
+						"rows" => 10
+					])}
+				</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz szablon wiadomości')}
+				{/if}
+		
+				<a class="btn btn-warning" href="{$app_url}admin/newsletter/messages/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}
+{Kernel::wysiwyg("text" , 1, "basic")}

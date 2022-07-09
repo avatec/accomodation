@@ -1,0 +1,43 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+
+<div id="search-results" class="container">
+	<fieldset>
+		{if isset($results)}
+		<h1 class="title text-center">Noclegi w {$city_name}</h1>
+		<hr class="half-line" />
+		<div class="lead text-center">
+		{if !empty($city_description)}{$city_description}{/if}
+		</div>
+		<br/>
+		{Paginate::get()}
+		<div class="row">
+			{foreach item=item from=$results name=lp}
+			<div class="col-xs-6 col-md-3">
+				<div class="item{if $item.search_expire>$now} promoted{/if}">
+					<div class="img-figure">
+						<div class="cat">{ObjectsTypes::getName($item.type)}</div>
+						{if $item.has_video == true}<div class="cat-video">wideo</div>{/if}
+						<a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}"><img alt="{$item.name}" src="{ObjectsPhotos::getImage($item.id)}" class="img-responsive"></a>
+					</div>
+					<div class="title">
+						<h1><a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}">{$item.name}</a></h1>
+						<h5><a class="city-link" href="{$app_url}noclegi/{Kernel::rewrite($item.city)}">{$item.city}</a></h5>
+					</div>
+					<div class="description">
+
+					</div>
+				</div>
+			</div>
+			{if $smarty.foreach.lp.iteration%4==0}</div><br/><div class="row">{/if}
+			{/foreach}
+		</div>
+		{Paginate::get()}
+		{else}
+		<br/><br/>
+		<h3 class="title text-center text-warning">{Language::get("cms" , "search_query_empty")}</h3>
+		<br/><br/>
+		{/if}
+	</fieldset>
+</div>
+{include file="`$app_path`templates/website/schema/objects/promoted.smarty"}
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

@@ -1,0 +1,73 @@
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">{LA::get('content' , 'content_list')}</h5>
+		<a class="pull-right btn btn-warning" href="{$app_url}admin/content/add/{if isset($smarty.get.parent)}?parent={$smarty.get.parent}{/if}"><i class="fa fa-plus"> </i>&nbsp;{LA::get('cms' , 'btn_add')}</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+
+		<div class="table-responsive">
+			<div class="panel panel-primary">
+			{foreach item=section from=Sections::_get_list()}
+			<div class="panel-heading"><h5 class="panel-title">{$section.name}</h5></div>
+			<div class="panel-body">
+				<table class="table table-hover no-margin">
+				<thead><tr>
+					<th width="50">{LA::get('cms' , 'table_priority')}</th>
+					<th width="70" class="text-center">{LA::get('cms' , 'table_status')}</th>
+					<th width="250">{LA::get('cms' , 'table_name')} / {LA::get('cms' , 'table_link')}</th>
+					<th width="200" class="text-left">{LA::get('cms' , 'table_section')}</th>
+					<th width="300" class="text-left">{LA::get('cms' , 'table_additional')}</th>
+					<th class="text-right">{LA::get('cms' , 'table_options')}</th>
+				</tr></thead>
+				<tbody>
+				{foreach item=item from=Content::getBySection($section.id)}
+				<tr class="draggable">
+					<td align="center" valign="middle"><span class="badge badge-primary">{$item.priority}</span></td>
+					<td align="center">
+						{if $item.visibility=="TRUE"}
+						<i {Common::tooltip('strona aktywna')} class="fa fa-circle text-success"></i>
+						{else}
+						<i {Common::tooltip('strona nie jest aktywna')} class="fa fa-circle text-danger"></i>
+						{/if}
+					</td>
+					<td>
+						<b>{$item.name}</b><br/>
+						<span {Common::tooltip('Nazwa linku do strony')} class="label label-warning">{$item.rewrite}</span>
+					</td>
+					<td>{if !empty($item.section)}{Sections::getName($item.section)}{else}brak danych{/if}</td>
+					<td align="left">
+						{if $item.editable == "FALSE"}
+						<span {Common::tooltip(LA::get('content' , 'content_limited_edit'))}" class="label label-warning">zablokowana</span>
+						{/if}
+						{if !empty($item.component)}
+						<span {Common::tooltip( implode(" " , [LA::get('content' , 'content_pinned_module'),'=>',$item.component]))} class="label label-info">
+						{LA::get('content' , 'content_pinned_module_text')}
+						</span>&nbsp;
+						{/if}
+						<span {Common::tooltip('Status znacznika meta index - indeksowanie')} class="label label-{if $item.meta_index=="TRUE"}success{else}danger{/if}">index</span>
+						<span {Common::tooltip('Status znacznika meta follow - podążanie za linkami')} class="label label-{if $item.meta_index=="TRUE"}success{else}danger{/if}">follow</span>
+					</td>
+					<td align="right">
+
+					<a {Common::tooltip('podmenu')} class="btn btn-sm btn-success" href="{$app_url}admin/content/list/?parent={$item.id}"><i class="fa fa-list"></i></a>
+					<a {Common::tooltip(LA::get('cms','btn_edit'))} class="btn btn-sm btn-info" href="{$app_url}admin/content/edit/?id={$item.id}&parent={$item.parent}"><i class="fa fa-pencil"></i></a>
+					<a {Common::tooltip(LA::get('cms','btn_delete'))} class="btn btn-sm btn-danger confirm" href="{$app_url}admin/content/delete/?id={$item.id}{if isset($smarty.get.parent)}&parent={$smarty.get.parent}{/if}"><i class="fa fa-trash"></i></a>
+
+					</td>
+				</tr>
+				{/foreach}
+				</tbody><tfoot>
+					<td colspan="6">
+						{if isset($smarty.get.parent)}<a class="btn btn-sm btn-info" href="{$app_url}admin/content/list/"><i class="fa fa-undo"></i> wróć do menu nadrzędnego</a>{/if}
+						<a class="pull-right btn btn-sm btn-warning" href="{$app_url}admin/content/add/{if isset($smarty.get.parent)}?parent={$smarty.get.parent}{/if}"><i class="fa fa-plus"> </i>&nbsp;{LA::get('cms' , 'btn_add')}</a>
+					</td>
+				</tfoot>
+				</table>
+			</div>
+			{/foreach}
+			</div>
+		</div>
+
+	</div>
+</div>

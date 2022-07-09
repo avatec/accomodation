@@ -1,0 +1,85 @@
+{Form::open('post', null, ['files'=>true])}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+{Form::hidden("parent" , $smarty.get.parent)}
+
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Dodawanie nowego{/if} zdjęcia</h5>
+				<br/>
+				<p>Zalecany format zdjęć to <b>jpg</b></p>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Album</label>
+					<div class="col-md-10">
+						{if !empty($smarty.get.parent)}
+						{Form::select2([ "name" => "category" , "values" => Gallery::_categoryGetByParent( $smarty.get.parent )])}
+						{else}
+						{Form::select2([ "name" => "category" , "values" => $parent ])}
+						{/if}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Kolejność</label>
+					<div class="col-md-10">
+						{Form::input("number" , "priority")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Podpis zdjęcia</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+
+				{**<div class="form-group">
+					<label class="col-md-2 control-label">Opis</label>
+					<div class="col-md-10">
+						{Form::input("text" , "description")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Link</label>
+					<div class="col-md-10">
+						{Form::input("text" , "link")}
+					</div>
+				</div>**}
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Wybierz plik</label>
+					<div class="col-md-10">
+						{Form::upload("photo[]", true)}
+					</div>
+					<div class="col-offset-md-2 col-md-10">
+						{if isset(Form::$post['photo'])}
+						<input type="hidden" name="delete_photo" value="{Form::$post['photo_src']}" class="form-control" />
+						<p><br/><img width="300" class="thumbnail" src="{Form::$post['photo']}" alt="" /></p>
+						{/if}
+					</div>
+				</div>
+
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				{else}
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_create')}
+				</button>
+				{/if}
+				<a class="btn btn-warning" href="{$app_url}admin/gallery/list/?category={$smarty.get.category}&parent={$smarty.get.parent}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

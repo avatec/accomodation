@@ -1,0 +1,50 @@
+{** Formularz kontaktowy **}
+<div id="blockContactForm" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">{Language::get("cms" , "contact_form")}</h4>
+			</div>
+			<div class="modal-body">
+				<div id="contact-error" class="alert alert-danger"></div>
+				<div id="contact-success" class="alert alert-success">Wiadomość została pomyślnie wysłana</div>
+				<div id="contact-loading">
+					<h4 class="text-center"><span class="fa fa-circle-o-notch fa-spin"></span> trwa przetwarzanie danych</h4>
+				</div>
+				<div id="contact-form">
+					{Form::open()}
+					<div class="form-group">
+						<label class="col-md-3 control-label">{Language::get("cms" , "contact_first_last_name")}</label>
+						<div class="col-md-9">
+							{Form::input("text" , "contact_name")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{Language::get("cms" , "contact_email_address")}</label>
+						<div class="col-md-9">
+							{Form::input("email" , "contact_email")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{Language::get("cms" , "contact_phone_number")}</label>
+						<div class="col-md-9">
+							{Form::input("text" , "contact_phone")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{Language::get("cms" , "contact_message")}</label>
+						<div class="col-md-9">
+							{Form::text("contact_msg" , "contact_msg")}
+						</div>
+					</div>		
+					{Form::close()}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{Language::get("objects" , "btn_close")}</button>
+				<button id="btnSendMessage" type="button" class="btn btn-primary" data-object-id="{$view.id}">{Language::get("objects" , "btn_send_message")} <span class="fa fa-envelope"></span></button>
+			</div>
+		</div>
+	</div>
+</div>

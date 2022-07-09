@@ -1,0 +1,161 @@
+/**
+ * Style dla podstrony: PODGLĄD OBIEKTU
+ **/
+
+
+#ViewObject {
+	#requestPhotos {
+		@media screen and (max-width: 414px) {
+			font-size: 9pt;
+		}
+		@media screen and (max-width: 320px) {
+			font-size: 8pt;
+		}
+	}
+	fieldset {
+		margin: 25px 0px;
+		font-size: 13pt;
+		legend {
+			font-size: 18pt;
+			font-family: $header-font;
+			color: $primary-color;
+			text-transform: uppercase;
+			border-bottom: 1px solid $secondary-color;
+		}
+		em.fa {
+			font-size: 11pt;
+			color: $secondary-color;
+		}
+	}
+	.object-text {
+		font-family: $text-font;
+		font-size: 14pt;
+		margin: 25px 0px 15px 0px;
+	}
+	.contact-block {
+		.element {
+			span, a {
+				color: $primary-color;
+			}
+		}
+	}
+	.popup-movie {
+		position: relative;
+		.movie-bg {
+			display: block;
+			position: absolute;
+			top: 0px;
+			width: calc(100% - 7px);
+			background: rgba($black, 0.9);
+			height: 100%;
+			transition: all 150ms linear;
+		}
+		.center-play-button {
+			span {
+				color: $white;
+			}
+			position: absolute;
+			width: calc(100% - 7px);
+			text-align: center;
+			top: 45%;
+			transition: all 150ms linear;
+		}
+		&:hover {
+			.movie-bg {
+				background: rgba( $black, 0.5);
+			}
+		}
+	}
+	.object-title {
+		color: $white;
+		background: $primary-color;
+		font-family: $header-font;
+		font-size: 18pt;
+		font-weight: bold;
+		text-transform: uppercase;
+		border: none;
+		margin: 26px 0 0px 0;
+		padding: 10px 0px 10px 10px;
+		>small {
+			display: block;
+			background: $fuchsia;
+			font-size: 12pt;
+			margin: -9px 0px 0px 0px;
+			padding: 13px 30px;
+			font-size: 14pt;
+			float: right;
+			color: $white;
+			height: 100%;
+		}
+		@media screen and (min-width: 641px) and (max-width: 768px) {
+			height: 45px;
+			>small {
+				height: 44px;
+			}
+		}
+		@media screen and (max-width: 640px) {
+			font-size: 14pt;
+			height: 45px;
+			>small {
+				font-size: 10pt;
+				height: 44px;
+				display: block;
+				clear: both;
+			}
+		}
+
+	}
+	.comments {
+
+	}
+	.table-distance tr:first-child td,
+	.table-distance tr:first-child th {
+		border-top: none;
+	}
+	
+	.table-distance tr td { color: #666; }
+}
+
+#ImprovementsList {
+	font-family: $text-font;
+	font-size: 14pt;
+	margin: 25px 0px;
+} 
+ 
+#ViewRoomsContainer {
+	margin-top: 25px;
+	.panel-heading {
+		font-size: 14pt;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	.media-rooms {
+		.media-object {
+			width: 150px !important;
+			overflow: hidden;
+		}
+	}
+	.statistic {
+		.value {
+			span { text-transform: none; font-weight: normal; font-size: 14pt; color: $primary-color; }
+		}
+	}
+	@media screen and (max-width: 640px) {
+		.media {
+			width: 100%;
+			.media-left {
+				float: none;
+				.media-object { 
+					display: block !important;
+					width: 100% !important;
+				}
+			}
+			.media-body { 
+				width: 100%; 
+				display: block !important;
+			}
+		}
+		
+		
+	}
+}

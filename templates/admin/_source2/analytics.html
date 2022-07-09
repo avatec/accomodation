@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<meta name="description" content="Everest Admin Panel" />
+		<meta name="keywords" content="Admin, Dashboard, Bootstrap3, Sass, transform, CSS3, HTML5, Web design, UI Design, Responsive Dashboard, Responsive Admin, Admin Theme, Best Admin UI, Bootstrap Theme, Wrapbootstrap, Bootstrap" />
+		<meta name="author" content="Bootstrap Gallery" />
+		<link rel="shortcut icon" href="img/favicon.ico">
+		<title>Everest Admin Panel</title>
+		
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+
+		<!-- Animate CSS -->
+		<link href="css/animate.css" rel="stylesheet" media="screen" />
+
+		<!-- Main CSS -->
+		<link href="css/main.css" rel="stylesheet" media="screen" />
+
+		<!-- Font Awesome -->
+		<link href="fonts/font-awesome.min.css" rel="stylesheet" />
+
+		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+	</head>  
+
+	<body>
+
+		<!-- Header Start -->
+		<header>
+
+			<!-- Logo starts -->
+			<div class="logo">
+				<a href="#">
+					<img src="img/logo.png" alt="logo">
+					<span class="menu-toggle hidden-xs">
+						<i class="fa fa-bars"></i>
+					</span>
+				</a>
+			</div>
+			<!-- Logo ends -->
+
+			<!-- Custom Search Starts -->
+			<div class="custom-search pull-left hidden-xs hidden-sm">
+				<input type="text" class="search-query" placeholder="Search here">
+				<i class="fa fa-search"></i>
+			</div>
+			<!-- Custom Search Ends -->
+
+			<!-- Mini right nav starts -->
+			<div class="pull-right">
+				<ul id="mini-nav" class="clearfix">
+					<li class="list-box hidden-lg hidden-md hidden-sm" id="mob-nav">
+						<a href="#">
+							<i class="fa fa-reorder"></i>
+						</a>
+					</li>
+					<li class="list-box dropdown hidden-xs">
+						<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-image"></i>
+						</a>
+						<span class="info-label info-bg animated rubberBand">7+</span>
+						<ul class="blog-gallery dropdown-menu clearfix recent-tweets">
+							<li>
+								<img src="img/user1.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user2.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user3.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user4.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user5.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user6.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user7.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user8.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user9.jpg" alt="User">
+							</li>
+							<li>
+								<img src="img/user3.jpg" alt="User">
+							</li>
+						</ul>
+					</li>
+					<li class="list-box dropdown hidden-xs">
+						<a id="drop2" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-th"></i>
+						</a>
+						<span class="info-label success-bg animated rubberBand">6</span>
+						<ul class="dropdown-menu quick-actions">
+							<li class="plain">Recently Viewed</li>
+							<li>
+								<a href="profile.html">
+									<i class="fa fa-file-word-o text-success"></i>
+									<p>Profile</p>
+								</a>
+							</li>
+							<li>
+								<a href="gallery.html">
+									<i class="fa fa-image text-danger"></i>
+									<p>Gallery</p>
+								</a>
+							</li>
+							<li>
+								<a href="timeline.html">
+									<i class="fa fa-list-ol text-info"></i>
+									<p>Timeline</p>
+								</a>
+							</li>
+							<li>
+								<a href="graphs.html">
+									<i class="fa fa-map-marker text-warning"></i>
+									<p>Charts</p>
+								</a>
+							</li>
+							<li>
+								<a href="editor.html">
+									<i class="fa fa-pencil text-danger"></i>
+									<p>Editor</p>
+								</a>
+							</li>
+							<li>
+								<a href="blog.html">
+									<i class="fa fa-file-text text-success"></i>
+									<p>Blog</p>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="list-box dropdown hidden-xs">
+						<a id="drop3" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-bell"></i>
+						</a>
+						<span class="info-label danger-bg animated rubberBand">4</span>
+						<ul class="dropdown-menu messages">
+							<li class="plain">
+								Messages
+							</li>
+							<li>
+								<div class="user-pic">
+									<img src="img/user4.jpg" alt="User">
+								</div>
+								<div class="details">
+									<strong class="text-danger">Wilson</strong>
+									<span>Uploaded 28 new files yesterday.</span>
+									<div class="progress progress-xs no-margin">
+										<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="user-pic">
+									<img src="img/user1.jpg" alt="User">
+								</div>
+								<div class="details">
+									<strong class="text-danger">Adams</strong>
+									<span>Got 12 new messages.</span>
+									<div class="progress progress-xs no-margin">
+										<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="user-pic">
+									<img src="img/user3.jpg" alt="User">
+								</div>
+								<div class="details">
+									<strong class="text-info">Sam</strong>
+									<span>Uploaded new project files today.</span>
+									<div class="progress progress-xs no-margin">
+										<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="user-pic">
+									<img src="img/user5.jpg" alt="User">
+								</div>
+								<div class="details">
+									<strong class="text-info">Jennifer</strong>
+									<span>128 new purchases last 3 hours.</span>
+									<div class="progress progress-xs no-margin">
+										<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="list-box user-profile hidden-xs">
+						<a id="drop4" href="#" class="user-avtar animated rubberBanddropdown-toggle" data-toggle="dropdown">
+							<img src="img/user4.jpg" alt="user avatar" />
+							<span class="user-name">Mr. Willams <i class="fa fa-angle-down"></i></span>
+						</a>
+						<ul class="dropdown-menu sm user-settings">
+							<li>
+								<a href="profile.html"><i class="fa fa-meh-o"></i> My Profile</a>
+							</li>
+							<li>
+								<a href="#"> <i class="fa fa-bell-o"></i> Messages</a>
+							</li>
+							<li>
+								<a href="profile.html"> <i class="fa fa-calendar"></i> Appointments</a>
+							</li>
+							<hr class="less-margin">
+							<li>
+								<a href="#"> <i class="fa fa-sun-o"></i> Account Settings</a>
+							</li>
+							<li>
+								<a href="login.html"> <i class="fa fa-sign-out"></i> Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!-- Mini right nav ends -->
+
+		</header>
+		<!-- Header ends -->
+
+		<!-- Left sidebar starts -->
+		<aside id="sidebar">
+
+			<!-- Menu start -->
+			<div id='menu'>
+				<ul>
+					<li>
+						<a href='index.html'>
+							<i class="fa fa-desktop"></i>
+							<span>Dashboard</span>
+						</a>
+					</li>
+					<li class="highlight">
+						<a href='analytics.html'>
+							<i class="fa fa-bar-chart-o"></i> 
+							<span>Analytics</span>
+							<span class="current-page"></span>
+						</a>
+					</li>
+					<li>
+						<a href='blog.html'>
+							<i class="fa fa-pencil"></i> 
+							<span>Blog</span>
+						</a>
+					</li>					
+<li class='has-sub'>
+	<a href='#'>
+		<i class="fa fa-pie-chart"></i>
+		<span>Graphs</span>
+	</a>
+	<ul>
+		<li>
+			<a href='graphs.html'>
+				<span>Flot Graphs</span>
+			</a>
+		</li>
+		<li>
+			<a href='c3-graphs.html'>
+				<span>C3 Graphs</span>
+			</a>
+		</li>
+	</ul>
+</li>
+					<li>
+						<a href='timeline.html'>
+							<i class="fa fa-sliders"></i> 
+							<span>Timeline</span>
+						</a>
+					</li>
+					<li>
+						<a href='calendar.html'>
+							<i class="fa fa-calendar"></i> 
+							<span>Calendar</span>
+						</a>
+					</li>
+					<li>
+						<a href='gallery.html'>
+							<i class="fa fa-photo"></i> 
+							<span>Gallery</span>
+						</a>
+					</li>
+					<li>
+						<a href='maps.html'>
+							<i class="fa fa-globe"></i> 
+							<span>Vector Maps</span>
+						</a>
+					</li>
+					<li class='has-sub'>
+						<a href='#'>
+							<i class="fa fa-flask"></i> 
+							<span>Bonus Pages</span>
+						</a>
+						<ul>
+							<li>
+								<a href='invoice.html'>
+									<span>Invoice</span>
+								</a>
+							</li>
+							<li>
+								<a href='profile.html'>
+									<span>Profile</span>
+								</a>
+							</li>
+							<li>
+								<a href="pricing.html">
+									<span>Pricing</span>
+								</a>
+							</li>
+							<li>
+								<a href='login.html'>
+									<span>Login</span>
+								</a>
+							</li>
+							<li>
+								<a href='error.html'>
+									<span>404</span>
+								</a>
+							</li>
+							<li>
+								<a href='basic-template.html'>
+									<span>Basic Template</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class='has-sub'>
+						<a href='#'>
+							<i class="fa fa-tasks"></i>
+							<span>UI Elements</span>
+						</a>
+						<ul>
+							<li>
+								<a href='buttons.html'>
+									<span>Buttons</span>
+								</a>
+							</li>
+							<li>
+								<a href='panels.html'>
+									<span>Panels</span>
+								</a>
+							</li>
+							<li>
+								<a href='icons.html'>
+									<span>Icons</span>
+								</a>
+							</li>
+							<li>
+								<a href='grid.html'>
+									<span>Grid</span>
+								</a>
+							</li>
+							<li>
+								<a href='components.html'>
+									<span>Components</span>
+								</a>
+							</li>
+							<li>
+								<a href='notifications.html'>
+									<span>Notifications</span>
+								</a>
+							</li>
+							<li>
+								<a href='typography.html'>
+									<span>Typography</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class='has-sub'>
+						<a href='#'>
+							<i class="fa fa-columns"></i>
+							<span>Forms</span>
+						</a>
+						<ul>
+							<li>
+								<a href='form-elements.html'>
+									<span>Form Elements</span>
+								</a>
+							</li>
+							<li>
+								<a href='form-layouts.html'>
+									<span>Form Layouts</span>
+								</a>
+							</li>
+							<li>
+								<a href='editor.html'>
+									<span>Editor</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class='has-sub'>
+						<a href='#'>
+							<i class="fa fa-bars"></i> 
+							<span>Tables</span>
+						</a>
+						<ul>
+							<li>
+								<a href='tables.html'>
+									<span>Normal Tables</span>
+								</a>
+							</li>
+							<li>
+								<a href='datatables.html'>
+									<span>Data Tables</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!-- Menu End -->
+
+			<!-- Freebies Starts -->
+			<div class="freebies">
+				
+				<!-- Sidebar Extras -->      
+				<div class="sidebar-addons">
+					<ul class="views">
+						<li>
+							<i class="fa fa-circle-o text-success"></i>
+							<div class="details">
+								<p>Signups</p>
+							</div>
+							<span class="label label-success">8</span>
+						</li>
+						<li>
+							<i class="fa fa-circle-o text-info"></i>
+							<div class="details">
+								<p>Users Online</p>
+							</div>
+							<span class="label label-info">7</span>
+						</li> 
+						<li>
+							<i class="fa fa-circle-o text-danger"></i>
+							<div class="details">
+								<p>Images Uploaded</p>
+							</div>
+							<span class="label label-danger">4</span>
+						</li>         
+					</ul>
+				</div>
+
+			</div>
+			<!-- Freebies Starts -->
+
+		</aside>
+		<!-- Left sidebar ends -->
+
+		<!-- Dashboard Wrapper starts -->
+		<div class="dashboard-wrapper">
+
+			<!-- Top Bar starts -->
+			<div class="top-bar">
+				<div class="page-title">
+					Analytics
+				</div>
+				<ul class="stats hidden-xs">
+					<li>
+						<div class="stats-block hidden-sm hidden-xs">
+							<span id="downloads_graph"></span>
+						</div>
+						<div class="stats-details">
+							<h4>$<span id="today_income">580</span> <i class="fa fa-chevron-up up"></i></h4>
+							<h5>Today's Income</h5>
+						</div>
+					</li>
+					<li>
+						<div class="stats-block hidden-sm hidden-xs">
+							<span id="users_online_graph"></span>
+						</div>
+						<div class="stats-details">
+							<h4>$<span id="today_expenses">235</span> <i class="fa fa-chevron-down down"></i></h4>
+							<h5>Today's Expenses</h5>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- Top Bar ends -->
+
+			<!-- Main Container starts -->
+			<div class="main-container">
+
+				<!-- Container fluid Starts -->
+				<div class="container-fluid">
+
+					<!-- Spacer starts -->
+					<div class="spacer">
+						
+						<!-- Row Starts -->
+						<div class="row">
+							<div class="col-md-3 col-sm-4">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="blog">
+											<div class="blog-header">
+												<h5 class="blog-title">Blog Posts</h5>
+											</div>
+											<div class="blog-body">
+												<div class="social-widget">
+													<div class="social-body">
+														<h1>5,126<span>Posts</span></h1>
+													</div>
+													<div class="social-footer clearfix">
+														<div class="growth">
+															<i class="fa fa-arrow-circle-o-down text-danger"></i>
+															<h2>10<sup>%</sup></h2>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="blog">
+											<div class="blog-header">
+												<h5 class="blog-title">Emails Clicked</h5>
+											</div>
+											<div class="blog-body">
+												<div class="social-widget">
+													<div class="social-body">
+														<span class="full-chart inline-sparkline" id="emails"></span>
+													</div>
+													<div class="social-footer clearfix">
+														<div class="growth">
+															<i class="fa fa-arrow-circle-o-up text-success"></i>
+															<h2>21<sup>%</sup></h2>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-4">
+								<!-- Row Starts -->
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+										<div class="blog">
+											<div class="blog-header">
+												<h5 class="blog-title">Deals</h5>
+											</div>
+											<div class="blog-body">
+												<div id="stacked-v-chart" class="chart-height-lg-sx"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Row Ends -->
+							</div>
+							<div class="col-md-3 col-sm-4">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="blog">
+											<div class="blog-header">
+												<h5 class="blog-title">Tweets</h5>
+											</div>
+											<div class="blog-body">
+												<div class="social-widget">
+													<div class="social-body">
+														<span class="full-chart inline-sparkline chart-one" id="visits"></span>
+														<span class="full-chart inline-sparkline chart-two" id="comments"></span>
+													</div>
+													<div class="social-footer clearfix">
+														<div class="growth">
+															<i class="fa fa-arrow-circle-o-up text-success"></i>
+															<h2>5<sup>%</sup></h2>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="blog">
+											<div class="blog-header">
+												<h5 class="blog-title">Signups</h5>
+											</div>
+											<div class="blog-body">
+												<div class="social-widget">
+													<div class="social-body">
+														<h1>328<span>Last Week</span></h1>
+													</div>
+													<div class="social-footer clearfix">
+														<div class="growth">
+															<i class="fa fa-arrow-circle-o-up text-danger"></i>
+															<h2>18<sup>%</sup></h2>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row ends -->
+
+						<!-- Row Starts -->
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">Likes/Shares</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<span class="full-chart inline-sparkline" id="likes"></span>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-up text-success"></i>
+													<h2>5<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">Followers</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<h1>5,487<span>Followers</span></h1>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-up text-success"></i>
+													<h2>11<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">% of Views</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<div class="views-chart">
+													<div id="views" class="chart-height-md"></div>
+													<span>66%</span>
+												</div>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-up text-success"></i>
+													<h2>14<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row Ends -->
+
+						<!-- Row Starts -->
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">Bills</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<h5>Total Bills</h5>
+												<h3 class="c-info">21</h3>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-up text-success"></i>
+													<h2>10<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">Invoices</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<h5>Total Invoices Generated</h5>
+												<h3 class="c-info danger">17</h3>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-down text-danger"></i>
+													<h2>45<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">Payments</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<h5>Total Payments</h5>
+												<h3 class="c-info">65</h3>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-up text-success"></i>
+													<h2>17<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="blog">
+									<div class="blog-header">
+										<h5 class="blog-title">Balance</h5>
+									</div>
+									<div class="blog-body">
+										<div class="social-widget">
+											<div class="social-body">
+												<span class="full-chart inline-sparkline" id="balance"></span>
+											</div>
+											<div class="social-footer clearfix">
+												<div class="growth">
+													<i class="fa fa-arrow-circle-o-up text-success"></i>
+													<h2>76<sup>%</sup></h2>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row Ends -->						
+
+					</div>
+					<!-- Spacer ends -->
+
+				</div>
+				<!-- Container fluid ends -->
+			</div>
+			<!-- Main Container ends -->
+
+			<!-- Footer starts -->
+			<footer>
+				Copyright Everest Admin Panel 2014.
+			</footer>
+			<!-- Footer ends -->
+
+		</div>
+		<!-- Dashboard Wrapper ends -->
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="js/jquery.js"></script>
+
+		<!-- jQuery UI JS -->
+		<script src="js/jquery-ui-v1.10.3.js"></script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+
+		<!-- Sparkline graphs -->
+		<script src="js/sparkline.js"></script>
+
+		<!-- jquery ScrollUp JS -->
+		<script src="js/scrollup/jquery.scrollUp.js"></script>
+
+		<!-- Flot Charts -->
+		<script src="js/flot/jquery.flot.min.js"></script>
+		<script src="js/flot/jquery.flot.pie.min.js"></script>
+		<script src="js/flot/jquery.flot.tooltip.min.js"></script>
+		<script src="js/flot/jquery.flot.resize.min.js"></script>
+		<script src="js/flot/jquery.flot.time.min.js"></script>
+
+		<script src="js/flot/custom/vertical.js"></script>
+    <script src="js/flot/custom/stacked-vertical2.js"></script>
+
+		<!-- Custom Index -->
+		<script src="js/custom.js"></script>
+		<script src="js/custom-analytics.js"></script>
+	</body>
+</html>

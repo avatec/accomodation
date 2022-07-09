@@ -1,0 +1,22 @@
+<div class="title-header">
+	<h2>Subskrypcja newslettera</h2>
+	<hr class="line" />
+</div>
+{if !empty($ok)}
+	{Text::getByName("newsletter-subscribe")}
+{else}
+	{Form::open("POST", "/newsletter/subscribe/", null, true)}
+	<div>{Text::getByName("bottom-newsletter")}</div>
+	<br/><br/>
+	<div class="well">
+	<div class="row">
+		<div class="col-xs-6 col-md-9">
+			{Form::input("email" , "email" , "placeholder:'podaj swój adres e-mail'")}
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<button type="submit" class="btn btn-primary btn-block"><span class="fa fa-envelope"></span> Zapisz mój adres</button>
+		</div>
+	</div>
+	</div>
+	{Form::close()}
+{/if}

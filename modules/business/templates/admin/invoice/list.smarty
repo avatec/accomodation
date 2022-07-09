@@ -1,0 +1,129 @@
+{Form::open()}
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Faktury VAT</h5>
+		<a class="pull-right btn btn-warning" href="{$app_url}admin/business/invoice/add/"><i class="fa fa-plus"> </i>&nbsp;stwórz fakturę VAT</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+	
+		{if isset($list)}<div class="table-responsive">
+			<table class="table no-margin">
+			<thead><tr>
+				<th width="150">Numer faktury</th>
+				<th width="200">Nazwa firmy</th>
+				<th width="200">Adres</th>
+				<th width="180" class="text-left">Osoba do kontaktu</th>
+				<th width="150" class="text-center">Termin płatności</th>
+				<th class="text-right">Opcje</th>
+			</tr></thead>
+			<tbody>
+			{foreach item=item from=$list}
+			<tr {if $item.payment=="FALSE" AND $smarty.now|date_format:"%Y-%m-%d" > $item.payment_date}class="bg-danger text-white"{/if}>
+				<td><b>{$item.invoice_number}</b><br/><span class="fa fa-calendar"></span> {$item.create_date}</td>
+				<td align="left"><b>{BusinessContrahents::_getValue($item.contrahent_id, "name")}</b><br/><b>NIP:</b> {BusinessContrahents::_getValue($item.contrahent_id, "pin")}</td>
+				<td align="left">{BusinessContrahents::_getValue($item.contrahent_id, "address")}<br/>{BusinessContrahents::_getValue($item.contrahent_id, "postcode")} {BusinessContrahents::_getValue($item.contrahent_id, "city")}<br/>{BusinessContrahents::_getValue($item.contrahent_id, "country")}</td>
+				<td align="left">
+					{if !empty(BusinessContrahents::_getValue($item.contrahent_id, "person_name"))}<b>{BusinessContrahents::_getValue($item.contrahent_id, "person_name")}</b><br/>{/if}
+					{if !empty(BusinessContrahents::_getValue($item.contrahent_id, "person_phone"))}
+					<span class="fa fa-phone"></span> {BusinessContrahents::_getValue($item.contrahent_id, "person_phone")}<br/>
+					{/if}
+					{if !empty(BusinessContrahents::_getValue($item.contrahent_id, "person_email"))}
+					<span class="fa fa-envelope"></span> {BusinessContrahents::_getValue($item.contrahent_id, "person_email")}
+					{/if}
+				</td>
+				<td align="center">
+					{if $item.payment=="TRUE"}
+						{if $item.payment_sum == 0}
+						<span class="label label-success">zapłacono całość {$item.payment_create_date}</span>
+						{elseif $item.payment_sum < 0}
+						<span class="label label-info">widnieje nadpłata <u>{Kernel::currency($item.payment_sum)} zł</u></span>
+						{else}
+						{$item.payment_label}<br/>termin do {$item.payment_date}<br/>
+						<span class="label label-warning">pozostało do wpłaty <u>{Kernel::currency($item.payment_sum)} zł</u></span>
+						{/if}
+						{**
+						{if $item.payment_amount == $item.amount}
+						<span class="label label-success">zapłacono całość {$item.payment_create_date}</span>
+						{elseif $item.payment_amount > $item.amount}
+						<span class="label label-info">widnieje nadpłata <u>{Kernel::currency($item.payment_amount-$item.amount)} zł</u></span>
+						{else}
+						{$item.payment_label}<br/>termin do {$item.payment_date}<br/>
+						<span class="label label-warning">pozostało do wpłaty <u>{Kernel::currency($item.amount-$item.payment_amount)} zł</u></span>
+						{/if}
+						**}
+					{else}
+					{$item.payment_label}<br/>do {$item.payment_date}<br/>
+					<span class="label label-danger">niezapłacono <u>{Kernel::currency($item.amount)} zł</u></span>
+					{/if}
+				</td>
+				<td align="right">
+					{if $item.payment=="FALSE" OR ($item.payment=="TRUE" AND $item.payment_amount < $item.amount)}
+					<button type="button" class="btn btn-sm btn-warning modalPaymentButton" data-toggle="modal" data-target="#setPaymentModal" data-id="{$item.id}" data-amount="{$item.amount}"><i class="fa fa-checked"></i> zaksięguj wpłatę</button>
+					{/if}
+					{if $item.pdf_file == false}
+					<a class="btn btn-sm btn-info" href="{$app_url}admin/business/invoice/download/?id={$item.id}&print=complete"><i class="fa fa-download"></i> generuj</a>
+					{else}
+					<a class="btn btn-sm btn-info" href="{$app_url}admin/business/invoice/download/?id={$item.id}&print=oryginal"><i class="fa fa-download"></i> pobierz</a>
+					{/if}
+					{if $item.payment=="FALSE" || $item.payment_amount < $item.amount}
+					<a class="btn btn-sm btn-info" href="{$app_url}admin/business/invoice/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+					{/if}
+					{if $item.payment=="FALSE"}
+					<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/business/invoice/cancel/?id={$item.id}"><i class="fa fa-times"></i> anuluj</a>
+					{/if}
+					{**<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/business/proforma/delete/?id={$item.id}"><i class="fa fa-times"></i> usuń</a>**}
+				</td>
+			</tr>
+			{/foreach}
+			</tbody><tfoot>
+				<td colspan="7">
+					<a class="pull-right btn btn-warning" href="{$app_url}admin/business/invoice/add/"><i class="fa fa-plus"> </i>&nbsp;stwórz fakturę VAT</a>
+				</td>
+			</tfoot>
+			</table>
+		</div>{else}
+		<p>Do bazy danych nie dodano jeszcze żadnych faktur proforma.</p>
+		{/if}
+	
+	</div>
+</div>
+{Form::close()}
+
+{** Ustanawianie płatności za fakturę **}
+<div id="setPaymentModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Księgowanie wpłaty za fakturę</h4>
+			</div>
+			<div class="modal-body">
+				{Form::open("POST", "/admin/business/invoice/set-payment/")}
+				<input type="hidden" name="id" id="id" value="0" />
+				<p class="well">Poniższa kwota to <b>oczekiwana kwota przelewu</b>.<br/>
+				<b class="text-info">Zawsze należy wpisywać dokładną kwotę przelewu z Twojego banku</b></p>
+				<div class="form-group">
+					<label class="control-label col-md-3">Kwota przelewu</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::input("text" , "amount")}
+							<div class="input-group-addon">
+								zł
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-3 col-md-4">
+						{Form::submit("Zapisz zmiany")}
+					</div>
+				</div>
+				{Form::close()}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,73 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		{Form::open("GET", null, null, false)}
+		<div class="blog blog-primary">
+			<div class="blog-header">
+				<h5 class="blog-title">Wyszukaj</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-2 control-label">Szukana fraza</label>
+					<div class="col-md-6">
+						{Form::input2([
+							"name" => "q",
+							"placeholder" => "wpisz szukaną frazę - nip, nazwa firmy, nazwisko"
+						])}
+					</div>
+					<div class="col-md-2"><button class="btn btn-primary btn-block">
+					<span class="fa fa-search"></span>
+					</button></div>
+				</div>
+			</div>
+		</div>
+		{Form::close()}
+		
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Kontrahenci</h5>
+				<a class="pull-right btn btn-warning" href="{$app_url}admin/business/contrahent/add/"><i class="fa fa-plus"> </i></a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+				{Paginate::get()}
+				{if isset($list)}<div class="table-responsive">
+					<table class="table table-hover table-stripped no-margin">
+					<thead><tr>
+						<th width="250">Nazwa firmy</th>
+						<th width="200">Adres</th>
+						<th width="250" class="text-left">Telefon / E-mail</th>
+						<th width="100" class="text-center">Ilość faktur</th>
+						<th class="text-right">Opcje</th>
+					</tr></thead>
+					<tbody>
+					{foreach item=item from=$list}
+					<tr>
+						<td align="left"><b>{$item.name}</b><br/><b>NIP:</b> {$item.pin}</td>
+						<td align="left">{$item.address}<br/>{$item.postcode} {$item.city}{if $item.country>0 || !empty($item.country)}<br/>{$item.country}{/if}</td>
+						<td align="left">
+							{if !empty($item.person_name)}<span class="fa fa-user"></span> <b>{$item.person_name}</b><br/>{/if}
+							{if !empty($item.person_phone)}<span class="fa fa-phone"></span> <a href="tel:{strip}{$item.person_phone}{/strip}">{$item.person_phone}</a><br/>{/if}
+							{if !empty($item.person_email)}<span class="fa fa-envelope"></span> <a href="mailto:{$item.person_email}">{$item.person_email}</a>{/if}
+						</td>
+						<td align="center">{$item.invoices}</td>
+						<td align="right">
+							{**<a class="btn btn-sm btn-warning" href="{$app_url}admin/business/invoice/add/?contrahent_id={$item.id}"><i class="fa fa-file"></i></a>**}
+							<a class="btn btn-sm btn-info" href="{$app_url}admin/business/contrahent/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+							<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/business/contrahent/delete/?id={$item.id}"><i class="fa fa-trash"></i></a>
+						</td>
+					</tr>
+					{/foreach}
+					</tbody><tfoot>
+						<td colspan="5">
+							<a class="pull-right btn btn-warning" href="{$app_url}admin/business/contrahent/add/"><i class="fa fa-plus"> </i></a>
+						</td>
+					</tfoot>
+					</table>
+				</div>{else}
+				<p>Do bazy danych nie dodano jeszcze żadnych kontrahentów.</p>
+				{/if}
+				{Paginate::get()}
+			</div>
+		</div>
+	</div>
+</div> 

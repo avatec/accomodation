@@ -1,0 +1,39 @@
+{Form::open()}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Zdjęcia</h5>
+				<a class="pull-right btn btn-warning" href="{$app_url}admin/slider/add/"><i class="fa fa-plus"> </i>&nbsp;dodaj zdjęcie do slidera</a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+			
+				<div class="row">
+				{foreach item=item from=$list}
+				<div class="col-md-6 thumbnail">
+					<h4 class="text-center">{$item.name}
+						{if $item.display_start>0}<br/><small>Wyświetlanie od <b>{Slider::readable_date($item.display_start)}</b> do <b>{Slider::readable_date($item.display_end)}</b></small>{else}
+						<br/><small>Wyświetlanie ciągłe</small>{/if}
+					</h4>
+					<a {**href="{$app_url}userfiles/slider/{$item.photo}"**} class="thumbnail img-responsive" rel="lightbox">
+						<img src="{$app_url}userfiles/slider/{$item.photo}" alt="{$item.photo}"/>
+					</a>
+					
+					<p class="text-center">
+						<a class="btn btn-primary btn-sm" href="{$app_url}admin/slider/edit/?id={$item.id}">edycja</a>
+						<a class="btn btn-danger btn-sm confirm" href="{$app_url}admin/slider/delete/?id={$item.id}&file={$item.photo}">usuń</a>
+					</p>
+				</div>
+				{/foreach}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}
+<style type="text/css">
+.thumbnail { height: 330px; }
+.thumbnail img { max-height: 330px; }
+.thumbnail a { max-height: 200px; overflow: hidden; }
+</div>

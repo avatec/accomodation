@@ -1,0 +1,2 @@
+.item-view>td { margin:0; font-size: 1.2em; vertical-align: middle; border: none; }
+.item-row .form-control-static { background: #eee; border: 1px solid #ccc; padding: 5px 10px; cursor:not-allowed; }

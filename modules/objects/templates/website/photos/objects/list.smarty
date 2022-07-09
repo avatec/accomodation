@@ -1,0 +1,74 @@
+<h3 class="title">{Language::get("objects" , "photos_header")}</h3>
+<input type="hidden" id="mp" name="mp" value="{ObjectsPhotos::howManyCanUpload($smarty.get.object_id)}" />
+<fieldset>
+	{if ObjectsPhotos::canUploadPhotos( $smarty.get.object_id ) == true}
+	<p class="lead">{Language::get("objects" , "photos_you_can_upload")}: <b>{ObjectsPhotos::howManyCanUpload($smarty.get.object_id)}</b> {Language::get("objects" , "photos_name")}</p>
+	<div class="row">
+		<div id="actions" class="col-md-4">
+			<input type="hidden" id="object_id" value="{$smarty.get.object_id}" />
+			<span class="btn btn-success btn-sm fileinput-button"><i class="fa fa-plus"></i> <span>{Language::get("objects" , "btn_select_files")}</span></span>
+			<button type="button" class="btn btn-primary btn-sm start"><i class="fa fa-upload"></i> <span>{Language::get("objects" , "btn_upload_all")}</span></button>
+			<button type="reset" class="btn btn-warning btn-sm cancel"><i class="fa fa-ban-circle"></i> <span>{Language::get("objects" , "btn_cancel_all")}</span></button>
+		</div>
+		<div class="col-md-8">
+			<div style="padding-top:5px;">
+			<span class="fileupload-process">
+			  <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+			    <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+			  </div>
+			</span>
+			</div>
+		</div>
+	</div>
+	{else}
+	<p>{Language::get("objects" , "photos_limit_reached")}</p>
+	{/if}
+	<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>
+</fieldset>
+<br/>
+<div class="table table-striped" class="files" id="previews">
+	<div id="template" class="file-row">
+		<div class="col-md-6"><div class="row">
+	    	<div class="col-md-2">
+	        	<span class="preview"><img data-dz-thumbnail /></span>
+			</div>
+			<div class="col-md-8">
+	        	<p class="name" data-dz-name></p>
+				<strong class="error text-danger" data-dz-errormessage></strong>
+				<p class="size" data-dz-size></p>
+				<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+					<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-primary btn-sm btn-block start"><i class="fa fa-upload"></i> <span>{Language::get("objects" , "btn_start")}</span></button>
+				<button data-dz-remove class="btn btn-danger btn-sm btn-block delete"><i class="fa fa-trash"></i> <span>{Language::get("objects" , "btn_cancel")}</span></button>
+			</div>
+		</div></div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+{if isset($list)}
+
+<h3 class="title">{Language::get("objects" , "photos_added_header")}</h3>
+<p>{Language::get("objects" , "photos_added_drag_text")}</p>
+<fieldset>
+	<ul id="sortable" class="photo-list">
+	{foreach item=item from=$list}
+	<li data-id="{$item.id}" data-priority="{$item.priority}">
+		<div class="photo-item">
+			<span class="img-thumbnail">
+				<img class="img-responsive" src="{$app_url}userfiles/objects/photos/thumbs/{$item.file}" alt="{$item.file}" />
+			</span>
+			
+			<span class="hidden-options">
+				<a href="{$app_url}userfiles/objects/photos/{$item.file}" rel="prettyPhoto[1]"><em class="fa fa-search"></em></a>
+				<a href="{$app_url}panel/objects/photos/make-main/?object_id={$smarty.get.object_id}&id={$item.id}"><em class="fa fa-home{if $item.main=="TRUE"} active{/if}"></em></a>
+				<a href="{$app_url}panel/objects/photos/delete/?object_id={$smarty.get.object_id}&id={$item.id}&file={$item.file}"><em class="fa fa-trash-o"></em></a>
+			</span>
+		</div>
+	</li>
+	{/foreach}
+	</ul>
+</fieldset>{/if}

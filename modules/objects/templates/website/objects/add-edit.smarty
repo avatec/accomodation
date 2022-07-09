@@ -1,0 +1,159 @@
+{Form::open()}
+<fieldset class="col-md-8">
+	<div class="alert alert-warning">
+		{Language::get("objects" , "objects_label_1")}
+	</div>
+	
+	<legend>{Language::get("objects" , "objects_default_info_text")}</legend>
+	
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_type")} <sup>*</sup></label>
+		<div class="col-md-3">
+			{Form::select2([ "name" => "type" , "values" => ObjectsTypes::getSelect(), "empty" => Language::get("objects" , "objects_select_text") ])}
+		</div>
+		<label class="col-md-2 control-label">{Language::get("objects" , "objects_form_location")} <sup>*</sup></label>
+		<div class="col-md-4">
+			{Form::select2([ "name" => "location" , "values" => ObjectsLocation::getSelect(),"empty" => Language::get("objects" , "objects_select_text")])}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_name")} <sup>*</sup></label>
+		<div class="col-md-9">
+			{Form::input("text" , "name")}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_address")} <sup>*</sup></label>
+		<div class="col-md-9">
+			{Form::input("text" , "address")}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_postcode")} <sup>*</sup></label>
+		<div class="col-md-3">
+			{Form::input("text" , "postcode")}
+		</div>
+		<label class="col-md-2 control-label">{Language::get("objects" , "objects_form_city")} <sup>*</sup></label>
+		<div class="col-md-4">
+			{Form::input("text" , "city")}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_state")} <sup>*</sup></label>
+		<div class="col-md-3">
+			{Form::select2([ "name" => "state" , "values" => ObjectsStates::getSelect(), "empty" => Language::get("objects" , "objects_select_text") ])}
+		</div>
+		<label class="col-md-2 control-label">{Language::get("objects" , "objects_form_country")}</label>
+		<div class="col-md-4">
+			{Form::select2([ 
+				"name" => "country", 
+				"values" => ObjectsCountrys::getSelect(), 
+				"empty" => Language::get("objects" , "objects_select_text"), 
+				"selected" => ObjectsCountrys::getByBrowserLang()
+			])}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_phone")}</label>
+		<div class="col-md-3">
+			{Form::input("text" , "phone")}
+		</div>
+		<label class="col-md-2 control-label">{Language::get("objects" , "objects_form_email")}</label>
+		<div class="col-md-4">
+			{Form::input("email" , "email")}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-3 control-label">{Language::get("objects" , "objects_form_www")}</label>
+		<div class="col-md-9">
+			{Form::input2([
+				"type" => "url",
+				"name" => "www"
+			])}
+		</div>
+	</div>
+</fieldset>
+<div class="col-md-4">
+	<div class="alert alert-info">
+		<h3 class="title">{Language::get("objects" , "objects_important_text")}</h3>
+		<ul>
+			<li>{Language::get("objects" , "objects_important_text_l1")}</li>
+			<li>{Language::get("objects" , "objects_important_text_l2")}</li>
+			<li>{Language::get("objects" , "objects_important_text_l3")}</li>
+			<li>{Language::get("objects" , "objects_important_text_l4")}</li>
+		</ul>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12">
+	<div id="google-map" {if isset(Form::$post['map_lat'])} data-lat="{Form::$post['map_lat']}"{/if}{if isset(Form::$post['map_lng'])} data-lng="{Form::$post['map_lng']}"{/if}{if isset(Form::$post['map_zoom'])} data-zoom="{Form::$post['map_zoom']}"{/if}></div><br/>
+	<input type="hidden" name="latlng" {if isset(Form::$post['map_lat']) && isset(Form::$post['map_lng'])}value="{Form::$post['map_lat']},{Form::$post['map_lng']}"{/if} id="latlng" />
+	<input type="hidden" name="zoom" {if isset(Form::$post['map_zoom'])}value="{Form::$post['map_zoom']}"{/if} id="zoom" />
+</div>
+<div class="clearfix"></div>
+
+<div class="col-md-7">
+		
+	<fieldset>
+		<legend>{Language::get("objects" , "objects_improvement_text")}</legend>
+		<div class="alert alert-info">{Language::get("objects" , "objects_improvement_description_text")}</div>
+		{if isset($improvement)}{foreach key=key item=item from=$improvement}
+		<div class="col-md-6">
+		{Form::checkbox("improvements[{$item.id}]", true, $item.name)}
+		</div>
+		{/foreach}<div class="clearfix"></div><br/>{/if}
+	</fieldset>
+	
+	<fieldset>
+		<legend>{Language::get("objects" , "objects_short_description_text")}</legend>
+		<p class="alert alert-info">
+		{Language::get("objects" , "objects_short_description_text_2")}
+		</p>
+		{Form::text2([
+			"name" => "short_description",
+			"id" => "short_description",
+			"maxlength" => 150
+		])}
+		<span id="short_description_label"></span>
+	</fieldset>
+	<br/>
+	<fieldset>
+		<legend>{Language::get("objects" , "objects_description_text")}</legend>
+		<p class="alert alert-info">
+		{Language::get("objects" , "objects_description_text_2")}
+		</p>
+		{Form::text("long_description", "long_description")}
+		{Kernel::wysiwyg("long_description")}
+	</fieldset>
+	
+	<div class="margin-top pull-right">
+		<a class="btn btn-default btn-lg" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>
+		<button type="submit" class="btn btn-primary btn-lg">{if isset(Form::$post)}{Language::get("objects" , "btn_save")}{else}{Language::get("objects" , "btn_add")}{/if} <span class="fa fa-save"></span></button>
+	</div>
+</div>
+
+<div class="col-md-5">
+	<fieldset>
+		<legend>{Language::get("objects" , "objects_distance_text")}</legend>
+		<p class="alert alert-info">{Language::get("objects" , "objects_distance_description_text")}</p>
+		
+		{if isset($distance)}{foreach key=key item=item from=$distance}
+		<div class="form-group">
+			<label class="control-label col-md-6">{$item.name}</label>
+			<div class="col-md-6">
+				<div class="input-group">
+					{Form::input2([
+						"type" => "number" , 
+						"name" => "distance[{$item.id}]",
+						"min" => 0
+					])}
+					<div class="input-group-addon">{Language::get("objects" , "objects_meter_text")}</div>
+				</div>
+			</div>
+		</div>
+		{/foreach}<div class="clearfix"></div><br/>{/if}
+	</fieldset>
+</div>
+<div class="clearfix"></div>
+
+{Form::close()}

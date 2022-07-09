@@ -1,0 +1,77 @@
+html, body { 
+	width: 100%; height: 100%; 
+	margin: 0; padding: 0; font-size: 12pt; 
+	font-family: $text-font; 
+}
+
+.a-block .head {
+	display: block;
+	font-size: 10pt;
+	text-align: center;
+	color: #bbb;
+	border-bottom: 1px solid #ddd;
+}
+.a-block {
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #666;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
+label.checkbox { cursor: pointer; text-align: left; }
+
+.margin-top { padding-top: 25px; }
+
+h1.title { font-weight: 300; font-size: 3em; margin-bottom: 25px; color: lighten($black, 40%); }
+h2.title { font-weight: 300; font-size: 2.5em; margin-bottom: 25px; }
+h3.title { font-weight: 300; font-size: 1.8em; margin-top: 10px; margin-bottom: 25px; }
+
+@media screen and (max-width: 768px) {
+	h1.title { font-size: 2.5em; }
+	h2.title { font-size: 2em; }
+	h3.title { font-size: 1.5em; }
+}
+
+#promotion-horizontal { margin-top: 0px; margin-bottom: 25px; }
+#promotion-horizontal .item { max-width: 100%; }
+#promotion-horizontal .item h2 { color: lighten($black, 40%); font-size: 18pt; font-weight: 300; margin: 0; padding: 0; }
+#promotion-horizontal .item h2>small { display: block; padding-top: 10px; }
+
+#vmap { padding: 25px 0px; background: #55a8b2; }
+#vmap h2.title { color: $white; text-align: center; }
+#vmap .map { width: 100%; height: 300px; }
+
+#content { 
+	margin-top: 50px; 
+	.content-text {
+		font-family: $text-font;
+		font-size: 15pt;
+		line-height: 22pt;
+	}
+}
+
+#news-block .media-object { max-width: 250px; }
+
+
+
+#google-map { width: 100%; height: 300px; border: 1px solid darken($white,20%); }
+
+.media-list .media-body h3 { margin-top: 0; padding-top: 0; }
+
+
+
+.panel-item-box { margin-top: 25px; background: #fafafa; border: 1px solid darken($white,20%); padding: 10px; color: #232323; font-size: 12pt; }
+.panel-item-box.mark-to-delete { border: 4px solid #a16666; font-style: italic; }
+.panel-item-box h4 { font-weight: bold; font-size: 13pt; color: orange; }
+
+form { font-size: 11pt; }
+
+#search-panel .nav-tabs { border: none; }
+#search-panel .nav-tabs a { color: $white; }
+#search-panel .nav-tabs a:hover,
+#search-panel .nav-tabs li.active a { color: #232323; }
+#search-panel .tab-content { padding: 25px 12px; }
+
+.text-line { width: 100%; line-height: 0.1em; margin: 30px 0px; text-align: center; border-bottom: 1px solid #ddd; }
+.text-line>span { padding: 10px 5px; background: #fff; color: #666; }

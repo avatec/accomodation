@@ -1,0 +1,117 @@
+<h3 class="title">Rezerwacje Twoich obiektów</h3>
+{if isset($smarty.get.object_id)}{Form::hidden("object_id" , $smarty.get.object_id)}{/if}
+{if isset($smarty.get.room_id)}{Form::hidden("room_id" , $smarty.get.room_id)}{/if}
+
+{if isset($list)}
+<table class="table table-responsive table-hover"><thead><tr>
+	<th width="50">Lp.</th>
+	<th width="200">Osoba rezerwująca</th>
+	<th class="text-left" width="250">Data od - do</th>
+	<th class="text-center" width="150">Kwota za pobyt</th>
+	<th class="text-center" width="300">Zaliczka</th>
+	<th class="text-right">Opcje</th>
+</tr></thead><tbody>
+{foreach item=item from=$list name=lp}
+<tr {if $item.payment == "FALSE"}class="bg-danger text-white"{/if}>
+	<td>{$smarty.foreach.lp.iteration}</td>
+	<td>
+		<b>{$item.first_name}  {$item.last_name}</b>
+	</td>
+	<td class="text-left">
+		<em class="fa fa-calendar"></em> {$item.checkin} - {$item.checkout}
+	</td>
+	<td class="text-center">{$item.amount} zł</td>
+	<td class="text-center">{$item.advance_amount} zł<br/>
+		{if $item.payment=="FALSE"}
+		<span class="text-danger">oczekiwanie na wpłatę</span><br/><br/>
+		{else}
+		<span class="text-success"><i class="label label-info">opłacona</i> <i class="label label-primary">{$item.payment_date|date_format:"%Y-%m-%d"}</i></span><br/>
+		{/if}
+	</td>
+	<td class="text-right">
+		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#details{$item.id}">
+			szczegóły <span class="fa fa-search"></span>
+		</button>
+		<div class="modal modal-secondary fade text-left" id="details{$item.id}" tabindex="-1" role="dialog" aria-labelledby="Details">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">{Objects::getName($item.object_id)}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="statistic border-right">
+									<span class="label">Imię i nazwisko</span>
+									<span class="value">{$item.first_name}  {$item.last_name}</span>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="statistic border-left">
+									<span class="label"><em class="fa fa-phone"></em> Telefon</span>
+									<span class="value">{$item.phone}</span>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="statistic">
+									<span class="label"><em class="fa fa-envelope"></em> E-mail</span>
+									<span class="value smaller">{$item.email}</span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="statistic">
+									<span class="label">Pokój</span>
+									<span class="value">{ObjectsRooms::getName($item.room_id)}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="statistic">
+									<span class="label">Doby hotelowe</span>
+									<span class="value">{$item.days} {if $item.days==1}dzień{/if}{if $item.days>1}dni{/if}</span>
+								</div>
+							</div>
+						</div>
+						<hr/>
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="statistic">
+									<span class="label">Os. dorosłe</span>
+									<span class="value">{$item.res_adult}</span>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="statistic">
+									<span class="label">Dzieci (3-12 lat)</span>
+									<span class="value">{$item.res_child1}</span>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="statistic">
+									<span class="label">Dzieci (do 3 lat)</span>
+									<span class="value">{$item.res_child2}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij okno</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</td>
+</tr>
+{/foreach}
+</tbody></table>
+{else}
+<p>Obecnie brak rezerwacji</p>
+{/if}
+
+{**{if isset($calendar)}
+<div id="calendar">
+	{$calendar}
+</div>
+{/if}**}

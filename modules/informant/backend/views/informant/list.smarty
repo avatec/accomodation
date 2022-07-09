@@ -1,0 +1,55 @@
+<div class="blog">
+	<div class="blog-header">
+        <h5 class="blog-title pull-left"><i class="fa fa-list fa-fw"></i> Lista artykułów</h5>
+        <a class="btn btn-success pull-right" href="{$app_module}add"><i class="fa fa-plus"></i> {LA::get('cms' , 'btn_add')}</a>
+        <div class="clearfix"></div>
+    </div>
+    <div class="blog-body">
+        {if empty($list)}
+        <p class="alert alert-default">Brak artykułów w bazie danych. <a href="{$app_module}add">Kliknij i przejdź do formularza dodawania nowego artykułu,</a>
+        {else}
+        <div class="table-responsive">
+            <table class="table table-hover table-vcenter"><thead>
+                <tr>
+                    <th class="text-center">Lp.</th>
+                    <th class="text-center">Zdjęcie</th>
+                    <th width="250">Nazwa i adres</th>
+					<th width="250">Telefon / email / www</th>
+                    <th class="text-center">Widoczność</th>
+                    <th class="text-center">Data dodania</th>
+                    <th class="text-center">Ost. edycja</th>
+                    <th width="120" class="text-right"></th>
+                </tr>
+            </thead><tbody>
+                {foreach name=lp item=item from=$list}
+                <tr>
+                    <td class="text-center">{$smarty.foreach.lp.iteration}</td>
+                    <td class="text-center"><img height="50" src="{$item.photo.thumb}" alt="podgląd" /></td>
+                    <td><address>
+						<b>{$item.name}</b><br/>
+						{$item.address}<br/>
+						{$item.postcode} {$item.city}
+					</address></td>
+					<td>
+						{if !empty($item.phone)}<i class="fa fa-phone fa-fw"></i> {$item.phone}<br/>{/if}
+						{if !empty($item.email)}<i class="fa fa-envelope fa-fw"></i> {$item.email}<br/>{/if}
+						{if !empty($item.www)}<i class="fa fa-link fa-fw"></i> {$item.www}{/if}
+					</td>
+                    <td class="text-center">{System::read( $item.visibility , System::$visibility, true )}</td>
+                    <td class="text-center">{$item.create_date}</td>
+                    <td class="text-center">{if !empty($item.edit_date)}{$item.edit_date}{else}-{/if}</td>
+                    <td class="text-right">
+                        <a {Common::tooltip(LA::get('cms','btn_edit'))} class="btn btn-primary btn-sm" href="{$app_module}edit?informant_id={$item.informant_id}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a {Common::tooltip(LA::get('cms','btn_delete'))} class="btn btn-danger btn-sm confirm" href="{$app_module}delete?informant_id={$item.informant_id}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+            </tbody></table>
+        </div>
+        {/if}
+    </div>
+</div>

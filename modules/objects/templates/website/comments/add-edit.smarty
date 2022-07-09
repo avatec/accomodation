@@ -1,0 +1,6 @@
+<fieldset>
+	<legend>{Language::get('objects' , 'comments_edit_corrected_text')}</legend>
+	
+	<label class="control-label">{Language::get('objects' , 'comments_edit_text')}</label>
+	{Form::text("text_corrected", Form::$post['text'])}
+</fieldset>

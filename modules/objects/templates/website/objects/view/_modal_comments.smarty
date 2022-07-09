@@ -1,0 +1,121 @@
+{if $config['announcement_comments'] == "TRUE"}
+{** Opinie **}
+<div id="blockComments" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				
+				<h4 class="modal-title">{Language::get("objects" , "comments_header_list")}<br/><small>Łącznie: <b>{$comments.count}</b> komentarz{if $comments.count>=2 AND $comments.count<=4}e{/if}{if $comments.count>=5}y{/if}</small></h4>
+				
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-warning">
+					<small>Dokładamy wszelkich starań, aby zachowywać tylko najbardziej wiarygodne opinie dotyczące obiektów w naszej bazie danych</small>
+				</div>
+				
+				{if !empty($comments)}{foreach name=l item=item from=$comments}{if is_array($item)}
+				<div class="panel-item-box">
+					<div class="row">
+						<div class="col-md-3">
+							<p><small>
+							<span class="fa fa-calendar"></span> {Language::get("objects" , "comments_create_date_text")}:<br/>
+							{Kernel::getFullDateName($item.create_date)}
+							</small></p>
+							<p>
+								{ObjectsComments::stars($item.rank, false)}<br/>
+							</p>
+						</div>
+						<div class="col-md-7">
+							<div class="text well">
+							<b>{$item.name}</b><br/>
+							{$item.text}
+							</div>
+							
+						</div>
+						<div class="col-md-2">
+							<button data-id="{$item.id}" data-text="Głos został już oddany dla tej opini. Dziękujemy !" type="button" class="btn btn-block btn-success btnAddPlusRecommendComment"><span class="fa fa-thumbs-up"></span> <b class="badge">{$item.helpful}</b></button>
+							<button data-id="{$item.id}" data-text="Głos został już oddany dla tej opini. Dziękujemy !" type="button" class="btn btn-block btn-danger btnAddMinusRecommendComment"><span class="fa fa-thumbs-down"></span> <b class="badge">{$item.unhelpful}</b></button>
+						</div>
+					</div>
+				</div>
+				{/if}{/foreach}{else}
+				<p>Nie dodano jeszcze komentarzy do tego obiektu</p>
+				{/if}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{Language::get("objects" , "btn_close")}</button>
+				<button id="btnAddCommentForm" type="button" class="btn btn-primary">{Language::get("objects" , "btn_add_new_3")} <span class="fa fa-plus"></span></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{** Dodawanie nowej opini **}
+<div id="blockCommentsAdd" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Dodawanie nowej opini dotyczącej obiektu {$view.name}</h4>
+			</div>
+			<div class="modal-body">
+				<div id="form-text">
+					Pomyślnie dodano opinię
+				</div>
+				<div id="form-layer">
+					<div class="alert alert-info">Prosimy o rzetelne komentowanie wybranego obiektu</div>
+					{Form::open()}
+					{Form::input2([
+						"type" => "hidden",
+						"name" => "object_id",
+						"id" => "object_id",
+						"value" => $view.id
+					])}
+					<div class="form-group">
+						<label class="col-md-3 control-label">Ocena obiektu</label>
+						<div class="col-md-9">
+							{Form::select2([
+								"id" => "rank",
+								"name" => "rank",
+								"values" => ObjectsComments::$RankSelect,
+								"empty" => "Wybierz ocenę"
+							])}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Imię lub pseudonim</label>
+						<div class="col-md-9">
+							{Form::input2([ 
+								"type" => "text",
+								"name" => "name",
+								"id" => "name"
+							])}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Treść opini</label>
+						<div class="col-md-9">
+							{Form::text2([
+								"id" => "text",
+								"name" => "text",
+								"maxlength" => 360
+							])}
+							<span id="text_label"></span>
+							<br/><br/>
+						</div>
+					</div>		
+					{Form::close()}
+				</div>
+				<div id="loading-layer">
+					<h4 class="text-center"><span class="fa fa-circle-o-notch fa-spin"></span> trwa przetwarzanie danych</h4>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{Language::get("objects" , "btn_close")}</button>
+				<button id="btnAddComment" type="button" class="btn btn-primary">{Language::get("objects" , "btn_add_new_3")} <span class="fa fa-plus"></span></button>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}

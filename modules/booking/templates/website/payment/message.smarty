@@ -1,0 +1,13 @@
+{if Payment::$module == "p24"}
+<h2 class="title">Dziękujemy za dokonanie płatności</h2>
+<p class="lead">System oczekuje teraz na zaksięgowanie Twojej płatności</p>
+{else}
+	{if isset($smarty.get.status) && $smarty.get.status == "OK"}
+	<h2 class="title">Dziękujemy za dokonanie płatności</h2>
+	<p class="lead"></p>
+	{else}
+	<h2 class="title">Wystąpił problem z płatnością</h2>
+	<p class="lead">...</p>
+	{/if}
+{/if}
+<a href="{$app_url}/" class="btn btn-primary">przejdź do strony głównej</a>

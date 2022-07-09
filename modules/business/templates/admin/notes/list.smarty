@@ -1,0 +1,98 @@
+{Form::open()}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Noty korygujące
+					<a class="pull-right btn btn-warning" href="{$app_url}admin/business/notes/add/"><i class="fa fa-plus"> </i></a>
+				</h5>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+			
+				{if isset($list)}<div class="table-responsive">
+					<table class="table table-hover no-margin">
+					<thead><tr>
+						<th width="250" class="text-center">Numer noty</th>
+						<th width="200" class="text-center">Dotyczy faktury</th>
+						<th width="200" class="text-center">Wystawca</th>
+						<th class="text-right">Opcje</th>
+					</tr></thead>
+					<tbody>
+					{foreach item=item from=$list}
+					<tr>
+						<td align="center">
+							<b>{$item.note_number}</b><br/>
+							<span class="fa fa-calendar"></span> {$item.note_create_date}<br/>
+							<b>Wystawił(a): </b> {$item.note_name}
+						</td>
+						<td align="center">
+							<b>{$item.invoice_number}</b><br/>
+							z dnia <span class="fa fa-calendar"></span> {$item.invoice_create_date}<br/>
+						</td>
+						<td align="center">
+							<b>{$item.s_name}</b><Br/>
+							{$item.s_street}<br/>
+							{$item.s_postcode} {$item.s_city}<br/>
+							{if !empty($item.s_pin)}<b>NIP: </b>{$item.s_pin}{/if}
+						</td>
+						<td align="right">
+							<a class="btn btn-sm btn-warning" href="{$app_url}admin/business/notes/download/?id={$item.id}"><i class="fa fa-download"></i> pobierz</a>
+							<a class="btn btn-sm btn-info" href="{$app_url}admin/business/notes/edit/?id={$item.id}"><i class="fa fa-pencil"></i> edycja</a>
+							{**<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/business/notes/delete/?id={$item.id}"><i class="fa fa-times"></i> usuń</a>**}
+						</td>
+					</tr>
+					{/foreach}
+					</tbody><tfoot>
+						<td colspan="5">
+							<a class="pull-right btn btn-warning" href="{$app_url}admin/business/notes/add/"><i class="fa fa-plus"> </i>&nbsp;stwórz notę korygującą</a>
+						</td>
+					</tfoot>
+					</table>
+				</div>{else}
+				<p>Do bazy danych nie dodano jeszcze żadnych not korygujących.</p>
+				{/if}
+			
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}
+
+{** Ustanawianie płatności za fakturę **}
+<div id="setPaymentModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Księgowanie wpłaty za fakturę</h4>
+			</div>
+			<div class="modal-body">
+				{Form::open("POST", "/admin/business/notes/set-payment/")}
+				{Form::hidden("id" , 0)}
+				<p class="well">Poniższa kwota to <b>oczekiwana kwota przelewu</b>.<br/>
+				<b class="text-info">Zawsze należy wpisywać dokładną kwotę przelewu z Twojego banku</b></p>
+				<div class="form-group">
+					<label class="control-label col-md-3">Kwota przelewu</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::input("text" , "amount")}
+							<div class="input-group-addon">
+								zł
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-3 col-md-4">
+						{Form::submit("Zapisz zmiany")}
+					</div>
+				</div>
+				{Form::close()}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

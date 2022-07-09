@@ -1,0 +1,32 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+<div class="container" id="content">
+	<div class="row">
+		<div class="col-xs-12 col-lg-3 content-right">
+			<h3 class="title">{Language::get("cms" , "news_category_header")}</h3>
+			<ul class="nav nav-stacked">
+				<li class="active"><a href="/news">Najnowsze</a></li>
+				{foreach item=item from=$category}
+				<li><a href="{$item.link}">{$item.name} <b>({$item.num})</b></a></li>
+				{/foreach}
+			</ul>
+			
+			
+			<p class="text-center">
+				<div class="a-block">
+					{Advertising::show('PAGE')}
+				</div>
+			</p>
+		</div>
+		<div class="col-xs-12 col-lg-9 content-left">
+			{if !empty($tpl.module)}
+			{include file="`$app_path`modules/`$tpl.module`/templates/website/`$tpl.file`"}
+			{else}
+			<h1 class="title">{$content.name}</h1>
+			<div class="content-text">
+			{$content.text}
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

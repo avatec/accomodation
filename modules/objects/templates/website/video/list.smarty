@@ -1,0 +1,50 @@
+<h3 class="title">{Language::get("objects" , "video_header_add")}</h3>
+<fieldset>
+	{if ObjectsVideos::canUploadPhotos($smarty.get.object_id)}
+	<p class="lead">{Language::get("objects" , "video_text_add")}</p>
+	<p class="lead">{Language::get("objects" , "video_text_you_can_upload")}: <b>{ObjectsVideos::howManyCanAdd($smarty.get.object_id)}</b> {Language::get("objects" , "video_text_you_can_upload_2")}</p>
+	{Form::open()}
+	{Form::hidden("object_id" , $smarty.get.object_id)}
+	<div class="form-group">
+		<label class="control-label col-md-2">{Language::get("objects" , "video_form_link")}</label>
+		<div class="col-md-6">
+			{Form::input2([
+				"type" => "url",
+				"name" => "link",
+				"required" => true,
+				"placeholder" => "{Language::get("objects" , "video_form_link_placeholder")}"
+			])}
+		</div>
+		<div class="col-md-2">
+			<button type="submit" class="btn btn-primary btn-block">
+				<span class="fa fa-plus"></span> {Language::get("objects" , "btn_add_new_4")}
+			</button>
+		</div>
+	</div>
+	{Form::close()}
+	{else}
+	<p>{Language::get("objects" , "photos_limit_reached")}</p>
+	{/if}
+</fieldset>
+
+
+{if isset($list)}
+<h3 class="title">{Language::get("objects" , "video_header_list")}</h3>
+<fieldset>
+	<legend></legend>
+
+	{foreach item=item from=$list}
+	<div class="photo-item col-xs-6 col-sm-6 col-md-3 col-lg-3">
+		<span class="img-thumbnail">
+			<img class="img-responsive" src="http://i.ytimg.com/vi/{$item.link}/0.jpg">
+		</span>
+		
+		<span class="hidden-options">
+			<a href="{$app_url}panel/objects/video/delete/?object_id={$smarty.get.object_id}&id={$item.id}"><em class="fa fa-trash-o"></em></a>
+		</span>
+	</div>
+	{/foreach}
+</fieldset>{/if}
+
+<hr/>
+<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>

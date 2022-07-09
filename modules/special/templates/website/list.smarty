@@ -1,0 +1,35 @@
+<h3 class="title">{Objects::getName($smarty.get.object_id)} - {Language::get("objects" , "special_list_header")}</h3>
+
+{Form::open()}
+{if isset($list)}<div class="table-responsive">
+	<table class="table table-hover no-margin">
+	<thead><tr>
+		<th width="50">#</th>
+		<th width="100" class="text-center">{Language::get("objects" , "special_photo")}</th>
+		<th width="200">{Language::get("objects" , "special_name")}</th>
+		<th width="100" class="text-center">{Language::get("objects" , "special_expire")}</th>
+		<th class="text-right"></th>
+	</tr></thead>
+	<tbody>
+	{foreach name=l item=item from=$list}
+	<tr>
+		<td>{$smarty.foreach.l.iteration}</td>
+		<td align="left"><img src="/userfiles/special/{$item.icon}" alt="{$item.name}" class="img-responsive" /></td>
+		<td align="left"><b>{$item.name}</b></td>
+		<td class="text-center">{SpecialOffers::readExpire($smarty.get.object_id, $item['id'])}</td>
+		<td align="right">
+			<a class="btn btn-sm btn-info" href="{$app_url}panel/objects/order/?object_id={$smarty.get.object_id}&special_id={$item.id}&what=SPECIAL"><i class="fa fa-cart-plus"></i> {Language::get("objects" , "btn_buy")}</a>
+		</td>
+	</tr>
+	{/foreach}
+	</tbody><tfoot>
+		<td colspan="6">
+			<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>
+		</td>
+	</tfoot>
+	</table>
+</div>{else}
+<p>W bazie danych nie utworzono jeszcze żadnych pozycji. Kliknij w przycisk dodaj pozycję, aby utworzyć nową.</p>
+<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>
+{/if}
+{Form::close()}

@@ -1,0 +1,70 @@
+.photo-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: -ms-flexbox;
+  -ms-flex-wrap: wrap;
+  -ms-flex-direction: row;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  display: -webkit-box;
+  display: flex;
+  padding: 10px; }
+  .photo-list.admin-list li {
+    padding: 10px;
+    max-width: 320px; }
+  .photo-list li {
+    max-width: 240px;
+    -webkit-box-flex: auto;
+    -ms-flex: auto;
+    flex: auto; }
+    .photo-list li .photo-item {
+      position: relative !important;
+      padding: 10px; }
+      .photo-list li .photo-item .hidden-options {
+        display: none;
+        position: absolute;
+        top: 36%;
+        left: 18%;
+        font-size: 2em;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px; }
+        @media screen and (min-width: 320px) {
+          .photo-list li .photo-item .hidden-options .hidden-options {
+            left: 25%; } }
+        @media screen and (min-width: 480px) {
+          .photo-list li .photo-item .hidden-options .hidden-options {
+            left: 18%; } }
+        @media screen and (min-width: 640px) {
+          .photo-list li .photo-item .hidden-options .hidden-options {
+            left: 26%; } }
+        @media screen and (min-width: 768px) {
+          .photo-list li .photo-item .hidden-options .hidden-options {
+            left: 18%; } }
+        @media screen and (min-width: 1280px) {
+          .photo-list li .photo-item .hidden-options .hidden-options {
+            left: 26%; } }
+        .photo-list li .photo-item .hidden-options a {
+          color: #fff;
+          padding: 5px 10px; }
+          .photo-list li .photo-item .hidden-options a:hover {
+            color: orange; }
+          .photo-list li .photo-item .hidden-options a.active {
+            color: #faff8c; }
+      .photo-list li .photo-item:hover {
+        cursor: move;
+        /* fallback: no `url()` support or images disabled */
+        cursor: url(images/grab.cur);
+        /* fallback: Internet Explorer */
+        cursor: -webkit-grab;
+        /* Chrome 1-21, Safari 4+ */
+        cursor: -moz-grab;
+        /* Firefox 1.5-26 */
+        cursor: grab;
+        /* W3C standards syntax, should come least */ }
+        .photo-list li .photo-item:hover .hidden-options {
+          display: block; }
+        .photo-list li .photo-item:hover .img-thumbnail {
+          opacity: 0.5; }

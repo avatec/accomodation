@@ -1,0 +1,67 @@
+{Form::open('post', null, true)}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Dodawanie nowego{/if} filmu wideo</h5>
+			</div>
+			<div class="blog-body">
+			<div class="form-group">
+				<label class="control-label col-md-2">{Language::get("objects" , "video_form_link")}</label>
+				<div class="col-md-6">
+					{Form::input2([
+						"type" => "url",
+						"name" => "link",
+						"required" => true,
+						"placeholder" => "{Language::get("objects" , "video_form_link_placeholder")}"
+					])}
+				</div>
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-primary btn-block">
+						<span class="fa fa-plus"></span> {Language::get("objects" , "btn_add_new_4")}
+					</button>
+				</div>
+			</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Dodaj link')}
+				{/if}
+
+				<a class="btn btn-warning" href="{$app_url}admin/objects/video/list/?object_id={$smarty.get.object_id}">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Lista dodanych filmów wideo</h5>
+			</div>
+			<div class="blog-body">
+				{foreach item=item from=$list}
+				<div class="col-md-3 thumbnail">
+					<div class="clearfix"></div>
+					<a href="https://www.youtube.com/watch?v={$item.link}" class="thumbnail img-responsive" target="_blank">
+						<img class="img-responsive" src="http://i.ytimg.com/vi/{$item.link}/0.jpg">
+					</a>
+					<p class="text-center">
+						<a class="btn btn-danger btn-sm confirm" href="{$app_url}admin/objects/video/delete/?id={$item.id}&object_id={$smarty.get.object_id}">usuń</a>
+					</p>
+				</div>
+				{/foreach}
+			</div>
+			<div class="blog-footer">
+				<a class="btn btn-warning" href="{$app_url}admin/objects/video/list/?object_id={$smarty.get.object_id}">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

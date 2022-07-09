@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Avatec Accomodation</title>
+    <parser>
+        <target>output</target>
+        <encoding>utf8</encoding>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+        <visibility></visibility>
+    </parser>
+    <transformer>
+        <target>output</target>
+    </transformer>
+    <transformations>
+    	<template name="responsive-twig"/>
+    </transformations>
+    <visibility>public</visibility>
+    <files>
+	    <ignore>cache/*</ignore>
+        <ignore>classes/phpmailer/*</ignore>
+        <ignore>classes/upload/*</ignore>
+        <ignore>classes/tcpdf/*</ignore>
+        <ignore>classes/smarty/*</ignore>
+        <ignore>plugins/*</ignore>
+        <ignore>include/js/*</ignore>
+        <ignore>install/*</ignore>
+        <ignore>gitdeploy</ignore>
+        <ignore>sync.php</ignore>
+        <ignore>vendor/*</ignore>
+        <ignore>cron/*</ignore>
+    </files>
+</phpdoc>

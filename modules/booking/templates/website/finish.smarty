@@ -1,0 +1,28 @@
+<h1 class="title">Rezerwacja została zapisana w bazie danych</h1>
+
+<p>Aby potwierdzić swoją rezerwację, prosimy o wpłatę kwoty {$data.amount} zł tytułem Opłata rezerwacyjna</p>
+<p>Możesz to zrobić, klikając na poniższy przycisk:</p>
+
+{include file="`$app_path`modules/booking/templates/website/payment/`$payment_module`.smarty"}
+
+
+
+
+
+{**
+{if isset($done)}
+	{if $result == true}
+	<h2 class="title">Płatność została zaksięgowana</h2>
+	<p>Dziękujemy za dokonanie płatności. Została ona już zaksięgowana i Twoja rezerwacja jest aktywna</p>
+	{else}
+	<h2 class="title">Oczekujemy na zaksięgowanie płatności</h2>
+	<p>Dziękujemy za dokonanie rezerwacji, jednak płatność jeszcze nie została zaksięgowana. W przypadku niektórych opcji płatności księgowanie może potrwać do 24h</p>
+	{/if}
+{else}
+<h2 class="title">Rezerwacja została przyjęta</h2>
+<p class="lead">Twoja rezerwacja została pomyślnie przyjęta. Wysłaliśmy jej potwierdzenie na Twój adres e-mail.Prosimy o dokonanie wpłaty zaliczki w wysokości [kwota] najpóźniej do dnia [expire-date]<br/><br/>
+Możesz dokonać wpłaty za pomocą szybkich płatności przelewy24:</p>
+
+<a class="btn btn-primary" href="{$p24_link}">Dokonaj płatności za pomocą przelewy24</a>
+{/if}
+**}

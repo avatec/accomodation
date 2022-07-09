@@ -1,0 +1,43 @@
+<div class="panel-news">
+	<div class="box-news">
+		{if !empty($view.icon)}<div class="box-header">
+			<img src="{News::$UploadUrl}icon/{$view.icon}" alt="{$view.topic} photo" class="img-responsive" />
+			<h2 class="title">{$view.topic}</h2>
+		</div>{/if}
+		<div class="box-body">
+			{if empty($view.icon)}<h2 class="title">{$view.topic}</h2>{/if}
+			<p>
+				<span class="label label-info"><i class="fa fa-calendar"></i>&nbsp;{Common::dateAsText($view.create_date)}</span>
+				<span class="label label-warning"><i class="fa fa-tag"></i>{NewsCategory::getNameById($view.category)}</span>
+			</p>
+			<b>
+			{$view.preface}
+			</b>
+			<br/><br/>
+			{$view.content}
+			
+			{if !empty($gallery)}<br/>
+			<h4>{Language::get('news' , 'gallery_header')}</h4>
+			<hr/>
+			<div class="row news-gallery">
+				{foreach item=img from=$gallery}
+				<div class="col-xs-6 col-sm-4">
+					<div class="thumbnail thumbnail-news-gallery">
+					  	<a href="{$app_url}userfiles/news/gallery/{$img.photo}" rel="prettyPhoto[0]">
+					  		<img src="{$app_url}userfiles/news/gallery/thumbs/{$img.photo}" alt="{$img.name}">
+						</a>
+					</div>
+				</div>
+				{/foreach}
+			</div>{/if}
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+<nav aria-label="Nawigacja">
+	<ul class="pager">
+		<li class="previous{if empty($view.prev_url)} disabled{/if}"><a href="{if !empty($view.prev_url)}{$view.prev_url}{/if}"><span aria-hidden="true">&larr;</span> {Language::get('news' , 'prev')}</a></li>
+		<li class="next{if empty($view.next_url)} disabled{/if}"><a href="{if !empty($view.next_url)}{$view.next_url}{/if}">{Language::get('news' , 'next')} <span aria-hidden="true">&rarr;</span></a></li>
+	</ul>
+</nav>

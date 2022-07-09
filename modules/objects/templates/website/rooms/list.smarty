@@ -1,0 +1,43 @@
+<h3 class="title">{Objects::getName($smarty.get.object_id)} - {Language::get("objects" , "rooms_list_header")}</h3>
+
+{Form::open()}
+{if isset($list)}<div class="table-responsive">
+	<table class="table table-hover no-margin">
+	<thead><tr>
+		<th width="50">#</th>
+		<th width="200">{Language::get("objects" , "rooms_table_name")}</th>
+		<th width="100" class="text-center">{Language::get("objects" , "rooms_table_persons")}</th>
+		<th width="150" class="text-center">{Language::get("objects" , "rooms_table_amount")}</th>
+		<th class="text-right"></th>
+	</tr></thead>
+	<tbody>
+	{foreach name=l item=item from=$list}
+	<tr>
+		<td>{$smarty.foreach.l.iteration}</td>
+		<td align="left"><b>{$item.name}</b></td>
+		<td class="text-center">{$item.persons}</td>
+		<td class="text-center">{$item.amount}  {ObjectsRooms::getAmountTypeName($item.amount_type)}</td>
+		<td align="right">
+			{**
+			<a class="btn btn-sm btn-success" href="{$app_url}panel/booking/list/?object_id={$smarty.get.object_id}&room_id={$item.id}"><i class="fa fa-calendar"></i> rezerwacje</a>
+			<a class="btn btn-sm btn-success" href="{$app_url}panel/objects/prices/list/?room_id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-pencil"></i> cennik</a>
+			**}
+			<a class="btn btn-sm btn-warning" href="{$app_url}panel/rooms/photos/list/?room_id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-photo"></i> {Language::get("objects" , "btn_photos")}</a>
+			<a class="btn btn-sm btn-info" href="{$app_url}panel/objects/rooms/edit/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-pencil"></i> {Language::get("objects" , "btn_edit")}</a>
+			<a class="btn btn-sm btn-danger confirm" href="{$app_url}panel/objects/rooms/delete/?id={$item.id}&object_id={$smarty.get.object_id}"><i class="fa fa-trash"></i> {Language::get("objects" , "btn_delete")}</a>
+		</td>
+	</tr>
+	{/foreach}
+	</tbody><tfoot>
+		<td colspan="5">
+			<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>
+			<a class="pull-right btn btn-warning" href="{$app_url}panel/objects/rooms/add/?object_id={$smarty.get.object_id}"><i class="fa fa-plus"> </i>&nbsp;{Language::get("objects" , "btn_add_new_2")}</a>
+		</td>
+	</tfoot>
+	</table>
+</div>{else}
+<p>W bazie danych nie utworzono jeszcze żadnych pozycji. Kliknij w przycisk dodaj pozycję, aby utworzyć nową.</p>
+<a class="btn btn-primary" href="{$app_url}panel/objects/list/"><span class="fa fa-arrow-left"></span> {Language::get("objects" , "btn_back")}</a>
+<a class="btn btn-warning" href="{$app_url}panel/objects/rooms/add/?object_id={$smarty.get.object_id}"><i class="fa fa-plus"> </i>&nbsp;{Language::get("objects" , "btn_add_new_2")}</a>
+{/if}
+{Form::close()}

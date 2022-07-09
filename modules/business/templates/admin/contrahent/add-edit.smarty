@@ -1,0 +1,121 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Podstawowe dane teleadresowe kontrahenta</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+
+					<label class="col-md-2 control-label">NIP</label>
+					<div class="col-md-3">
+						{Form::input("text" , "pin")}
+					</div>	
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa firmy</label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Adres</label>
+					<div class="col-md-10">
+						{Form::input("text" , "address")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Kod pocztowy</label>
+					<div class="col-md-2">
+						{Form::input("text" , "postcode")}
+					</div>
+					
+					<label class="col-md-2 control-label">Miejscowość</label>
+					<div class="col-md-6">
+						{Form::input("text" , "city")}
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+						<label class="col-md-2 control-label">Kraj</label>
+						<div class="col-md-4">
+							{Form::input("text" , "country")}
+						</div>
+					</div>
+
+				
+				<fieldset>
+					<legend>Dane osoby kontaktowej</legend>
+				
+					<div class="form-group">
+						<label class="col-md-2 control-label">Imię i nazwisko</label>
+						<div class="col-md-4">
+							{Form::input("text" , "person_name")}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Telefon</label>
+						<div class="col-md-4">
+							<div class="input-group">
+                            	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+								{Form::input("text" , "person_phone")}
+							</div>
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<label class="col-md-2 control-label">E-mail</label>
+						<div class="col-md-4">
+							<div class="input-group">
+                            	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								{Form::input("email" , "person_email")}
+							</div>
+						</div>
+						
+					</div>
+				</fieldset>
+				
+								
+								
+				
+
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Notatki</h5>
+			</div>
+			<div class="blog-body">
+				
+				<div class="form-group">
+					{Form::text('notice' , 'notice')}
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="clearfix"></div>
+	
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog-body">
+			{if isset(Form::$post['edit']) }
+			{Form::submit("Zapisz zmiany")}
+			{else}
+			{Form::submit('Utwórz')}
+			{/if}
+			<a class="btn btn-warning" href="{$app_url}admin/business/contrahent/list/">Anuluj i wróć do listy</a>
+		</div>
+	</div>
+</div>
+{Form::close()}

@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-xs-12 text-center career-box-header">
+		{Text::getByName("jobs-block-header")}
+	</div>
+</div>
+<div class="row">
+	{foreach item=item from=$list}
+    <div class="col-sm-12 col-md-4">
+    	<div class="thumbnail no-bg">
+            <div class="caption">
+            	<h3><span class="{$item.icon}"></span> {$item.name}</h3>
+            	<p>{$item.short_description}</p>
+      			<a href="{$app_url}jobs/view/j{$item.id}-{Kernel::rewrite($item['name'])}.html" class="btn btn-primary">Szczegóły oferty</a>
+        	</div>
+       	</div>
+    </div>
+    {/foreach}
+</div>

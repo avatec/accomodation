@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700|PT+Sans&subset=latin-ext");
+
+@import "bootstrap/bootstrap-sprockets.scss";
+@import "bootstrap/bootstrap.scss";
+
+@import "colors";
+@import "header";
+
+@import "index";
+@import "specials";
+@import "panel";
+@import "slider";
+@import "news";
+@import "search";
+//@import "promoted";
+@import "promoted-flex";
+@import "partners";
+@import "shortcuts";
+@import "footer";
+@import "cookie";
+@import "addon";
+/** Strona podglądu obiektu **/
+@import "view";
+
+.btn-facebook {
+    border: none;
+    background-color: #3C5A99 !important;
+    color: white;
+    padding: 1rem 2rem !important;
+    text-transform: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+
+    span {
+        font-size: 20px;
+        margin-right: .5rem;
+    }
+
+    &:hover {
+        background-color: darken( #3C5A99, 10% ) !important;
+    }
+}

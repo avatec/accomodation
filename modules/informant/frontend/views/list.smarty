@@ -1,0 +1,33 @@
+<div class="informant-container">
+    {if empty( $informant.list )}
+    <div class="alert alert-danger">Brak dodanych obiektów. Zapraszamy ponownie później.</div>
+    {else}
+    {foreach item=item from=$informant.list}
+    <div class="informant-item">
+        <div class="item-photo">
+            <a href="{$item.photo.url}" rel="prettyPhoto[0]"><img src="{$item.photo.thumb}" alt="{$item.name}" /></a>
+            <span class="object-type-label">{$item.category_id}</span>
+        </div>
+        <div class="item-body">
+            <address>
+                <b>{$item.name}</b>
+                {$item.address}<br/>
+                {$item.postcode} {$item.city} {if !empty($item.state_name)}({$item.state_name}){/if}
+            </address>
+            <p>
+            {if !empty($item.phone)}<span><i class="fa fa-phone fa-fw"></i> {$item.phone}</span>{/if}
+            {if !empty($item.email)}<span><i class="fa fa-envelope fa-fw"></i> {$item.email}</span>{/if}
+            {if !empty($item.www)}<span><i class="fa fa-link fa-fw"></i> {$item.www}</span>{/if}
+            {if !empty($item.open_hours)}<span><i class="fa fa-clock-o fa-fw"></i> {$item.open_hours}</span>{/if}
+            </p>
+
+            <button class="btn btn-link" type="button" data-toggle="modal" data-target="#InformantMapModal">
+                <i class="fa fa-map-marker fa-fw"></i> pokaż na mapie
+            </button>
+        </div>
+    </div>
+    {/foreach}
+
+    {Paginate::get('website')}
+    {/if}
+</div>

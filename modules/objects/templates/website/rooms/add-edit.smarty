@@ -1,0 +1,67 @@
+<h3 class="title">{Objects::getName($smarty.get.object_id)}</h3>
+{Text::getByName('room-add-text')}
+{Form::open()}
+{if empty(Form::$post['edit'])}
+{Form::hidden("object_id" , $smarty.get.object_id)}
+{/if}
+<div class="row">
+	<div class="col-xs-6">
+		<fieldset>
+			<legend>{Language::get("objects" , "objects_default_info_text")}</legend>
+			
+			<div class="form-group">
+				<label class="col-md-3 control-label">{Language::get("objects" , "rooms_form_name")}</label>
+				<div class="col-md-9">
+					{Form::input("text" , "name")}
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-3 control-label">{Language::get("objects" , "rooms_table_persons")}</label>
+				<div class="col-md-3">
+					{Form::input("text" , "persons")}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">{Language::get("objects" , "rooms_table_amount")}</label>
+				<div class="col-md-4">
+					<div class="input-group">
+						<span class="input-group-addon">zł</span>
+						{Form::input("text" , "amount")}
+						
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">{Language::get("objects" , "rooms_table_amount_type")}</label>
+				<div class="col-md-4">
+					{Form::select("amount_type" , ObjectsRooms::$AmountTypes)}
+				</div>
+			</div>
+		</fieldset>
+	</div>
+	<div class="col-xs-6">
+		<fieldset>
+			<legend>{Language::get("objects" , "rooms_form_equipment")}</legend>
+			{if isset($equipment)}{foreach item=item from=$equipment}
+			<div class="col-xs-6">
+			{Form::checkbox("equipment[{$item.id}]", true, $item.name)}
+			</div>
+			{/foreach}{/if}
+		</fieldset>
+	</div>
+</div>	
+<fieldset>
+	<legend>{Language::get("objects" , "rooms_form_description")}</legend>
+	{Form::text("description","description")}
+	{Kernel::wysiwyg("description")}
+</fieldset>
+<hr/>
+{if isset(Form::$post['edit']) }
+{Form::submit( Language::get("objects" , "btn_save") )}
+{else}
+{Form::submit( Language::get("objects" , "btn_add") )}
+{/if}
+	
+<a class="btn btn-warning" href="{$app_url}panel/objects/rooms/list/?object_id={$smarty.get.object_id}">{Language::get("objects" , "btn_back")}</a>
+{Form::close()}

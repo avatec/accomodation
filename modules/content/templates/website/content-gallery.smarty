@@ -1,0 +1,29 @@
+{**
+{if !empty($content.gallery) && ($content.gallery !== "FALSE")}
+<div class="row">
+	<div class="col-xs-12">
+		<h2 class="header-cards">{$content.name}</h2>
+	</div>
+</div>
+     	
+<div class="row">
+	<div class="zoom-gallery">
+	{foreach item=item from=$content.gallery}
+	<a href="{$item.photo}" data-source="{$item.photo}" title="Tytuł zdjęcia">
+		<img src="{$item.photo}" alt="{$item.name}">
+	</a>
+	{/foreach}
+</div>
+{/if}
+**}
+
+{if !empty($content.gallery) && ($content.gallery !== "FALSE")}
+	{foreach item=item from=$content.gallery}
+		<div class="col-6 col-sm-4 col-lg-3 col-gallery">
+			<a href="{$item.photo}" class="img-gallery" data-lightbox="gallery">
+				<img src="{$item.photo}" alt="{$item.name}" class="img-fluid">
+			</a>
+			<h6>{$item.name}</h6>
+		</div>
+	{/foreach}
+{/if}

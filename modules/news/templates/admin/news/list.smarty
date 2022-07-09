@@ -1,0 +1,55 @@
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">{LA::get('news' , 'menu_name')}</h5>
+		<a class="pull-right btn btn-primary btn-sm" href="{$app_url}admin/news/add/?category={if !empty($smarty.get.category)}{$smarty.get.category}{else}0{/if}"><i class="fa fa-plus"> </i>&nbsp;{LA::get('cms' , 'btn_create')}</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+	
+		{if isset($list)}<div class="table-responsive">
+			<table class="table table-hover">
+			<thead><tr>
+				<th width="50">Lp.</th>
+				<th width="100">{LA::get('news' , 'table_icon')}</th>
+				<th width="400">{LA::get('news' , 'table_title')}</th>
+				<th width="100">{LA::get('news' , 'table_status')}</th>
+				<th width="150" class="text-center">{LA::get('cms' , 'table_create_date')}</th>
+				<th class="text-right">{LA::get('cms' , 'table_options')}</th>
+			</tr></thead>
+			<tbody>
+			{foreach item=item from=$list name=lp}
+			<tr{if $item.main=="TRUE"} class="bg-success text-white"{/if}>
+				<td align="center">{$smarty.foreach.lp.iteration}</td>
+				<td align="center" width="100">{if !empty($item.icon)}<div class="thumbnail">
+					<img src="{News::$UploadUrl}icon/{$item.icon}" alt="" width="100" class="img-responsive" />
+				</div>{else}-{/if}</td>
+				<td align="left"><b>{$item.topic}</b><br/><label class="label label-info">{NewsCategory::getNameByID($item.category)}</label></td>
+				<td>{if $item.status=="TRUE"}<span class="label label-success">{LA::get('cms' , 'status_active')}</span>{else}<span class="label label-danger">{LA::get('cms' , 'status_inactive')}</span>{/if}</td>
+				<td align="center">{$item.create_date}</td>
+				<td align="right">
+					{if $item.main=="FALSE"}
+					<a data-toggle="tooltip" data-title="Ustaw jako główną" class="btn btn-sm btn-warning" href="{$app_url}admin/news/set-main/?id={$item.id}&category={$smarty.get.category}"><i class="fa fa-check"></i></a>
+					{else}
+					<a data-toggle="tooltip" data-title="Ustaw jako zwykłą" class="btn btn-primary btn-sm" href="{$app_url}admin/news/unset-main/?id={$item.id}&category={$smarty.get.category}"><i class="fa fa-times"></i></a>
+					{/if}
+					<a data-toggle="tooltip" data-title="{LA::get('cms' , 'btn_photos')}" class="btn btn-sm btn-primary" href="{$app_url}admin/news/gallery/list/?news_id={$item.id}&category={$smarty.get.category}"><i class="fa fa-image"></i></a>
+					<a data-toggle="tooltip" data-title="{LA::get('cms' , 'btn_edit')}" class="btn btn-sm btn-info" href="{$app_url}admin/news/edit/?id={$item.id}&category={$smarty.get.category}"><i class="fa fa-pencil"></i></a>
+					<a data-toggle="tooltip" data-title="{LA::get('cms' , 'btn_delete')}" class="btn btn-sm btn-danger confirm" href="{$app_url}admin/news/delete/?id={$item.id}&category={$smarty.get.category}"><i class="fa fa-trash"></i></a>
+				</td>
+			</tr>
+			{/foreach}
+			</tbody><tfoot>
+				<td colspan="6" class="text-right">
+					<a class="btn btn-warning btn-sm" href="{$app_url}admin/news/category/list/"><i class="fa fa-undo"> </i>&nbsp;{LA::get('cms' , 'btn_return')}</a>
+					<a class="btn btn-primary btn-sm" href="{$app_url}admin/news/add/?category={if !empty($smarty.get.category)}{$smarty.get.category}{else}0{/if}"><i class="fa fa-plus"> </i>&nbsp;{LA::get('cms' , 'btn_create')}</a>
+				</td>
+			</tfoot>
+			</table>
+		</div>{else}
+		<p>{LA::get('cms' , 'table_empty_info')}</p>
+		{/if}
+		
+		{Paginate::get()}
+	
+	</div>
+</div>

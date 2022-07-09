@@ -1,0 +1,142 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header bg-primary">
+				<h5 class="blog-title text-white">Raporty sprzedaży</h5>
+			</div>
+			<div class="blog-body">
+				{Form::open("GET",null,null,false)}
+				<div class="form-group">
+					<label class="control-label col-md-1">Od daty</label>
+					<div class="col-md-2">
+						{Form::date("date_start")}
+					</div>
+					<label class="control-label col-md-1">Do daty</label>
+					<div class="col-md-2">
+						{Form::date("date_end")}
+					</div>
+					<div class="col-md-1">
+						{Form::submit("szukaj")}
+					</div>
+				</div>
+				{Form::close()}
+			</div>
+		</div>
+	</div>
+</div>
+
+{if isset($raport)}
+<div class="row">
+	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+		<div class="blog">
+			<div class="blog-header bg-success">
+				<h5 class="blog-title text-white">Wyniki - faktury opłacone</h5>
+			</div>
+			<div class="blog-body">
+				{Form::open()}
+				<big>
+					<div class="form-group">
+						<label class="control-label col-md-4">Razem netto</label>
+						<label class="form-control col-md-8">
+							<span id="raport-amount-netto" class="text-success">{if isset($raport.amount_netto)}{Kernel::currency($raport.amount_netto)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">VAT</label>
+						<label class="form-control col-md-8">
+							<span id="raport-vat" class="text-danger">{if isset($raport.amount_vat)}{Kernel::currency($raport.amount_vat)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Dochodowy</label>
+						<label class="form-control col-md-8">
+							<span id="raport-tax" class="text-danger">{if isset($raport.amount_tax)}{Kernel::currency($raport.amount_tax)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Zarobek</label>
+						<label class="form-control col-md-8">
+							<span id="raport-income" class="text-info">{if isset($raport.amount_income)}{Kernel::currency($raport.amount_income)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+				</big>
+				{Form::close()}
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+		<div class="blog">
+			<div class="blog-header bg-danger">
+				<h5 class="blog-title text-white">Wyniki - faktury nieopłacone</h5>
+			</div>
+			<div class="blog-body">
+				{Form::open()}
+				<big>
+					<div class="form-group">
+						<label class="control-label col-md-4">Razem netto</label>
+						<label class="form-control col-md-8">
+							<span id="raport-amount-netto" class="text-success">{if isset($raport.amount_netto_notpay)}{Kernel::currency($raport.amount_netto_notpay)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">VAT</label>
+						<label class="form-control col-md-8">
+							<span id="raport-vat" class="text-danger">{if isset($raport.amount_vat_notpay)}{Kernel::currency($raport.amount_vat_notpay)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Dochodowy</label>
+						<label class="form-control col-md-8">
+							<span id="raport-tax" class="text-danger">{if isset($raport.amount_tax_notpay)}{Kernel::currency($raport.amount_tax_notpay)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Zarobek</label>
+						<label class="form-control col-md-8">
+							<span id="raport-income" class="text-info">{if isset($raport.amount_income_notpay)}{Kernel::currency($raport.amount_income_notpay)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+				</big>
+				{Form::close()}
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+		<div class="blog">
+			<div class="blog-header bg-info">
+				<h5 class="blog-title text-white">Wyniki - razem</h5>
+			</div>
+			<div class="blog-body">
+				{Form::open()}
+				<big>
+					<div class="form-group">
+						<label class="control-label col-md-4">Razem netto</label>
+						<label class="form-control col-md-8">
+							<span id="raport-amount-netto" class="text-success">{if isset($raport.amount_netto_notpay) && isset($raport.amount_netto)}{Kernel::currency($raport.amount_netto_notpay+$raport.amount_netto)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">VAT</label>
+						<label class="form-control col-md-8">
+							<span id="raport-vat" class="text-danger">{if isset($raport.amount_vat_notpay) && isset($raport.amount_vat)}{Kernel::currency($raport.amount_vat_notpay+$raport.amount_vat)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Dochodowy</label>
+						<label class="form-control col-md-8">
+							<span id="raport-tax" class="text-danger">{if isset($raport.amount_tax_notpay) && isset($raport.amount_tax)}{Kernel::currency($raport.amount_tax_notpay+$raport.amount_tax)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Zarobek</label>
+						<label class="form-control col-md-8">
+							<span id="raport-income" class="text-info">{if isset($raport.amount_income_notpay) && isset($raport.amount_income)}{Kernel::currency($raport.amount_income_notpay+$raport.amount_income)}{else}0.00{/if} zł</span>
+						</label>
+					</div>
+				</big>
+				{Form::close()}
+			</div>
+		</div>
+	</div>
+</div>
+{/if}

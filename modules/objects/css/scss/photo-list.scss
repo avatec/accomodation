@@ -1,0 +1,74 @@
+.photo-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: -ms-flexbox;
+	-ms-flex-wrap: wrap;
+	-ms-flex-direction: row;
+	-webkit-flex-flow: row wrap; 
+	flex-flow: row wrap; 
+	display: -webkit-box;
+	display: flex;
+	padding: 10px;
+	&.admin-list {
+		li {
+			padding: 10px;
+			max-width: 320px;
+		}
+	}
+	li {
+		max-width: 240px;
+		 -webkit-box-flex: auto;
+		 -ms-flex: auto;
+  		flex: auto;
+		.photo-item { 
+			position: relative !important; 
+			padding: 10px;
+			.hidden-options { 
+				display: none; 
+				position: absolute; 
+				top: 36%; 
+				left: 18%; 
+				font-size: 2em; 
+				background: rgba(0,0,0,0.7); 
+				border-radius: 10px;
+				-moz-border-radius: 10px;
+				-webkit-border-radius: 10px;
+				
+				@media screen and (min-width: 320px) {
+					.hidden-options { left: 25% } 
+				}
+				
+				@media screen and (min-width: 480px) {
+					.hidden-options { left: 18% } 
+				}
+				
+				@media screen and (min-width: 640px) {
+					.hidden-options { left: 26% } 
+				}
+				
+				@media screen and (min-width: 768px) {
+					.hidden-options { left: 18% } 
+				}
+				@media screen and (min-width: 1280px) {
+					.hidden-options { left: 26% } 
+				}
+
+				a { 
+					color: #fff; padding: 5px 10px; 
+					&:hover { color: orange; }
+					&.active { color: rgb(250, 255, 140); }
+				}
+			}
+			&:hover {
+				cursor: move; /* fallback: no `url()` support or images disabled */
+			    cursor: url(images/grab.cur); /* fallback: Internet Explorer */
+			    cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
+			    cursor:    -moz-grab; /* Firefox 1.5-26 */
+			    cursor:         grab; /* W3C standards syntax, should come least */
+				.hidden-options { display: block; }
+				.img-thumbnail { opacity: 0.5; }
+			}
+		}
+	}
+}

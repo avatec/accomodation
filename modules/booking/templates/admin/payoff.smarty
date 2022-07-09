@@ -1,0 +1,104 @@
+{Form::open('post', null, true)}
+{Form::hidden("uid" , $smarty.post.uid)}
+{Form::hidden("invoice" , true)}
+{if !empty($smarty.post.selectid)}
+{foreach key=id item=item from=$smarty.post.selectid}
+{Form::hidden("selectid[]" , $id)}
+{/foreach}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Wypłata środków</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Należna kwota</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::input2([ "type" => "text" , "name" => "commission_amount", "value" => $data.commission_amount])}
+							<div class="input-group-addon">zł</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">Kwota do wypłaty</label>
+					<div class="col-md-4">
+						<div class="input-group">
+							{Form::input2([ "type" => "text" , "name" => "payment_amount", "value" => $data.payment_amount])}
+							<div class="input-group-addon">zł</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				<button type="submit" class="btn btn-primary">
+				<i class="fa fa-check"></i> Przelew wykonany - zostanie uwzględnione przy wystawianiu faktury VAT za ten miesiąc
+				</button>
+				{/if}
+				
+				<a class="btn btn-warning" href="{$app_url}admin/booking/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="success-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Prowizja od zaliczki</small>
+						<h3 class="no-margin no-padding">{$data.user_commission} %</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="danger-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Łączna kwota zaliczek</small>
+						<h3 class="no-margin no-padding">{Kernel::currency($data.advance_amount)} zł</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="danger-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Należna kwota</small>
+						<h3 class="no-margin no-padding">{Kernel::currency($data.commission_amount)} zł</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<div class="danger-bg center-align-text">
+					<div class="spacer-xs">
+						<small class="text-white">Kwota do wypłaty</small>
+						<h3 class="no-margin no-padding">{Kernel::currency($data.payment_amount)} zł</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+
+		<div class="panel-blue">
+			<h4 class="heading">Dane do przelewu</h4>
+			<div class="lead">
+				<b>{$u.company_name}</b><br/>
+				{$u.first_name} {$u.last_name}<br/>
+				{$u.street}<br/>
+				{$u.postcode} {$u.city}<br/>
+				<b>Numer konta: </b>{$u.bank_account}<br/>
+				<b>Kwota: </b>{Kernel::currency($data.payment_amount)} zł
+			</div>
+		</div>
+
+	</div>
+	
+	<div class="clearfix"></div>
+</div>
+{Form::close()}

@@ -1,0 +1,98 @@
+#panel {
+	padding-top: 15px; padding-bottom: 0px; margin: 0px;
+}
+
+.panel-status-bar { padding: 20px; display: none; position: relative; margin-bottom: 20px; }
+.panel-status-bar.success { background: #dff0d8;  border-color: #d6e9c6; color: #3c763d; }
+.panel-status-bar.success a { color: #3c763d; }
+.panel-status-bar.error { background: #f2dede;  border-color: #ebccd1; color: #a94442; }
+.panel-status-bar.error a { color: #a94442; }
+.panel-status-bar.info { background: #d9edf7;  border-color: #bce8f1; color: #31708f; }
+.panel-status-bar.info a { color: #31708f; }
+.panel-status-bar.warning { background: #fcf8e3;  border-color: #faebcc; color: #8a6d3b; }
+.panel-status-bar.warning a { color: #8a6d3b; }
+
+.panel-status-bar h1 { font-size: 13pt; font-weight: bold; line-height: 15pt;  margin: 0; padding: 0; }
+.panel-status-bar h1>small { font-size: 11pt; }
+.panel-status-bar .panel-icon em,
+.panel-status-bar .panel-hide em { margin-top: 7px; }
+.panel-status-bar .panel-hide em { color: #000; }
+.panel-status-bar .panel-close {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	cursor: pointer;
+}
+
+/** Moje obiekty **/
+
+#panel-list-nav .active a {
+	background: #dedede;
+	color: orange;
+}
+
+#panel-list-objects {
+	padding: 20px 10px 5px 10px;
+	border-left: 1px solid #dedede;
+	border-right: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+	overflow: hidden;
+}
+
+.object-item {
+	background: $white;
+	border: 1px solid darken($white,20%);
+	margin-left: -1px;
+	margin-top: -1px;
+	margin-bottom: 10px;
+	height: 325px;
+	overflow: hidden;
+	.object-item-header {
+		h4.title {
+			background: $primary-color;
+			color: $white;
+			text-transform: uppercase;
+			margin: 0;
+			padding: 10px;
+			a {
+				margin-top: -5px;
+				padding: 5px 10px;
+			}
+		}
+		.place {
+			display: block;
+			line-height: 120%;
+			color: $gray;
+			font-size: 11pt;
+			padding: 10px;
+		}
+	}
+	.object-item-body {
+		height: 180px;
+		.object-item-photo {
+			padding: 10px;
+		}
+		.object-item-description {
+			padding: 10px 0px;
+			width: 97%;
+			.badge { font-size: 9pt; border-radius: 0px; }
+			.badge-info { background: $danger-color; }
+			.badge-warning { background: $warning-color; }
+			.badge-success { background: $info-color; }
+		}
+	}
+	.object-item-footer {
+		background: lighten($primary-color,50%);
+		padding: 5px 10px;
+		.btn-secondary {
+			background: darken($gray,30%);
+			color: $white;
+		}
+	}
+}
+.object-item .table-promotion tr:first-child th,
+.object-item .table-promotion tr:first-child td { border-top: 0px; }
+.object-item .table-promotion th,
+.object-item .table-promotion td { padding: 10px 0px; font-size: 10pt; vertical-align: middle; }
+.object-item .table-promotion th { padding-right: 5px; max-width: 100px; }
+.object-item .table-promotion td { text-align: left;  }

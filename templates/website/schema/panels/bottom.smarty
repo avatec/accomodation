@@ -1,0 +1,29 @@
+<footer id="footer">
+	<div class="container">
+		<div class="col-xs-12 col-sm-4 col-md-3">
+			<h5 class="title">{Language::get("cms" , "bottom_header_menu")}</h5>
+			{Content::generate(["section" => 2, "class" => "menu-list", "social" => false ])}
+		</div>
+
+		<div class="col-xs-12 col-sm-8 col-md-5">
+			<h5 class="title">{Language::get("cms" , "bottom_header_about")}</h5>
+			{Text::getByName("bottom-about")}
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-4 text-right">
+			<h5 class="title">{Language::get("cms" , "bottom_header_social")}</h5>
+			{if !empty($config.social_facebook)}<a href="{$config.social_facebook}" target="_blank" class="social-icon"><span class="fa fa-facebook"></span></a>{/if}
+			{if !empty($config.social_twitter)}<a href="{$config.social_twitter}" target="_blank" class="social-icon"><span class="fa fa-twitter"></span></a>{/if}
+			{if !empty($config.social_google_plus)}<a href="{$config.social_google_plus}" target="_blank" class="social-icon"><span class="fa fa-google-plus"></span></a>{/if}
+			{if !empty($config.social_instagram)}<a href="{$config.social_instagram}" target="_blank" class="social-icon"><span class="fa fa-instagram"></span></a>{/if}
+			{if !empty($config.social_pinterest)}<a href="{$config.social_pinterest}" target="_blank" class="social-icon"><span class="fa fa-pinterest"></span></a>{/if}
+
+			<p>
+				Copyright &copy; {$smarty.now|date_format:"%Y"} {$config.service_name}. {Language::get("cms" , "bottom_text_copyright")}<br/>
+				{Language::get("cms" , "bottom_text_made_by")}: <a href="http:/www.avatec.pl/skrypt-php-baza-noclegowa-avatec-accomodation?r={$app_request_url}" title="Tworzenie stron www, skrypt php bazy noclegowej">www.avatec.pl</a>
+			</p>
+
+			<a id="btn-up" href="{$app_url}#topofpage" class="btn btn-primary btn-up"><span class="fa fa-chevron-up"></span></a>
+		</div>
+	</div>
+</footer>

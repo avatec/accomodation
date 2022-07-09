@@ -1,0 +1,44 @@
+/**
+<div class="checkbox">
+    <label>
+        <input data-toggle="checkbox-x" data-three-state="false" type="checkbox" class="" id="improvements[1]" name="improvements[1]" value="true">
+        Plac zabaw dla dzieci 1
+    </label>
+</div>
+**/
+
+.checkbox {
+    label {
+        padding-left: 30px;
+        &:before {
+            position: absolute;
+            top:4px;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border: 1px solid silver;
+            content: "";
+        }
+    }
+    input {
+        display: none;
+    }
+
+    &.checkbox-checked {
+        label {
+            &:before {
+                background: black;
+                color: white;
+                content: "\f00c";
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-family: FontAwesome;
+                font-size: 10px;
+                font-style: normal;
+                font-weight: normal;
+                text-decoration: inherit;
+            }
+        }
+    }
+}

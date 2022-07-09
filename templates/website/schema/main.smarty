@@ -1,0 +1,34 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+{if $config['show_slider_main'] == "TRUE"}
+{include file="`$app_path`templates/website/schema/panels/slider.smarty"}
+{/if}
+{if $config['promoted_main_type'] == "SLIDER"}
+{include file="`$app_path`templates/website/schema/objects/promoted-slider.smarty"}
+{else}
+{include file="`$app_path`templates/website/schema/objects/promoted.smarty"}
+{/if}
+{if $config['show_special_main'] == "TRUE"}
+{include file="`$app_path`templates/website/schema/objects/special.smarty"}
+{/if}
+{if $config['show_shortcuts_main'] == "TRUE"}
+{include file="`$app_path`templates/website/schema/panels/shortcuts.smarty"}
+{/if}
+{if $config['show_news_main'] == "TRUE"}
+<section id="content">
+	<div class="container">
+		<div class="col-md-8">
+			{include file="`$app_path`templates/website/schema/panels/news.smarty"}
+		</div>
+		
+		<div class="col-md-4">
+			<div class="a-block text-center">
+				{Advertising::show('MAIN')}
+			</div>
+		</div>
+	</div>
+</section>
+{/if}
+{if $config['show_partners_main'] == "TRUE"}
+{include file="`$app_path`templates/website/schema/panels/partners.smarty"}
+{/if}
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

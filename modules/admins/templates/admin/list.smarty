@@ -1,0 +1,112 @@
+{**
+ * Wyszukiwarka
+ *}
+ 
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Wyszukiwarka</h5>
+			</div>
+			<div class="blog-body">
+				{Form::open("GET",null,null,false)}
+				<div class="form-group">
+					<div class="col-md-4">
+						{Form::input2([ 
+							"type" => "text",
+							"name" => "q",
+							"placeholder" => LA::get('admins' , 'search_input_placeholder')
+						])}
+					</div>
+					<div class="col-md-2">
+						{Form::select2([ 
+							"name" => "t",
+							"values" => Modules\Admins::$types,
+							"empty" => true,
+							"empty_name" => "Dowolny"
+						])}
+					</div>
+					
+					<div class="col-md-1 text-right">
+						<button type="submit" class="btn btn-block btn-primary">
+							<span class="fa fa-search"></span> {LA::get('admins' , 'btn_search')}
+						</button>
+					</div>
+				</div>
+				{Form::close()}
+			</div>
+		</div>
+	</div>
+</div>
+
+{if isset($list)}
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title pull-left">{LA::get('admins' , 'list_table_header')}</h5>
+		<a class="pull-right btn btn-success" href="{$app_admin_url}admins/add/"><i class="fa fa-plus"> </i>&nbsp;{LA::get('admins','btn_create_user')}</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+		{Paginate::get()}
+		<div class="table-responsive">
+			<table class="table table-stripped no-margin">
+			<thead><tr>
+				<th width="50">{LA::get('admins' , 'label_id')}</th>
+				<th width="170">{LA::get('admins' , 'label_login')}</th>
+				<th width="220">{LA::get('admins' , 'label_name')}</th>
+				<th width="150">{LA::get('admins' , 'label_info')}</th>
+				<th width="120" class="text-center">{LA::get('admins' , 'label_status')}</th>
+				<th width="150" class="text-center">{LA::get('admins' , 'label_last_login')}</th>
+				<th class="text-right"></th>
+			</tr></thead>
+			<tbody>
+			{foreach item=item from=$list}
+			<tr>
+				<td>{$item.id}</td>
+				<td align="left" valign="middle">{$item.login}</td>
+				<td>
+					<b>{if !empty($item.name)}{$item.name}{else}{$item.first_name} {$item.last_name}{/if}</b><br/>
+					<span class="label label-info">{$item.email}</span><br/>
+					
+				</td>
+				<td>
+					{System::read($item.type, Modules\Admins::$types, true)}
+				</td>
+				<td align="center">
+					{if $item.state=="TRUE"}<span class="label label-success">{LA::get('admins','label_active')}</span>{else}<span class="label label-danger">{LA::get('admins','label_disactivate')}</span>{/if}
+				</td>
+				<td align="center">
+					{if $item.last_login_date > '0000-00-00'}
+					<span class="label label-info">{$item.last_login_date}</span>
+					{else}
+					<span class="label label-warning">{LA::get('admins','label_no_data')}</span>
+					{/if}
+				</td>
+				</td>
+				<td align="right">
+				{if $item.id > 1}
+					{if $item.state=="FALSE"}
+					<a {Common::tooltip(LA::get('admins','tooltip_activate'))} class="btn btn-sm btn-success" href="{$app_admin_url}admins/activate/?id={$item.id}"><i class="fa fa-plus-square"></i></a>
+					{else}
+					<a {Common::tooltip(LA::get('admins','tooltip_disactivate'))} class="btn btn-sm btn-danger" href="{$app_admin_url}admins/disactivate/?id={$item.id}"><i class="fa fa-ban"></i></a>
+					{/if}
+				{/if}
+				{if $item.type > 1}
+				<a {Common::tooltip(LA::get('admins','tooltip_access'))} class="btn btn-sm btn-warning" href="{$app_admin_url}admins/access/?id={$item.id}"><i class="fa fa-cogs"></i></a>
+				{/if}
+				<a {Common::tooltip(LA::get('admins','tooltip_change_password'))} class="btn btn-sm btn-info" href="{$app_admin_url}admins/change-password/?id={$item.id}"><i class="fa fa-key"></i></a>
+				<a {Common::tooltip(LA::get('cms','btn_edit'))} class="btn btn-sm btn-primary" href="{$app_admin_url}admins/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+				{if $item.id>1 AND ($item.type !== "ADMIN" || $item.type !== "SUPPORT")}
+				<a {Common::tooltip(LA::get('cms','btn_delete'))} class="btn btn-sm btn-danger confirm" href="{$app_admin_url}admins/delete/?id={$item.id}"><i class="fa fa-trash"></i></a>
+				{/if}
+				
+				</td>
+			</tr>
+			{/foreach}
+			</tbody>
+			</table>
+		</div>
+		{Paginate::get()}
+	</div>
+</div>
+{/if}

@@ -1,0 +1,33 @@
+{if isset($promoted)}
+<section id="promotion-horizontal" data-type="{$config.promoted_main_type}">
+	<div class="container">
+		<h2 class="title text-center">{Language::get("cms" , "promoted_offers")}</h2>
+		<hr class="half-line" />
+
+		<div class="promotion-items gallery gallery-promotion-items" data-navigation="promotion-items-nav">
+			<div id="promotion-items-nav" class="crsl-nav">
+				<a href="#" class="previous"><i class="fa fa-chevron-left"></i></a>
+				<a href="#" class="next"><i class="fa fa-chevron-right"></i></a>
+			</div>
+			<div class="crsl-wrap">
+				{foreach item=item from=$promoted name=lp}
+				<figure class="crsl-item">
+					<div class="img-figure">
+						<a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}">
+							<img alt="{$item.name}" src="{ObjectsPhotos::getImage($item.id)}">
+						</a>
+
+						<div class="title">
+							<h1><a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}">{$item.name}</a></h1>
+							<a class="city-link" href="{$app_url}noclegi/{Kernel::rewrite($item.city)}">{$item.city}</a>
+						</div>
+						<div class="description">
+							{$item.short_description|html_entity_decode|html_entity_decode|strip_tags|truncate:80}
+						</div>
+					</div>
+				</figure>
+				{/foreach}
+			</div>
+		</div>
+	</div>
+</section>{/if}

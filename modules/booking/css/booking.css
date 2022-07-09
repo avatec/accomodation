@@ -1,0 +1,39 @@
+.booking .item {
+  border: 3px solid #efefef;
+  cursor: pointer;
+  height: 110px; }
+  .booking .item small {
+    text-transform: uppercase;
+    color: #888; }
+  .booking .item .item-day,
+  .booking .item .item-cost {
+    font-size: 3em; }
+  .booking .item .item-days {
+    font-size: 2.15em; }
+  .booking .item .item-month {
+    display: block;
+    font-size: 1.2em;
+    padding-top: 10px; }
+  .booking .item .item-day-name {
+    padding-top: 0px;
+    margin-top: 0px; }
+  .booking .item .fa-calendar {
+    margin-top: 15px;
+    color: orange; }
+  .booking .item:hover {
+    border: 3px solid orange; }
+    .booking .item:hover .disabled {
+      border: 3px solid #efefef; }
+
+#calendarModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; }
+  #calendarModal .modal-dialog {
+    margin: 0px;
+    padding: 0px;
+    width: 100% !important; }
+    #calendarModal .modal-dialog .modal-content {
+      padding: 0px !important;
+      margin: 0px !important; }

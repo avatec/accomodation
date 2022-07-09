@@ -1,0 +1,90 @@
+{Form::open()}
+{Form::hidden("template_id" , $smarty.get.id)}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header bg-primary">
+				<h5 class="blog-title text-white">Przygotowywanie mailingu do wysyłki</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Zaznacz to pole, jeżeli chcesz, aby wysłać tą wiadomość testowo na własny adres e-mail" class="col-md-2 control-label">Wyślij testowo</label>
+					<div class="col-md-6">
+						{Form::checkbox2([
+							"id" => "test_email",
+                        	"name" => "test_email",
+                        	"value" => "TRUE",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+					</div>
+				</div>
+				<div class="form-group blockedHidden">
+					<label data-toggle="tooltip" title="Wpisz adres e-mail, na który zostanie wysłana testowa wiadomość" class="col-md-2 control-label">Adres e-mail</label>
+					<div class="col-md-6">
+						<div class="input-group">
+							<div class="input-group-addon"><span class="fa fa-envelope"></span></div>
+							{Form::input("email" , "email")}
+						</div>
+						<br/>
+						<em>Jeżeli uzupełnisz to pole, zostanie nadana tylko jedna wiadomość na podany tutaj adres e-mail</em>
+					</div>
+				</div>
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Wybierz datę planowanej wysyłki tej wiadomości" class="col-md-2 control-label">Data wysyłki</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+							{Form::date("send_date" , "send_date")}
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Zaznacz to pole, jeżeli chcesz, aby wiadomość została wysłana do subskrybentów newslettera" class="col-md-2 control-label">Subskrybenci newslettera</label>
+					<div class="col-md-6">
+						{Form::checkbox2([
+                        	"name" => "type[]",
+                        	"value" => "NEWSLETTER",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Zaznacz to pole, jeżeli chcesz, aby wiadomość została wysłana do właścicieli obiektów" class="col-md-2 control-label">Właściciele obiektów</label>
+					<div class="col-md-6">
+						{Form::checkbox2([
+                        	"name" => "type[]",
+                        	"value" => "OWNER",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+					</div>
+				</div>
+				{**
+				<div class="form-group">
+					<label data-toggle="tooltip" title="Zaznacz to pole, jeżeli chcesz, aby wiadomość została wysłana do użytkowników" class="col-md-2 control-label">Właściciele obiektów</label>
+					<div class="col-md-6">
+						{Form::checkbox2([
+                        	"name" => "type[]",
+                        	"value" => "USER",
+                        	"data" => [ 'data-on-text="Tak"', 'data-off-text="Nie"']
+                        ])}
+					</div>
+				</div>
+				**}
+			</div>
+			<div class="blog-footer">
+				<button type="submit" class="btn btn-primary"><span class="fa fa-send"></span> przekaż do wysyłki</button>
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header bg-primary">
+				<h5 class="blog-title text-white">Podgląd wiadomości</h5>
+			</div>
+			<div class="blog-body">
+				<div id="email-preview-frame">
+					{$msg_preview|html_entity_decode}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

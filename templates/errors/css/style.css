@@ -1,0 +1,17 @@
+.logo {
+  margin-top: 5%;
+  background: orange; }
+
+.page-header {
+  border-bottom: 0px;
+  font-size: 14pt;
+  color: #666; }
+  .page-header h1 {
+    font-size: 24pt;
+    font-weight: 300;
+    color: #232323; }
+    .page-header h1 small {
+      font-size: 48pt;
+      color: orange; }
+
+/*# sourceMappingURL=style.map */

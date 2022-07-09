@@ -1,0 +1,51 @@
+<h3 class="title">{Language::get("cms" , "news_header")}</h3>
+{if !empty($news)}
+<div class="panel-news">
+	{foreach item=item from=$news name=lp}
+		{if $smarty.foreach.lp.iteration==1}
+		{if !empty($item.icon)}
+		<div class="box-news">
+			<div class="box-header">
+				<a href="{$item.link}"><img src="{News::$UploadUrl}icon/{$item.icon}" alt="{$item.topic} photo" class="img-responsive" /></a>
+				<h2 class="title">{$item.topic}<br/><a href="{$item.link}" class="btn btn-link">
+					{Language::get('news' , 'read_more')}
+				</a></h2>
+			</div>
+		</div>
+		{else}
+		<div class="media media-list">
+			{if !empty($item.icon)}<div class="media-left">
+				<a href="{$app_url}news/view/{Kernel::rewrite($item.topic)}-i{$item.id}">
+					<img class="media-object img-responsive" src="{News::$UploadUrl}icon/{$item.icon}" alt="{$item.topic}" />
+				</a>
+			</div>{/if}
+			<div class="media-body">
+				<h3>{$item.topic}</h3>
+				{$item.content|html_entity_decode|html_entity_decode|truncate:360}
+				<p class="text-right">
+					<a href="{$app_url}news/view/{Kernel::rewrite($item.topic)}-i{$item.id}">{Language::get("cms" , "news_more")} &raquo;</a>
+				</p>
+			</div>
+		</div>
+		{/if}
+		{else}
+		<div class="media media-list">
+			{if !empty($item.icon)}<div class="media-left">
+				<a href="{$app_url}news/view/{Kernel::rewrite($item.topic)}-i{$item.id}">
+					<img class="media-object img-responsive" src="{News::$UploadUrl}icon/{$item.icon}" alt="{$item.topic}" />
+				</a>
+			</div>{/if}
+			<div class="media-body">
+				<h3>{$item.topic}</h3>
+				{$item.content|html_entity_decode|html_entity_decode|truncate:360}
+				<p class="text-right">
+					<a href="{$app_url}news/view/{Kernel::rewrite($item.topic)}-i{$item.id}">{Language::get("cms" , "news_more")} &raquo;</a>
+				</p>
+			</div>
+		</div>
+		{/if}
+	{/foreach}
+</div>
+{/if}
+
+{Paginate::get()}

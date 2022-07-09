@@ -1,0 +1,118 @@
+{if !empty($content.blocks) && is_array($content.blocks) && ($content.id == 2)}
+    <div class="container-fluid container-changes changes-subpage">
+        <div class="row">
+            <div class="bg-right"><img src="/images/bg-food.png" alt=""></div>
+            <div class="container">
+                <div class="header">
+                    <h2><img src="/images/logo-2.png" alt="">Zobacz sukcesy innych</h2>
+                    <h6>Pomogliśmy już ponad 1100 osobom uzyskać lepszą formę!</h6>
+                </div>
+                <div class="row">
+                {foreach item=item from=$content.blocks name=lp}
+                    <div class="col-12 col-md-4 col-changes">
+                        <div class="box-changes">
+                            <a href="{$item.link_p}" class="img-changes">
+                                <div class="img-wrap">
+                                    <img src="{$item.photo}" alt="">
+                                </div>
+                                <div class="img-wrap">
+                                    <img src="{$item.photo2}" alt="">
+                                </div>
+                            </a>
+                            <div class="text-changes">
+                                <h5><a href="{$item.link_p}">{$item.name} {$item.name_2}, {$item.wiek} lat </a></h5>
+                                {$item.preface|html_entity_decode}
+                                <div class="footer-changes">
+                                    <h4><span class="fas fa-weight"></span> - {$item.text_1}</h4>
+                                    <a class="link-changes" href="{$item.link_p}">POZNAJ HISTORIĘ<span class="fal fa-angle-right ml-1"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {/foreach}
+                </div>
+                <div class="row justify-content-center mt-5">
+                    <nav>
+                        {Paginate::get()}
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+{elseif empty($content.blocks) && ($content.id == 2)}
+    <div class="container-fluid container-changes changes-subpage">
+        <div class="row">
+            <div class="bg-right"><img src="images/bg-food.png" alt=""></div>
+            <div class="container">
+                <div class="header">
+                    <h2><img src="/images/logo-2.png" alt="">Zobacz sukcesy innych</h2>
+                    <h6>Obecnie nie ma dodanych przemian.</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+{elseif !empty($content.blocks) && is_array($content.blocks) && ($content.id == 3)}
+<div class="container-fluid container-sport">
+    <div class="row">
+        <div class="container">
+            <div class="header">
+                <h2><img src="/images/logo-2.png" alt="">{$content.title}</h2>
+                <h6>Pomogliśmy już ponad 110 sportowcom uzyskać jeszcze lepsze wyniki!</h6>
+            </div>
+            <div class="row">
+                {foreach item=item from=$content.blocks name=lp}
+                    <div class="col-12 col-sm-6 col-md-4 col-sport">
+                        <div class="box-sport">
+                            <a href="{$item.link_s}" class="img-sport">
+                                <img src="{$item.photo}" alt="">
+                                <div class="badge-changes">
+                                    <span class="fal fa-trophy-alt mr-1"></span>SPORTOWIEC
+                                </div>
+                            </a>
+                            <div class="text-sport">
+                                <h5><a href="{$item.link_s}">{$item.name} {$item.name_2}, {$item.wiek} lat </a></h5>
+                                {$item.preface|html_entity_decode}
+                                <div class="footer-sport">
+                                    <h4><span class="fas fa-award"></span> <span>{$item.text_1}</span></h4>
+                                    <a class="link-sport" href="{$item.link_s}">POZNAJ HISTORIĘ<span class="fal fa-angle-right ml-1"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <nav>
+            {Paginate::get()}
+            {* <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span class="fal fa-angle-left"></span>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span class="fal fa-angle-right"></span>
+                    </a>
+                </li>
+            </ul> *}
+        </nav>
+    </div>
+</div>
+{elseif empty($content.blocks) && ($content.id == 3)}
+<div class="container-fluid container-sport">
+    <div class="row">
+        <div class="container">
+            <div class="header">
+                <h2><img src="images/logo-2.png" alt="">Sportowcy</h2>
+                <h6>Obecnie nie ma dodanych sportowców.</h6>
+            </div>   
+        </div>
+    </div>
+</div>
+{/if}

@@ -1,0 +1,44 @@
+<h2 class="title">Płatność za pomocą SMS</h2>
+
+<p class="lead">
+	<span class="label label-warning">KROK 1</span> Wyślij SMS o treści <b>{$data.sms_text}</b> pod numer <b>{$data.sms_number}</b>. Koszt SMS'a <b>{$data.sms_amount}</b> zł<br/>
+</p>
+
+<div class="well">
+	<p class="lead"><span class="label label-warning">KROK 2</span> Wprowadź otrzymany w smsie zwrotnym kod w poniższy formularz</p>
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+	{Form::open()}
+	{Form::hidden("object_id" , $data['object_id'])}
+	{if !empty($smarty.post.special_id)}
+	{Form::hidden("special_id" , $smarty.post.special_id)}
+	{/if}
+	{Form::hidden("pid" , $data['pid'])}
+	{Form::hidden("sms_text" , $data['sms_text'])}
+	
+	<div class="form-group">
+		<div class="input-group">
+			{Form::input2([
+				"type" => "text",
+				"name" => "sms_code",
+				"class" => "input-lg",
+				"placeholder" => "wprowadź otrzymany smsem kod, aby aktywować usługę"
+			])}
+			<div class="input-group-btn">
+				<button type="submit" class="btn btn-lg btn-primary">Zatwierdź kod</button>
+			</div>
+		</div>
+	</div>	
+	{Form::close()}
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<hr/>
+<div class="row">
+	<div class="col-md-2">
+		<img class="img-responsive" src="{$app_url}modules/payment/images/dotpay.gif" alt="Płatności obsługuje firma dotpay.pl" />
+	</div>
+	<div class="col-md-10">
+		Uwaga! Serwis SMS przeznaczony wyłącznie dla osób pełnoletnich! Usługa działa w sieciach operatorów: Plus GSM, T-Mobile, Orange, Play. Kontakt z właścicielem serwisu dostępny na stronie <a href="{$app_url}/kontakt">kontakt</a>.<br/>Serwis Premium SMS obsługuje Dotpay.pl. Koszt przesłania wiadomości zgodnie z dokonanym wyżej wyborem. <a target="_blank" href="http://www.dotpay.pl/regulaminsms"> Regulamin</a>. Reklamacje można składać na stronie <a href="http://www.dotpay.pl/reklamacje/" target="_blank">reklamacje dotpay</a>
+	</div>
+</div>

@@ -1,0 +1,38 @@
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title">Utworzone pozycje</h5>
+		<a class="pull-right btn btn-warning" href="{$app_url}admin/objects/types/add/"><i class="fa fa-plus"> </i>&nbsp;dodaj pozycję</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+	
+		{if isset($list)}<div class="table-responsive">
+			<table class="table table-hover no-margin">
+			<thead><tr>
+				<th width="50">#</th>
+				<th width="200">Nazwa</th>
+				<th class="text-right">Opcje</th>
+			</tr></thead>
+			<tbody>
+			{foreach name=l item=item from=$list}
+			<tr>
+				<td>{$smarty.foreach.l.iteration}</td>
+				<td align="left"><b>{$item.name}</b></td>
+				<td align="right">
+					<a {Common::tooltip(LA::get('cms','btn_edit'))} class="btn btn-sm btn-info" href="{$app_url}admin/objects/types/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+					<a {Common::tooltip(LA::get('cms','btn_delete'))} class="btn btn-sm btn-danger confirm" href="{$app_url}admin/objects/types/delete/?id={$item.id}"><i class="fa fa-trash"></i></a>
+				</td>
+			</tr>
+			{/foreach}
+			</tbody><tfoot>
+				<td colspan="4">
+					<a class="pull-right btn btn-warning" href="{$app_url}admin/objects/types/add/"><i class="fa fa-plus"> </i>&nbsp;dodaj pozycję</a>
+				</td>
+			</tfoot>
+			</table>
+		</div>{else}
+		<p>W bazie danych nie utworzono jeszcze żadnych pozycji. Kliknij w przycisk dodaj pozycję, aby utworzyć nową.</p>
+		{/if}
+	
+	</div>
+</div>

@@ -1,0 +1,138 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}Edycja{else}Tworzenie nowej{/if} reklamy</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+	            	<label class="col-lg-2 control-label">Priorytet</label>
+	            	<div class="col-lg-2">
+		            	{Form::input("text" , "priority")}
+	            	</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa własna</label>
+					<div class="col-md-10">
+						{Form::input2([
+							"type" => "text" ,
+							"name" => "name",
+		            		"required" => true
+		            	])}
+					</div>
+				</div>
+				<div class="form-group">
+	            	<label class="col-lg-2 control-label">Typ reklamy</label>
+	            	<div class="col-lg-6">
+		            	{Form::select2([
+		            		"name" => "type",
+		            		"id" => "type",
+		            		"values" => Advertising::$types,
+		            		"required" => true
+		            	])}
+	            	</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Miejsce</label>
+	            	<div class="col-lg-6">
+		            	{Form::select2([
+		            		"name" => "place",
+		            		"values" => Advertising::$places,
+		            		"required" => true
+		            	])}
+	            	</div>
+				</div>
+				<div class="form-group">
+	            	<label class="col-lg-2 control-label">Województwo</label>
+	            	<div class="col-lg-3">
+		            	{Form::select2([
+		            		"name" => "state",
+		            		"id" => "state",
+		            		"values" => ObjectsStates::getSelect(),
+		            		"empty" => "nieuwzględniaj"
+		            	])}
+	            	</div>
+				</div>
+
+				<div class="form-group">
+	            	<label class="col-lg-2 control-label">Start emisji <sup>*</sup></label>
+	            	<div class="col-lg-4">
+	            		<div class="input-group">
+		            		<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+		            		{Form::date("date_start")}
+		            	</div>
+	            	</div>
+	            	<label class="col-lg-2 control-label">Koniec emisji</label>
+	            	<div class="col-lg-4">
+	            		<div class="input-group">
+		            		<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+		            		{Form::date("date_end")}
+		            	</div>
+	            	</div>
+				</div>
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				{Form::submit("Zapisz zmiany")}
+				{else}
+				{Form::submit('Utwórz')}
+				{/if}
+
+				<a class="btn btn-warning" href="{$app_url}admin/advertising/list/">Anuluj i wróć do listy</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div id="layerImages" class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Plik graficzny reklamy</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-lg-4 control-label">Adres docelowy</label>
+					<div class="col-lg-8">
+	            		<div class="input-group">
+		            		<div class="input-group-addon"><span class="fa fa-link"></span></div>
+		            		{Form::input2([ "type" => "url" , "name" => "link" ])}
+		            	</div>
+	            	</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("photo")}
+					</div>
+					<div class="col-md-6">
+						{if isset(Form::$post['photo'])}
+						<br/>
+						{Form::checkbox("delete_photo" , Form::$post['photo'], "Zaznacz, aby usunąć stary plik")}
+						<br/><br/>
+						<div class="well">
+							<img width="200" class="thumbnail" src="{Advertising::$UploadUrl}/{Form::$post['photo']}" alt="Plik reklamowy" />
+						</div>
+						{/if}
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div id="layerText" class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Kod JS/HTML</h5>
+			</div>
+			<div class="blog-body">
+				{Form::text2([ "name" => "html" , "rows" => 10 ])}
+			</div>
+		</div>
+
+	</div>
+</div>
+{Form::close()}

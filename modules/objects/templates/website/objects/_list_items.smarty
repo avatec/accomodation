@@ -1,0 +1,80 @@
+<div class="col-xs-12 col-sm-12 col-md-6">
+	<div class="object-item">
+		<div class="object-item-header">
+			<h4 class="title">
+				{$item.name} {if $item.status=="ACTIVE" || $config['announcement_moderate'] == "FALSE"}<a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}" class="btn btn-default btn-xs pull-right"><span class="fa fa-search"></span> podgląd</a>{/if}
+			</h4>
+			<div class="place">
+				<div class="pull-left">
+					<span class="fa fa-map-marker"></span> {$item.city} ({ObjectsStates::getName($item.state)})
+				</div>
+				<div class="pull-right">
+					<span class="fa fa-bookmark-o"></span> {ObjectsTypes::getName($item.type)}
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="object-item-body row">
+			<div class="col-xs-4 col-sm-4 col-md-3">
+				<div class="object-item-photo">
+					<div class="thumbnail">
+						<img class="img-responsive" src="{ObjectsPhotos::getImage($item.id)}" alt="{$item.name}" />
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-8 col-sm-8 col-md-9">
+				<div class="object-item-description">
+					<table class="table table-promotion table-stripped"><tr>
+					<th>{Language::get("objects" , "objects_view_display_expire_text")}: </th>
+					<td>{Objects::readExpire($item.id, 'VIEW' , $item.view_expire)}</td>
+				</tr><tr>
+					<th>{Language::get("objects" , "objects_search_expire_text")}: </th>
+					<td>{Objects::readExpire($item.id, 'SEARCH' , $item.search_expire)}</td>
+				</tr><tr>
+					<th>{Language::get("objects" , "objects_main_expire_text")}: </th>
+					<td>{Objects::readExpire($item.id, 'MAIN' , $item.main_expire)}</td>
+				</tr>{if !isset($config['basic'])}<tr>
+					<th>{Language::get("objects" , "objects_special_expire_text")}: </th>
+					<td><a href="{$app_url}panel/special/list/?object_id={$item.id}" class="btn btn-primary btn-xs pull-right">przeglądaj pakiety</a></td>
+				</tr>{/if}</table>
+				</div>
+			</div>
+		</div>
+		<div class="object-item-footer">
+			<div class="pull-left">
+				{if !isset($config['basic'])}
+				<a data-toggle="tooltip" data-title="Zarządzaj pokojami" href="{$app_url}panel/objects/rooms/list/?object_id={$item.id}" class="btn btn-secondary btn-xs">
+					{Language::get("objects" , "btn_rooms")}
+				</a>
+				{/if}
+				{if $config['announcement_comments'] == "TRUE"}
+				<a data-toggle="tooltip" data-title="Przeglądaj opinie internautów" href="{$app_url}panel/objects/comments/list/?object_id={$item.id}" class="btn btn-secondary btn-xs">
+					{Language::get("objects" , "btn_comments")}
+				</a>
+				{/if}
+				<a data-toggle="tooltip" data-title="Zarządzaj zdjęciami" href="{$app_url}panel/objects/photos/list/?object_id={$item.id}"class="btn btn-secondary btn-xs">
+					{Language::get("objects" , "btn_photos")}
+				</a>
+				{if $config['announcement_video'] == "TRUE"}
+				<a data-toggle="tooltip" data-title="Zarządzaj filmami" href="{$app_url}panel/objects/video/list/?object_id={$item.id}"class="btn btn-secondary btn-xs">
+					{Language::get("objects" , "btn_video")}
+				</a>
+				{/if}
+				{if !empty($config['exclusive'])}
+				<a data-toggle="tooltip" data-title="Przeglądaj rezerwacje tego obiektu" href="{$app_url}panel/booking/list/?object_id={$item.id}"class="btn btn-info btn-xs">
+					{Language::get("booking" , "btn_booking_list")}
+				</a>
+				{/if}
+			</div>
+			<div class="pull-right">
+				<a data-toggle="tooltip" data-title="Zmieniaj treść i opcje" href="{$app_url}panel/objects/edit/?id={$item.id}" class="btn btn-warning btn-xs">
+					{Language::get("objects" , "btn_edit")}
+				</a>
+				<a data-toggle="tooltip" data-title="Usuń obiekt nieodwracalnie" href="{$app_url}panel/objects/delete/?id={$item.id}" class="btn btn-danger btn-xs confirm">
+					{Language::get("objects" , "btn_delete")} <em class="fa fa-trash"></em>
+				</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>

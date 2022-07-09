@@ -1,0 +1,34 @@
+{Form::open()}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{LA::get('admins','access_header')}</h5>
+			</div>
+			<div class="blog-body">
+				{foreach key=key item=item from=Kernel::$admin_menu}
+					<div class="form-group">
+		            	<label class="col-lg-6 control-label" data-toggle="tooltip" title="Zaznacz tę opcję, aby użytkownik miał dostęp do wybranej pozycji menu">{$item.name}:</label>
+		            	<div class="col-lg-6">
+		            		{if $access_default|substr_count:$key}
+		            		{Form::checkbox("element[$key]" , $key, null, null, true)}
+		            		{else}
+		            		{Form::checkbox("element[$key]" , $key, null, null)}
+		            		{/if}
+		            	</div>
+		            </div>
+				{/foreach}
+			</div>
+			<div class="blog-footer">
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				<a class="btn btn-warning" href="{$app_admin_url}admins/list/">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

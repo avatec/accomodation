@@ -1,0 +1,261 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+<div class="row">
+	{if !empty($config['exclusive'])}
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog blog-warning">
+			<div class="blog-header">
+				<h5 class="blog-title">Rezerwacje pokoi</h5>
+			</div>
+			<div class="blog-body">
+				<p class="alert alert-danger">Jeżeli ustawisz tą wartość na tak, użytkownicy będą mogli dokonywać rezerwacji tego obiektu</p>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Włączyć możliwość rezerwacji pokoi</label>
+					<div class="col-md-3">
+						{Form::select2([ "name" => "booking" , "values" => System::$truefalse ])}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="blog blog-warning">
+			<div class="blog-header">
+				<h5 class="blog-title">Właściciel obiektu</h5>
+			</div>
+			<div class="blog-body">
+				<p class="alert alert-danger">Ustal konto właściciela tego obiektu, w przypadku jeżeli obiekt był dodawany przez administratora</p>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Użytkownik</label>
+					<div class="col-md-10">
+						{Form::select2(["name" => "uid" , "values" => User::getForSelect()])}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog blog-info">
+			<div class="blog-header">
+				<h5 class="blog-title">Promowanie obiektu</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					{if $config['announcement_create'] == "TRUE"}
+					<label class="col-md-1 control-label">Wyświetlanie do</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							{Form::date("view_expire")}
+							<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+						</div>
+					</div>
+					{/if}
+					<label class="col-md-1 control-label">Wyróżnienie do</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							{Form::date("search_expire")}
+							<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+						</div>
+					</div>
+					<label class="col-md-2 control-label">Promocja na głównej do</label>
+					<div class="col-md-2">
+						<div class="input-group">
+							{Form::date("main_expire")}
+							<div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Informacje o obiekcie</h5>
+			</div>
+			<div class="blog-body">
+				{if $config['announcement_moderate'] == "TRUE"}
+				<div class="form-group">
+					<label class="col-md-2 control-label">Status</label>
+					<div class="col-md-4">
+						{Form::select("status" , Objects::$Status)}
+					</div>
+				</div>
+				{/if}
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Typ obiektu <sup>*</sup></label>
+					<div class="col-md-4">
+						{Form::select2([ "name" => "type" , "values" => ObjectsTypes::getSelect(), "empty" => "--- wybierz ---" ])}
+					</div>
+					<label class="col-md-2 control-label">Lokalizacja <sup>*</sup></label>
+					<div class="col-md-4">
+						{Form::select2([ "name" => "location" , "values" => ObjectsLocation::getSelect(),"empty" => "--- wybierz ---"])}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Nazwa obiektu <sup>*</sup></label>
+					<div class="col-md-10">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Dokładny adres <sup>*</sup></label>
+					<div class="col-md-10">
+						{Form::input("text" , "address")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Kod pocztowy <sup>*</sup></label>
+					<div class="col-md-3">
+						{Form::input("text" , "postcode")}
+					</div>
+					<label class="col-md-2 control-label">Miejscowość <sup>*</sup></label>
+					<div class="col-md-5">
+						{Form::input("text" , "city")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Województwo <sup>*</sup></label>
+					<div class="col-md-4">
+						{Form::select2([ "name" => "state" , "values" => ObjectsStates::getSelect(), "empty" => "--- wybierz ---" ])}
+					</div>
+					<label class="col-md-2 control-label">Kraj</label>
+					<div class="col-md-4">
+						{Form::select2([
+							"name" => "country",
+							"values" => ObjectsCountrys::getSelect(),
+							"empty" => "--- wybierz ---",
+							"selected" => ObjectsCountrys::getByBrowserLang()
+						])}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Telefon</label>
+					<div class="col-md-4">
+						{Form::input("text" , "phone")}
+					</div>
+					<label class="col-md-2 control-label">E-mail</label>
+					<div class="col-md-4">
+						{Form::input("email" , "email")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">Strona www</label>
+					<div class="col-md-6">
+						{Form::input("url" , "www")}
+					</div>
+				</div>
+
+				<legend>Krótki opis</legend>
+				{Form::text2([
+					"name" => "short_description",
+					"id" => "short_description",
+					"maxlength" => 150
+				])}
+				<span id="short_description_label"></span>
+				<br/><br/>
+
+				<legend>Dokładny opis</legend>
+				{Form::text("long_description", "long_description")}
+				{Kernel::wysiwyg("long_description")}
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Znaczniki meta</h5>
+			</div>
+			<div class="blog-body">
+				<div class="form-group">
+					<label class="col-md-2 control-label">Meta title</label>
+					<div class="col-md-10">
+						{Form::input("text" , "meta_title")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Meta keywords</label>
+					<div class="col-md-10">
+						{Form::input("text" , "meta_keywords")}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">Meta description</label>
+					<div class="col-md-10">
+						{Form::input("text" , "meta_description")}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Położenie na mapie</h5>
+			</div>
+			<div class="blog-body">
+				<div id="google-map" {if isset(Form::$post['map_lat'])} data-lat="{Form::$post['map_lat']}"{/if}{if isset(Form::$post['map_lng'])} data-lng="{Form::$post['map_lng']}"{/if}{if isset(Form::$post['map_zoom'])} data-zoom="{Form::$post['map_zoom']}"{/if}></div>
+				<input type="hidden" name="latlng" {if isset(Form::$post['map_lat']) && isset(Form::$post['map_lng'])}value="{Form::$post['map_lat']},{Form::$post['map_lng']}"{/if} id="latlng" />
+				<input type="hidden" name="zoom" {if isset(Form::$post['map_zoom'])}value="{Form::$post['map_zoom']}"{/if} id="zoom" />
+			</div>
+		</div>
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Odległości do innych obiektów i udogodnienia</h5>
+			</div>
+			<div class="blog-body">
+				<p class="alert alert-info">Wprowadź odległości do podanych obiektów w metrach (1km = 1000 metrów). W przypadku, jeżeli Twój obiekt nie znajduje się w pobliżu wyszczególnionych obiektów, pozostaw pole puste. Uzupełnienie tych pól pozwoli użytkownikom wyszukiwać po kryteriach co napewno zwiększy atrakcyjność Twojej oferty</p>
+
+				{if isset($distance)}{foreach key=key item=item from=$distance name=list}
+				{if $smarty.foreach.list.iteration%2==1}<div class="form-group">{/if}
+					<label class="control-label col-md-3">{$item.name}</label>
+					<div class="col-md-3">
+						<div class="input-group">
+							{Form::input2([
+								"type" => "number" ,
+								"name" => "distance[{$item.id}]",
+								"min" => 0
+							])}
+							<span class="input-group-addon">metrów</span>
+						</div>
+					</div>
+				{if $smarty.foreach.list.iteration%2==0 || $smarty.foreach.list.last}</div>{/if}
+				{/foreach}<div class="clearfix"></div>{/if}
+
+				<fieldset>
+					<legend>Udogodnienie</legend>
+					<p class="alert alert-info">Zaznacz wybrane udogodnienia Twojego obiektu przygotowane dla Twoich klientów</p>
+					{if isset($improvement)}{foreach item=item from=$improvement}
+					<div class="col-md-6">
+					{Form::checkbox3("improvements[{$item.id}]", 1, $item.name)}
+					</div>
+					{/foreach}<div class="clearfix"></div><br/>{/if}
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="blog">
+<div class="blog-footer">
+	{if isset(Form::$post['edit']) }
+	{Form::submit("Zapisz zmiany")}
+	{else}
+	{Form::submit('Utwórz')}
+	{/if}
+
+	<a class="btn btn-warning" href="{$app_url}admin/objects/list/">Anuluj i wróć do listy</a>
+</div>
+</div>
+{Form::close()}

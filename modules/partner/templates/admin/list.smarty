@@ -1,0 +1,26 @@
+<div class="blog">
+	<div class="blog-header">
+		<h5 class="blog-title pull-left">Partnerzy</h5>
+		<a class="pull-right btn btn-primary" href="{$app_url}admin/partner/add/">
+			<i class="fa fa-plus"> </i>&nbsp;dodaj partnera
+		</a>
+		<div class="clearfix"></div>
+	</div>
+	<div class="blog-body">
+		{if empty($list)}
+		<p class="alert alert-danger">Brak partnerów w bazie danych</p>
+		{else}
+		<div class="row">
+		{foreach item=item from=$list}
+		<div class="col-xs-6 col-md-3">
+			<p class="text-center"><div class="thumbnail"><img src="{Partner::$UploadUrl}{$item.photo}" alt="{$item.photo}" height="100"/></div></p>
+			<p class="text-center">
+			<a class="btn btn-info btn-sm" href="{$app_url}admin/partner/edit/?id={$item.id}"><i class="fa fa-fw fa-pencil"></i></a>
+			<a class="btn btn-danger btn-sm confirm" href="{$app_url}admin/partner/delete/?id={$item.id}&file={$item.photo}"><i class="fa fa-fw fa-trash"></i></a>
+			</p>
+		</div>
+		{/foreach}
+		</div>
+		{/if}
+	</div>
+</div>

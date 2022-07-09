@@ -1,0 +1,58 @@
+{Form::open('post', null, true)}
+{if isset(Form::$post['edit'])}
+{Form::hidden("edit" , true)}
+{/if}
+{Form::hidden("news_id" , $smarty.get.news_id)}
+{Form::hidden("category" , $smarty.get.category)}
+<div class="row">
+	<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{if isset(Form::$post['edit'])}{LA::get('cms' , 'edit_title')}{else}{LA::get('cms' , 'create_title')}{/if}</h5>
+			</div>
+			<div class="blog-body">
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Kolejność</label>
+					<div class="col-md-8">
+						{Form::input("text" , "priority")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Nazwa</label>
+					<div class="col-md-8">
+						{Form::input("text" , "name")}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label">Wybierz plik</label>
+					<div class="col-md-6">
+						{Form::upload("photo[]", true)}
+					</div>
+					<div class="col-md-6">
+						{if isset(Form::$post['photo'])}
+						<input type="hidden" name="old_photo" value="{Form::$post['photo']}" />
+						<p><br/><img width="200" class="thumbnail" src="{$app_url}userfiles/news/gallery/thumbs/{Form::$post['photo']}" alt="" /></p>
+						{/if}
+					</div>
+				</div>
+
+			</div>
+			<div class="blog-footer">
+				{if isset(Form::$post['edit']) }
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_save_changes')}
+				</button>
+				{else}
+				<button type="submit" class="btn btn-primary">
+					{LA::get('cms' , 'btn_create')}
+				</button>
+				{/if}
+				<a class="btn btn-warning" href="{$app_url}admin/news/gallery/list/?category={$smarty.get.category}&news_id={$smarty.get.news_id}">{LA::get('cms' , 'btn_cancel_and_return')}</a>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

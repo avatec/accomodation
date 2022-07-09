@@ -1,0 +1,17 @@
+{if !empty($special)}<section id="special">
+	<div class="container">
+		<h2 class="title text-center">{Language::get("cms" , "special_name")}</h2>
+		<hr class="half-line" />
+		{foreach item=item from=$special}
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<a class="item thumbnail" href="{$app_url}search/special/{$item.rewrite}/">
+				<img class="img-responsive img-rounded" src="/userfiles/special/{$item.icon}" alt="{$item.name}" />
+				<h4 class="text-center">{$item.name}</h4>
+				<div class="btn-check-offer">
+					<button type="button" class="btn btn-default">sprawdź oferty</button>
+				</div>
+			</a>
+		</div>
+		{/foreach}
+	</div>
+</section>{/if}

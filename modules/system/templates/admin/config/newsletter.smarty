@@ -1,0 +1,46 @@
+{Form::open()}
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">Konfiguracja newslettera</h5>
+			</div>
+			<div class="blog-body"> 
+			   
+	            <div class="form-group">
+	            	<label class="col-md-3 control-label">Nazwa nadawcy</label>
+		            <div class="col-md-9">
+						{Form::input('text' , 'newsletter_sender_name')}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-md-3 control-label">E-mail nadawcy</label>
+		            <div class="col-md-9">
+						{Form::input('text' , 'newsletter_sender_email')}
+		            </div>
+	            </div>
+	            
+	            {**
+	            <div class="form-group">
+	            	<label class="col-md-3 control-label">Częstotliwość wysyłki</label>
+		            <div class="col-md-9">
+						{Form::select2([ "name" => "newsletter_frequency" , "values" => Newsletter::$frequency ])}
+		            </div>
+	            </div>
+	            
+	            <div class="form-group">
+	            	<label class="col-md-3 control-label">Okienko popup</label>
+		            <div class="col-md-9">
+						{Form::select2([ "name" => "newsletter_popup" , "values" => Newsletter::$popup ])}
+		            </div>
+	            </div>
+	            **}
+			</div>
+			<div class="blog-footer">
+		        {Form::submit("Zapisz zmiany")}
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

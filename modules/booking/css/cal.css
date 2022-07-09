@@ -1,0 +1,52 @@
+#calendar h1 {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  padding-top: 8px; }
+
+#calendar .legend h5 {
+  margin-bottom: 0px;
+  font-size: 13pt;
+  font-weight: bold; }
+
+#calendar .legend table, #calendar .legend td {
+  border: none; }
+
+.table-stripped thead th {
+  font-size: 14pt;
+  margin-bottom: 25px;
+  padding: 10px 0px;
+  text-align: center;
+  background: #1a6383 !important; }
+
+.table-stripped tbody tr.days td {
+  background: #2283ae;
+  color: #fff;
+  font-size: 10pt;
+  font-weight: bold; }
+
+.table-stripped tbody td {
+  width: 30px;
+  height: 30px;
+  font-size: 11pt;
+  background: #fff;
+  border: 1px solid #fff;
+  text-align: center; }
+  .table-stripped tbody td span {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: help; }
+
+.table-stripped tbody td.free {
+  background: #dadada; }
+
+.table-stripped tbody td.booked {
+  background: orange;
+  color: #fff;
+  border: none; }
+
+.table-stripped tbody td.reserved {
+  background: #a10000;
+  color: #fff;
+  border: none; }

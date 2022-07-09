@@ -1,0 +1,44 @@
+{Form::open()}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="blog">
+			<div class="blog-header">
+				<h5 class="blog-title">{LA::get('content' , 'content_list')}</h5>
+				<a class="pull-right btn btn-warning" href="{$app_url}admin/content/sections/add/"><i class="fa fa-plus"> </i>&nbsp;{LA::get('cms' , 'btn_add')}</a>
+				<div class="clearfix"></div>
+			</div>
+			<div class="blog-body">
+			
+				<div class="table-responsive">
+					<table class="table table-hover no-margin">
+						<thead><tr>
+							<th width="80">{LA::get('cms' , 'table_priority')}</th>
+							<th width="150">{LA::get('cms' , 'table_name')}</th>
+							<th width="250">{LA::get('cms' , 'table_rewrite')}</th>
+							<th class="text-right">{LA::get('cms' , 'table_options')}</th>
+						</tr></thead>
+						<tbody>
+						{if !empty($list)}{foreach item=item from=$list}
+						<tr class="draggable">
+							<td align="center" valign="middle"><span class="badge badge-primary">{$item.priority}</span></td>
+							<td><b>{$item.name}</b></td>
+							<td align="left">{$item.rewrite}</td>
+							<td align="right">
+								<a class="btn btn-sm btn-success" href="{$app_url}admin/content/list/?section={$item.id}"><i class="fa fa-list"></i> menu</a>
+								<a class="btn btn-sm btn-info" href="{$app_url}admin/content/sections/edit/?id={$item.id}"><i class="fa fa-pencil"></i></a>
+								<a class="btn btn-sm btn-danger confirm" href="{$app_url}admin/content/sections/delete/?id={$item.id}"><i class="fa fa-trash"></i></a>
+							</td>
+						</tr>
+						{/foreach}{/if}
+						</tbody><tfoot>
+							<td colspan="5">
+								<a class="pull-right btn btn-sm btn-warning" href="{$app_url}admin/content/sections/add/"><i class="fa fa-plus"> </i>&nbsp;{LA::get('cms' , 'btn_add')}</a>
+							</td>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{Form::close()}

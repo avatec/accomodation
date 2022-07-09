@@ -1,0 +1,49 @@
+#footer { 
+	margin-top: 25px; 
+	padding: 25px 0px 25px 0px; 
+	overflow: hidden; 
+	background: darken($white,70%);
+	color: $white; 
+	h5.title {
+		font-size: 18pt;
+		@media screen and (max-width: 480px) {
+			font-size: 16pt;
+		}
+		text-transform: uppercase;
+		font-weight: 300;
+		padding-bottom: 5px;
+		
+	}
+	a { 
+		color: #fafafa; 
+		font-size: 12pt; 
+	}
+	ul {
+		list-style-type: none;
+		font-size: 14pt;
+		margin: 0;
+		padding: 0 4px;
+	}
+	
+	.social-icon {
+		display: inline-block;
+		padding: 20px;
+		font-size: 15pt;
+		transition: all 150ms ease-in;
+	}
+	.social-icon:hover {
+		transform: scale(1.8);
+	}
+}
+
+
+	.fixed-position {
+		position: fixed !important;
+		bottom: 10px;
+		right: 10px;
+		z-index: 999;
+		padding: 15px 18px 15px 18px;
+		border-radius: 90px;
+		-webkit-border-radius: 90px;
+		-moz-border-radius: 90px;
+	}

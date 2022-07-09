@@ -1,0 +1,125 @@
+<h1 class="title">Formularz płatności</h1>
+
+{Form::open("POST" , Dotpay::$url, null, null)}
+{Form::hidden("id" , $config['dotpay_id'])}
+{Form::hidden("amount" , $data['amount'])}
+{Form::hidden("currency" ,  $data['currency'])}
+{Form::hidden("description" , $data['description'])}
+{Form::hidden("lang" ,  $data['lang'])}
+{Form::hidden("url" , $data['url'])}
+{Form::hidden("type" , $data['type'])}
+{Form::hidden("buttontext" , $data['buttontext'])}
+{Form::hidden("urlc" , $data['urlc'])}
+{Form::hidden("control" , $data['control'])}
+{Form::hidden("p_info" , $data['p_info'])}
+{Form::hidden("p_email" , $data['p_email'])}
+{Form::hidden("channel_groups" , $data['channel_groups'])}
+{**{Form::hidden("country" , $data['country'])}**}
+{**{Form::hidden("chk" , Dotpay::GenerateChk($data, 'chk'))}**}
+
+{if !empty($smarty.post.special_id)}
+{Form::hidden("special_id" , $smarty.post.special_id)}
+{/if}
+
+<div class="form-group">
+	<label class="label-control col-md-2">Imię <sup>*</sup></label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "firstname",
+			"required" => true,
+			"value" => $data['firstname']
+		])}
+	</div>
+	<label class="label-control col-md-2">Nazwisko <sup>*</sup></label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "lastname",
+			"required" => true,
+			"value" => $data['lastname']
+		])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="label-control col-md-2">Ulica</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "street"
+		])}
+	</div>
+	<label class="label-control col-md-2">Nr. budynku/mieszkania</label>
+	<div class="col-md-2">
+		{Form::input2([
+			"type" => "text",
+			"name" => "street_n1"
+		])}
+	</div>
+	<div class="col-md-2">
+		{Form::input2([
+			"type" => "text",
+			"name" => "street_n2"
+		])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="label-control col-md-2">Kod pocztowy</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "postcode"
+		])}
+	</div>
+	<label class="label-control col-md-2">Miasto</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "city"
+		])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="label-control col-md-2">E-mail <sup>*</sup></label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "email",
+			"name" => "email",
+			"required" => true,
+			"value" => $data['email']
+		])}
+	</div>
+	<label class="label-control col-md-2">Telefon</label>
+	<div class="col-md-4">
+		{Form::input2([
+			"type" => "text",
+			"name" => "phone",
+			"value" => $data['phone']
+		])}
+	</div>
+</div>
+
+<br/>
+<div class="form-group">
+	{Form::checkbox("bylaw" , "1" , 'Akceptuję <a href="https://ssl.dotpay.pl/files/regulamin_dotpay_sa_dokonywania_ wplat_w_serwisie_dotpay.pdf" target="_blank" title="regulamin płatności">Regulamin płatności</a> oraz <a href="http://www.dotpay.pl/polityka-plikow-cookies/" target="_blank" title="polityka cookies">politykę cookies</a> Dotpay S.A.')}
+</div>
+<div class="form-group">
+	{Form::checkbox("personal_data" , "1" , 'Wyrażam zgodę na przetwarzanie moich danych osobowych przez Dotpay
+S.A. 30-552 Kraków (Polska), Wielicka 72 dla potrzeb realizacji
+procesu płatności zgodnie z obowiązującymi przepisami (Ustawa z
+dnia 29.08.1997r. o ochronie danych osobowych, Dz. U. nr 133, poz.
+883 z późn. zmianami). Mam prawo wglądu i poprawiania swoich
+danych.')}
+</div>
+
+<p class="text-right">
+	<a href="{$app_url}panel/objects/order/?object_id={$smarty.post.object_id}{if !empty($smarty.post.special_id)}&special_id={$smarty.post.special_id}{/if}" class="btn btn-default">
+		<em class="fa fa-chevron-left"></em> Powrót do poprzedniej strony
+	</a>
+	<button type="submit" class="btn btn-primary" {**form="dotpay_redirection_form"**}>
+		Dokonaj płatności <em class="fa fa-chevron-right"></em>
+	</button>
+</p>
+{Form::close()}
+<hr/>
+<p><img src="{$app_url}modules/payment/images/dotpay.gif" alt="Płatności obsługuje firma dotpay.pl" /></p>

@@ -1,0 +1,176 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{$view.city}",
+    "addressRegion": "{$view.state}",
+    "streetAddress": "{$view.address}"
+  },
+  {if isset($comments.avg_rating) && $comments.avg_rating>0}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{$comments.avg_rating}",
+    "reviewCount": "{$comments.count}"
+  },
+  {/if}
+  "description": "{$view.short_description}",
+  "name": "{$view.name}",
+  "telephone": "{$view.phone}"
+}
+</script>
+
+<div id="ViewObject">
+	<h1 class="object-title">
+		{$view.name}
+		<small>{ObjectsTypes::getName($view.type)}</small>
+	</h1>
+
+	<div class="row margin-top">
+		<div class="col-xs-12 col-md-4">
+			{** Zdjęcia **}
+			{if isset($photos)}
+            <div id="gallery">
+    			<a href="{ObjectsPhotos::getImage($view.id, false)}" class="gallery-item big" rel="prettyPhoto[0]">
+    				<img src="{ObjectsPhotos::getImage($view.id)}" alt="{$view.name}" data-title="{$view.name}" />
+    			</a>
+
+    			{foreach item=item from=$photos}
+				<a href="{$app_url}userfiles/objects/photos/{$item.file}" class="gallery-item" rel="prettyPhoto[0]">
+                    <img src="{$app_url}userfiles/objects/photos/thumbs/{$item.file}" alt="{$view.name} - zdjęcie {$item.id}" data-title="{$view.name}" />
+                </a>
+    			{/foreach}
+			</div>
+
+			{else}
+
+			<div class="alert alert-danger text-center">
+				Przepraszamy. Administrator tej oferty nie dodał żadnego zdjęcia.<br/><br/>
+				<button id="requestPhotos" class="btn btn-primary" data-object-id="{$view.id}">
+					POPROŚ O DODANIE ZDJĘĆ DLA TEJ OFERTY
+				</button>
+
+				<h4 class="request-photo-loading text-center">
+					<span class="fa fa-circle-o-notch fa-spin"></span> trwa przetwarzanie danych
+				</h4>
+			</div>
+			{/if}
+
+			{** Wideo **}
+			{if isset($videos)}
+			<fieldset>
+				<legend>Filmy</legend>
+				{foreach item=item from=$videos}
+				<a class="img-thumbnail popup-movie" href="https://www.youtube.com/watch?v={$item.link}">
+					<div class="movie-bg"></div>
+					<img class="img-responsive" src="http://i.ytimg.com/vi/{$item.link}/0.jpg">
+					<div class="center-play-button"><span class="fa fa-2x fa-play"></span></div>
+
+				</a>
+				{/foreach}
+			</fieldset>
+			{/if}
+
+			{if !empty($view.www)}<a href="{$view.www}" target="_blank" rel="nofollow" class="btn btn-primary btn-block">
+				<span class="fa fa-home"></span> {Language::get("objects" , "objects_form_www")}
+			</a>{/if}
+            {if $config.announcement_email=="TRUE" && !empty($view.email)}
+			<a href="{mailto address="`$view.email`" encode=hex noahref=true}" class="btn btn-primary btn-block">
+				<span class="fa fa-envelope"></span> {Language::get("objects" , "objects_form_email")}
+			</a>
+			{/if}
+			<div class="statistic alert alert-info">
+				<div class="label">Telefon</div>
+				<div class="value"><span data-text="{Language::get("objects" , "btn_show_phone")}" class="hide-click-view">
+					{$view.phone}
+				</span></div>
+			</div>
+
+			<fieldset>
+				<legend><span class="fa fa-map-marker"></span> {Language::get("objects" , "view_address")}</legend>
+				<b>{$view.address}</b><br/>
+				{$view.postcode} {$view.city}<br/>
+				{ObjectsStates::getName($view.state)} ({ObjectsCountrys::getName($view.country)})
+			</fieldset>
+
+			{** Mapa Google **}
+			<fieldset>
+				<legend>{Language::get("objects" , "view_map_location")}</legend>
+				<div id="google-map" data-name="{$view.name}" data-lat="{$view.map_lat}" data-lng="{$view.map_lng}" data-zoom="{$view.map_zoom}">
+					ładowanie mapy...
+				</div>
+				{if $config['announcement_navigate'] == "TRUE"}<a target="_blank" href="http://maps.google.com/maps?daddr={$view.map_lat},{$view.map_lng}&amp;ll=" class="btn btn-primary btn-block btn-sm">{Language::get("objects" , "btn_navigate")} <em class="fa fa-map"></em></a>{/if}
+			</fieldset>
+
+			{if !empty($view.distance)}
+			<fieldset>
+				<legend>{Language::get("objects" , "objects_distance_text")}</legend>
+				<div class="alert alert-default">
+				<table class="table table-distance table-hover">
+				{strip}{foreach name=lpd key=id item=item from=$view.distance}
+				{if $item>0}
+					<tr>
+					<th class="text-right">{ObjectsDistance::getName($id)}:</th><td>{$item} {Language::get("objects" , "objects_meter_text")}</td>
+					</tr>
+				{/if}
+				{/foreach}{/strip}
+				</tr></table>
+				<div class="clearfix"></div>
+				</div>
+			</fieldset>
+			{/if}
+		</div>
+		<div class="col-xs-12 col-md-8">
+
+			{if $config['announcement_comments'] == "TRUE"}
+			<div class="comments">
+				<div class="row">
+					<div class="col-xs-12 col-md-6 text-center">
+						{ObjectsComments::stars($comments.avg_rank)}
+						<button type="button" data-toggle="modal" data-target="#blockComments" class="btn btn-default btn-sm btn-block"><em class="fa fa-comment"></em> {Language::get("objects" , "btn_show_comments")} <span class="badge badge-primary">{$comments.count}</span></button>
+					</div>
+					<div class="col-xs-6 col-md-3 text-center">
+						<button id="btnAddPlusRecommend" data-text="Twój głos został już wykorzystany dla tego obiektu. Dziękujemy !" data-id="{$view.id}" class="btn btn-block btn-success" data-toggle="tooltip" data-title="{Language::get("objects" , "comments_click_recommend")}"><span class="fa fa-thumbs-up fa-2x text-white"></span><br/><b>{$view.plus}</b> {Language::get("objects" , "view_comment_recommend")}</button>
+					</div>
+					<div class="col-xs-6 col-md-3 text-center">
+						<button id="btnAddMinusRecommend" data-text="Twój głos został już wykorzystany dla tego obiektu. Dziękujemy !" data-id="{$view.id}" class="btn btn-block btn-danger" data-toggle="tooltip" data-title="{Language::get("objects" , "comments_click_not_recommend")}"><span class="fa fa-thumbs-down fa-2x text-white"></span><br/><b>{$view.minus}</b> {Language::get("objects" , "view_comment_not_recommend")}</button>
+					</div>
+				</div>
+			</div>
+			{/if}
+
+			{** Opis Obiektu **}
+			{if !empty($view.long_description)}
+			<div class="object-text">
+				{$view.long_description}
+
+				{** Buttony facebook **}
+				<p class="social-buttons">
+                    <div class="fb-like" data-href="{$app_request_url}" data-width="" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="false" data-share="true"></div>
+				</p>
+			</div>
+			{/if}
+
+			<div class="well text-right">
+				{if !isset($config['basic'])}<a href="#ViewRoomsContainer" class="btn btn-primary btn-lg">
+					Zobacz pokoje <span class="fa fa-angle-double-right"></span>
+				</a>{/if}<button id="contactBtnMain" type="button" data-toggle="modal" data-target="#blockContactForm" data-id="{$view.id}" data-room-id="0" data-room-name="" class="btn btn-info btn-lg">{Language::get("objects" , "btn_write_message")} <span class="fa fa-envelope"></span></button>
+			</div>
+
+			{** Udogodnienia **}
+			{if !empty($view.improvements)}<fieldset>
+				<legend>{Language::get("objects" , "objects_improvement_text")}</legend>
+				{foreach key=id item=boolean from=$view.improvements}
+				{ObjectsImprovement::getName($id, true)}
+				{/foreach}
+			</fieldset>{/if}
+
+			{** Ładowanie podstrony generującej pokoje **}
+			{include file="`$app_path`modules/objects/templates/website/objects/view/_rooms.smarty"}
+		</div>
+	</div>
+</div> {** ViewObject Class **}
+
+{include file="`$app_path`modules/objects/templates/website/objects/view/_modal_contact_form.smarty"}
+{include file="`$app_path`modules/objects/templates/website/objects/view/_modal_comments.smarty"}

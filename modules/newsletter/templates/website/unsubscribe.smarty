@@ -1,0 +1,8 @@
+<div class="title-header">
+	<h2>Rezygnacja z subskrypcji newslettera</h2>
+	<hr class="line" />
+</div>
+
+<div class="alert alert-info">
+{Text::getByName("newsletter-unsubscribe")}
+</div>

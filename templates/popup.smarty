@@ -1,0 +1,67 @@
+{if !isset($smarty.cookies.AvatecBiuletyn)}
+<script src="{$app_url}templates/admin/js/jquery.cookie.min.js"></script>
+<div id="BiuletynAvatec" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="BiuletynAvatec">
+	<form>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form>
+			<div class="modal-header bg-info">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Zamknij"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-white" id="BiuletynAvatecLabel">Biuletyn Informacji</h4>
+			</div>
+			<div class="modal-body">
+				<p class="lead text-center">Podaj swój adres e-mail, a będziemy na bieżąco informowali Cię o aktualizacjach tego oprogramowania oraz aktualnych promocjach</p>
+				<div class="row">
+					<div class="col-xs-12 col-sm-7 col-md-8">
+					{Form::input2([ "type" => "email", "id" => "email", "name" => "email", "required" => true, "placeholder" => "podaj swój adres e-mail", "class" => "input-lg" ])}
+					</div>
+					<div class="col-xs-12 col-sm-5 col-md-4">
+						<button id="btnSaveEmail" type="button" class="btn btn-primary btn-lg btn-block"><em class="fa fa-plus"></em> zapisuję się</button>
+					</div>
+				</div>
+				<br/>
+				<div class="alert alert-info">
+				<p class="text-center">Szanujemy Twój czas i Twoją prywatność. Gwarantujemy, że na podany przez Ciebie adres e-mail będą wysyłane tylko i wyłącznie wiadomości informacyjne dotyczące produktów firmy AVATEC. Pamiętaj, że <b>w każdym momencie możesz zrezygnować z subskrypcji.</b>W tym celu napisz maila na adres biuro@avatec.pl.</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij okno</button>
+			</div>
+			</form>
+		</div>
+	</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).ready( function() {
+	if(!$.cookie("AvatecBiuletyn")) {
+		setTimeout( function() {
+			$("#BiuletynAvatec").modal('show');
+		}, 5000);
+
+		$("#BiuletynAvatec").on('hidden.bs.modal' , function() {
+			$.cookie("AvatecBiuletyn" , true, { expires: 1 });
+		});
+
+		$("#btnSaveEmail").click( function() {
+			var email = $("#email").val();
+			$.get('http://www.avatec.pl/newsletter.php' , { email: email }, function(i) {
+				if(i == "OK") {
+					$("#BiuletynAvatec .modal-body").empty().html('<p class="text-center lead">Dziękujemy! Twój adres e-mail został zapisany. Życzymy miłego testowania naszej aplikacji</p>');
+					$.cookie("AvatecBiuletyn" , true, { expires: 60 } );
+				}
+				if(i == "ERR100") {
+					$("#BiuletynAvatec #email").focus().addClass("has-error");
+					alert("Nieprawidłowy format adresu e-mail");
+				}
+				if(i == "ERR101") {
+					$("#BiuletynAvatec .modal-body").empty().html('<p class="text-center lead">Wygląda na to, że Twój adres e-mail znajduje się już w naszej bazie ! Dziękujemy, że z nami jesteś.</p>');
+					$.cookie("AvatecBiuletyn" , true, { expires: 60 } );
+				}
+			});
+		});
+	}
+});
+</script>
+{/if}

@@ -1,0 +1,33 @@
+{if $config.service_blocked == "TRUE"}
+	<style type="text/css">
+		body { background-color: #efefef; height: 100%; position: fixed;}
+		#main { width:40%;background:#fff;padding:10px;box-shadow:0px 0px 15px #ccc;margin:10% auto 0 auto; }
+		h1 { font-size:18pt;border-bottom: 1px solid #ccc;color:#a10000;font-weight:lighter;padding-bottom:10px;margin-bottom:35px; }
+		p.text { text-align: center;font-size:12pt; }
+		p.foot { text-align: center;font-size:10pt;margin-top:20px; }
+	</style>
+
+	<div id="main">
+		<h1 align="center">Serwis tymczasowo zablokowany</h1>
+		<p class="text">{$config.service_blocked_text}</p>
+		<p class="foot">Powered by <a href="http://www.avatec.pl/">AVATEC FRAMEWORK</a> v7.5</p>
+	</div>
+{else}
+	{if !empty($tpl.schema)}
+		{include file="`$app_path`templates/website/schema/`$tpl.schema`.smarty"}
+	{else}
+		<style type="text/css">
+			body { background-color: #efefef; height: 100%; position: fixed;}
+			#main { width:40%;background:#fff;padding:10px;box-shadow:0px 0px 15px #ccc;margin:10% auto 0 auto; }
+			h1 { font-size:18pt;border-bottom: 1px solid #ccc;color:#a10000;font-weight:lighter;padding-bottom:10px;margin-bottom:35px; }
+			p.text { text-align: center;font-size:12pt; }
+			p.foot { text-align: center;font-size:10pt;margin-top:20px; }
+		</style>
+		<div id="main">
+			<h1 align="center">NOTICE: No schema selected</h1>
+			<p class="text">Something is wrong!<br/>Did You define <b>schema</b> for this url ?<br/>Please check include/content.php or module website.php file</p>
+			<p class="foot">Powered by <a href="http://www.avatec.pl/">AVATEC FRAMEWORK</a> v7.5</p>
+		</div>
+	{/if}
+
+{/if}

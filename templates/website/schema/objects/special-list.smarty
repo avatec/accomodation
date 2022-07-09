@@ -1,0 +1,182 @@
+{include file="`$app_path`templates/website/schema/panels/top.smarty"}
+<div id="search">
+	<div class="container">
+
+	<h3 class="title">{Language::get("cms" , "search_title")}</h3>
+			<div class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-4 col-md-4">
+					{Form::input2([
+						"type" => "text",
+						"name" => "q" ,
+						"placeholder" => Language::get("cms" , "search_name")
+					])}
+				</div>
+				<div class="col-xs-3 col-md-3">
+					{Form::input2([
+						"type" => "text",
+						"name" => "c",
+						"placeholder" => Language::get("cms" , "search_city")
+					])}
+				</div>
+				<div class="col-xs-3 col-md-3">
+					{Form::select2([
+						"name" => "s" ,
+						"values" => ObjectsStates::getSelect(),
+						"empty" => Language::get("cms" , "search_state_all")
+					])}
+				</div>
+				<div class="col-xs-2 col-md-2">
+					{Form::select2([
+						"name" => "t",
+						"values" => ObjectsTypes::getSelect(),
+						"empty" => Language::get("cms" , "search_type_all")
+					])}
+				</div>
+			</div>
+			<div id="advancedSearchLayer">
+				<fieldset>
+					<div class="form-group">
+						<div class="col-md-2">
+							<div class="input-group">
+								{Form::input2([
+									"type" => "text",
+									"name" => "cf",
+									"placeholder" => Language::get("cms" , "search_amount_from")
+								])}
+								<div class="input-group-addon">zł</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="input-group">
+								{Form::input2([
+									"type" => "text",
+									"name" => "ct",
+									"placeholder" => Language::get("cms" , "search_amount_to")
+								])}
+								<div class="input-group-addon">zł</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="input-group">
+								{Form::input2([
+									"type" => "number",
+									"name" => "rp",
+									"placeholder" => Language::get("cms" , "search_room_person"),
+									"min" => 1,
+									"max" => 10
+								])}
+								<div class="input-group-addon">osób</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							{Form::select2([
+								"name" => "l",
+								"values" => ObjectsLocation::getSelect(),
+								"empty" => Language::get("cms" , "search_location_all")
+							])}
+						</div>
+					</div>
+					<div class="form-group">
+						{Form::checkbox("photo" , "TRUE", Language::get("cms" , "search_adv_only_photo"))}
+
+						{Form::checkbox("video" , "TRUE", Language::get("cms" , "search_adv_only_video"))}
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							{if isset($distance)}<h4>{Language::get("objects" , "objects_distance_text")}</h4>{foreach item=item from=$distance}
+							<div class="col-md-4">
+							<label>
+							{if isset(Form::$post) && !empty(Form::$post['distance'])}
+							{Form::input2([
+								"type" => "checkbox",
+								"name" => "distance[{$item.id}]",
+								"label" => {$item.name},
+								"class" => "distance-checkbox",
+								"value" => Form::$post['distance']
+							])}
+							{else}
+							{Form::input2([
+								"type" => "checkbox",
+								"name" => "distance[{$item.id}]",
+								"label" => $item['name'],
+								"class" => "distance-checkbox"
+							])}
+							{/if}
+							</label>
+							</div>
+							{/foreach}<div class="clearfix"></div>{/if}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							{if isset($improvement)}<h4>{Language::get("objects" , "objects_improvement_text")}</h4>{foreach item=item from=$improvement}
+							<div class="col-md-4">
+							<label>
+							{if !empty(Form::$post['improvement'])}
+							{Form::input2([
+								"type" => "checkbox",
+								"name" => "improvement[{$item.id}]",
+								"label" => {$item.name},
+								"class" => "improvement-checkbox",
+								"value" => Form::$post['improvement']
+							])}
+							{else}
+							{Form::input2([
+								"type" => "checkbox",
+								"name" => "improvement[{$item.id}]",
+								"label" => {$item.name},
+								"class" => "improvement-checkbox"
+							])}
+							{/if}
+							</label>
+							</div>
+							{/foreach}<div class="clearfix"></div>{/if}
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="text-right">
+				<button id="advancedSearch" type="button" class="btn btn-secondary btn-adv-search">{Language::get("objects" , "btn_search_adv")} <em class="fa fa-caret-down"></em></button>
+				<button id="submitSearch" type="button" class="btn btn-secondary btn-search" data-content="Wybierz jedną z opcji, według której chcesz rozpocząć wyszukiwanie">{Language::get("objects" , "btn_search")} <em class="fa fa-search"></em></button>
+			</div>
+			</div>
+	</div>
+</div>
+<div id="search-results" class="container">
+	<fieldset>
+		{if isset($results)}
+		<legend>{Language::get("cms" , "search_results")}: {count($results)} {Language::get("cms" , "search_results_2")}{if count($results)>=1 AND count($results) <=4}{Language::get("cms" , "search_results_2a")}{elseif count($results)>=5}{Language::get("cms" , "search_results_2b")}{/if}</legend>
+
+		{Paginate::get()}
+		<div class="row">
+			{foreach item=item from=$results name=lp}
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				<div class="item{if $item.search_expire>$now} promoted{/if}">
+					<div class="img-figure">
+						<div class="cat">{ObjectsTypes::getName($item.type)}</div>
+						{if $item.has_video == true}<div class="cat-video">wideo</div>{/if}
+						<a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}"><img alt="{$item.name}" src="{ObjectsPhotos::getImage($item.id)}" class="img-responsive"></a>
+						<div class="cat-price">cena od {ObjectsRooms::getAmount($item.id)}</div>
+					</div>
+					<div class="title">
+						<h1><a href="{$app_url}noclegi/{Kernel::rewrite($item.city)}/{Kernel::rewrite($item.name)}-i{$item.id}">{$item.name}</a></h1>
+						<h5><a class="city-link" href="{$app_url}noclegi/{Kernel::rewrite($item.city)}">{$item.city}</a></h5>
+					</div>
+					<div class="description">
+
+					</div>
+				</div>
+			</div>
+			{if $smarty.foreach.lp.iteration%4==0}</div><br/><div class="row">{/if}
+			{/foreach}
+		</div>
+		{Paginate::get()}
+		{else}
+		<p>{Language::get("cms" , "search_query_empty")}</p>
+		{/if}
+	</fieldset>
+</div>
+{include file="`$app_path`templates/website/schema/panels/bottom.smarty"}

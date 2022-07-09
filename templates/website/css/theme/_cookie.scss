@@ -1,0 +1,49 @@
+#cwwb {
+	position: fixed;
+	right: 0px;
+	bottom: -100%;
+	z-index: 999;
+	text-align: center;
+	width: 100%;
+	background: $primary-color;
+	padding: 10px 0px;
+	font-size: 12pt;
+	color: $cookie-text;
+	line-height: 1.4em;
+    animation-delay: .9s;
+	animation: show .9s linear;
+	animation-fill-mode: forwards;
+	-webkit-animation-delay: 2s;
+	a { 
+		color: orange; text-decoration: none; 
+	}
+	.text { 
+		width: 100%; 
+		text-align: center; 
+		padding-bottom: 10px;
+	}
+	button { 
+		width: 100%; 
+		text-align: center;
+		padding-top: 0px; 
+		color: $white; 
+		background: none; 
+		border: none; 
+	}
+	.button:hover { 
+		color: $cookie-link; 
+	}
+}
+
+@keyframes show {
+  0% { display: block; bottom: -100%; }
+  100% { display: block; bottom: 0px; }
+}
+
+@media screen and (max-width: 768px) {
+	#cwwb {
+		width: 100%;
+		bottom: 0px;
+		font-size: 11pt;
+	}
+}

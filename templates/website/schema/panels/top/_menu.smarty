@@ -1,0 +1,40 @@
+<section id="main-menu">
+	<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">
+						<img class="logo img-responsive" src="{$app_url}templates/website/images/{if !empty($config.website_logo)}{$config.website_logo}{else}logo.png{/if}" alt="{$config.service_name}" />
+					</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="mobile-menu">
+						{if User::$user['id'] > 0}
+							{if User::$user['user_type'] == "OWNER"}
+							<a class="link" href="{$app_url}panel/objects/">{Language::get("system" , "user_btn_offers")}</a>
+							{/if}
+							<a class="link" href="{$app_url}panel/account">{Language::get("system" , "user_btn_account")}</a>
+							<a class="link" href="{$app_url}panel/change-password">{Language::get("system" , "user_btn_change_password")}</a>
+							<a class="link" href="{$app_url}panel/logout"><span class="fa fa-sign-out"></span></a>
+						{else}
+							<a class="link" href="{$app_url}panel/login"><span class="fa fa-sign-in"></span></a>
+							<a class="link" href="{$app_url}panel/register">{Language::get("system" , "user_btn_register")}</a>
+							<a class="link" href="{$app_url}panel/password-reset">{Language::get("system" , "user_btn_password_forget")}</a>
+						{/if}
+						</li>
+						{Content::generate(["section" => 1, "class" => "nav navbar-nav", "dropdown" => true])}
+						<li class="mobile-menu-lang">
+							<a class="link-inline{if Language::$selected=="pl"} selected{/if}" href="{$app_url}language-pl/?redirect={$app_request_url}"><em class="flag-icon flag-icon-pl"></em></a>
+				<a class="link-inline{if Language::$selected=="en"} selected{/if}" href="{$app_url}language-en/?redirect={$app_request_url}"><em class="flag-icon flag-icon-gb"></em></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+</section>

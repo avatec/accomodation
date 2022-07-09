@@ -1,0 +1,12 @@
+#watermark {
+  position: relative; }
+  #watermark #main_image {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%; }
+  #watermark #watermark_preview {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 150px; }

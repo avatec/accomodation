@@ -1,0 +1,26 @@
+{Form::open("POST" , Dotpay::$url)}
+{Form::hidden("id" , $config['dotpay_id'])}
+{Form::hidden("amount" , $data['amount'])}
+{Form::hidden("description" , $data['description'])}
+{Form::hidden("onlinetransfer" , "1")}
+{Form::hidden("type" , "0")}
+{Form::hidden("buttontext" , "Powróć do serwisu")}
+{**{Form::hidden("back_button_url" , $data['back_url'])}**}
+{Form::hidden("url" , $data['url'])}
+{Form::hidden("urlc" , $data['urlc'])}
+{Form::hidden("control" , $data['control'])}
+{Form::hidden("p_info" , $data['p_info'])}
+{Form::hidden("p_email" , $data['p_email'])}
+{Form::hidden("firstname" , $data['firstname'])}
+{Form::hidden("lastname" , $data['lastname'])}
+{Form::hidden("phone" , $data['phone'])}
+{Form::hidden("email" , $data['email'])}
+
+<p class="text-left">
+	<button type="submit" class="btn btn-primary">
+		Dokonaj płatności z dotpay <em class="fa fa-chevron-right"></em>
+	</button>
+</p>
+{Form::close()}
+<hr/>
+<p class="text-right"><img src="{$app_url}modules/payment/images/dotpay.gif" alt="Płatności obsługuje firma dotpay.pl" /></p>
