@@ -1,5 +1,5 @@
 {
-    "name": "avatec/accomodation/ose",
+    "name": "avatec_accomodation_ose",
     "description": "Avatec Accomodation Open Source Edition. PHP script to run accomodation portal",
     "author": "Grzegorz Miskiewicz <avatecpl@gmail.com>",
     "require": {
