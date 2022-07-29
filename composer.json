@@ -1,4 +1,6 @@
 {
+    "name": "Avatec Accomodation Open Source Edition",
+    "description": "PHP script to run accomodation portal",
     "require": {
 	    "verot/class.upload.php": "dev-master",
         "smarty/smarty": "^3.1",
