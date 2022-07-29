@@ -1,6 +1,6 @@
 {
-    "name": "Avatec Accomodation Open Source Edition",
-    "description": "PHP script to run accomodation portal",
+    "name": "AvatecAccomodationOSE",
+    "description": "Avatec Accomodation Open Source Edition. PHP script to run accomodation portal",
     "author": "Grzegorz Miskiewicz <avatecpl@gmail.com>",
     "require": {
 	    "verot/class.upload.php": "dev-master",
