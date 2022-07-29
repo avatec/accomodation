@@ -1,7 +1,20 @@
 {
-    "name": "avatec_accomodation_ose",
-    "description": "Avatec Accomodation Open Source Edition. PHP script to run accomodation portal",
-    "author": "Grzegorz Miskiewicz <avatecpl@gmail.com>",
+   "name": "avatec/accomodation",
+    "description": "Avatec Accomodation Open Source Edition",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Avatec\\Accomodation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Grzegorz Miśkiewicz",
+            "email": "biuro@avatec.pl"
+        }
+    ],
+    "minimum-stability": "dev",
     "require": {
 	    "verot/class.upload.php": "dev-master",
         "smarty/smarty": "^3.1",
