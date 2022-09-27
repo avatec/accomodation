@@ -5,6 +5,9 @@ This software can be used for building own accomodation website. We open its sou
 
 ## Running with docker
 
+Type ``composer update && composer build``
+After installation finish, you can view site http://127.0.0.1:8080
+
 ## Installation
 
 Install SQL file from install folder. Configure file include/config/main.php using main.basic version and setup database configuration.
