@@ -1,6 +1,9 @@
 ## Avatec Accomodation - Skrypt Bazy noclegowej
 
+**WARNING ! This version is unstable**
 This software can be used for building own accomodation website. We open its source for You. If you wish buy me a coffee :-)
+
+## Running with docker
 
 ## Installation
 
