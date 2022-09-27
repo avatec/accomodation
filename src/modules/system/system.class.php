@@ -67,20 +67,6 @@ class System {
 			Navigation::submenu('advanced' , LA::get('system' , 'menu_config_payments'), "system/config/payments/");
 		Navigation::label(9, 'Moduły strony');
 
-		/**
-		Kernel::addAdminMenu("config", "Konfiguracja", null, "fa-cogs", null, false);
-			Kernel::addAdminMenu("config", "Podstawowa", "admin/system/config/main/", null, true);
-			Kernel::addAdminMenu("config", "Dane teleadresowe", "admin/system/config/contact/", null, true);
-			Kernel::addAdminMenu("config", "Społecznościowe", "admin/system/config/social/", null, true);
-			Kernel::addAdminMenu("config", "SEO / Meta tagi", "admin/system/config/seo/", null, true);
-			Kernel::addAdminMenu("config", "Bramki płatności", "admin/system/config/payments/", null, true);
-			Kernel::addAdminMenu("config", "Wyróżnienia", "admin/system/promotion/list/", null, true);
-			//Kernel::addAdminMenu("config", "Treść umowy", "admin/system/config/rules/", null, true);
-		Kernel::addAdminMenu("advanced", "Zaawansowane", null, "fa-wrench", null, false);
-			Kernel::addAdminMenu("advanced", "Użytkownicy", "admin/system/users/list/", null, true);
-			Kernel::addAdminMenu("advanced", "Konto SMTP", "admin/system/config/smtp/", null, true);
-		**/
-
 		self::$table = $config['db_prefix'] . self::$table;
 
 		Language::load("system");
@@ -106,8 +92,8 @@ class System {
 
 /**
  *	Sprawdzanie czy wybrany katalog istnieje
- *	@param (string) $dir
- *	@return (bool)
+ *	@param string $dir
+ *	@return bool
  */
 	public static function dir_exists( $dir )
 	{
@@ -125,7 +111,7 @@ class System {
 	public static function create_dir( $dir, $chmod = 0777 )
 	{
 		if( self::dir_exists( $dir ) == false) {
-			mkdir( $dir , $chmod );
+			@mkdir( $dir , $chmod );
 		}
 	}
 

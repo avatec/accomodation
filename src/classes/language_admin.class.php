@@ -52,8 +52,10 @@ class LA {
 		
 		if(isset(self::$lang[$module_arr][$translate])) {
 			$text = self::$lang[$module_arr][$translate];
-			$text = str_replace("[app_url]" , $app_url , $text);
-			$text = str_replace("[app_url_without_http]" , str_replace("http://" , "" , $app_url) , $text);
+			if (!is_array($text)) {
+                $text = str_replace("[app_url]", $app_url, $text);
+                $text = str_replace("[app_url_without_http]", str_replace("http://", "", $app_url), $text);
+            }
 			if(!empty($replace)) {
 				$text = preg_replace_callback('/([##]+)/', function( $matches ) use (&$replace) {
 					return array_shift($replace);

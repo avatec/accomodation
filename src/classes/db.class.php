@@ -360,6 +360,11 @@ class Db
         return true;
     }
 
+    public static function counter()
+    {
+        
+    }
+
     public static function close()
     {
         self::$instance->close();

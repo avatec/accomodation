@@ -167,7 +167,7 @@ $smarty->assign("messages" , array(
 $smarty->assign("assets" , Assets::get());
 $smarty->assign("javascript" , Kernel::getJs()); // deprecated @ 1.5
 $smarty->assign("css" , Kernel::getCss()); // deprecated @ 1.5
-$smarty->assign("access" , User::$admin['access']);
+$smarty->assign("access" , (!empty( User::$admin ) ? User::$admin['access'] : null));
 $smarty->assign("stats" , Stats::get());
 $smarty->assign("version" , Kernel::getVersion());
 $smarty->assign("app_admin_url" , $app_admin_url);
