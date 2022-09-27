@@ -10,6 +10,7 @@ sync.php
 git-deploy
 src/sitemap.xml
 src/install/cache/*
-src/cache/cache.*
+src/cache/**
+src/cache/cache.**
 src/vendor/
 src/vendor/**/vendor/**
