@@ -39,7 +39,7 @@ Kernel::loadClass("modules/system/_autoloader.php");
 
 $config = array_merge($config, $system->configGet());
 
-Kernel::loadClass("modules/admins/_autoloader.php");
+Kernel::loadClass("modules/admins/backend/autoloader.php");
 
 Kernel::loadClass("modules/objects/objects.class.php");
 $objects = new Objects();
@@ -108,8 +108,6 @@ if(isset($config['premium']) || isset($config['exclusive'])) {
 
 Kernel::loadClass("modules/content/_autoloader.php");
 
-
-Kernel::loadClass("plugins/ReCaptcha/autoload.php");
 Kernel::generateToken(25);
 
 if( file_exists( $app_path . "modules/payment/" . $config['payments_module'] . ".class.php") == true) {

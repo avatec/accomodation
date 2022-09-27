@@ -1,16 +1,49 @@
 <?php
 use Core\Error;
 
-spl_autoload_register(function($className) {
+spl_autoload_register(function ($class) {
+    $rootPath = realpath(__DIR__ . "/../") . '/';
+    $class = str_replace("\\", "/", $class);
+    $class = strtolower($class);
 
-   $className = str_replace("\\" , "/" , $className);
-   $className = strtolower( $className );
+    if ($class == 'modules/pages/frontend/pages') {
+        return false;
+    }
 
-   if( file_exists( realpath(__DIR__ . "/../") . '/' . $className . '.php' )) {
-       include_once realpath(__DIR__ . "/../") . '/' . $className . '.php';
-   } else {
-       trigger_error( realpath(__DIR__ . "/../") . '/' . $className . '.php file not found' );
-   }
+    if (file_exists($rootPath . $class . '.php')) {
+        file_put_contents($rootPath . 'logs/bootstrap.log', $rootPath . $class . '.php' . PHP_EOL, FILE_APPEND);
+        include_once $rootPath . $class . '.php';
+        return;
+    }
+
+    if (file_exists($rootPath . $class . '/autoloader.php')) {
+        file_put_contents($rootPath . 'logs/bootstrap.log', $rootPath . $class . '/autoloader.php' . PHP_EOL, FILE_APPEND);
+        include_once $rootPath . $class . '/autoloader.php';
+        return;
+    }
+
+    if (file_exists($rootPath . $class . '/' . $class . '.class.php')) {
+        include_once $rootPath . $class . '/' . $class . '.class.php';
+        return;
+    }
+
+    // includowanie submodułów, interfaceów i innych
+    // modules/module/frontend/ModuleSubmoduleInterface.php
+    $exp = explode("/", $class);
+    if (!empty($exp) && count($exp) == 5) {
+        if (!empty($exp[3]) && !empty($exp[4])) {
+            $submoduleClass = ucfirst(strtolower($exp[3])) . ucfirst(strtolower($exp[4])) . '.php';
+            unset($exp[3]);
+            unset($exp[4]);
+        }
+
+        if (!empty($submoduleClass)) {
+            $path = $rootPath . implode("/", $exp) . "/" . $submoduleClass;
+            if (file_exists($path)) {
+                include_once $path;
+            }
+        }
+    }
 });
 
 error_reporting( E_ALL );
