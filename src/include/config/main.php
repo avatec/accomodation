@@ -5,6 +5,9 @@ $cache = false;
 global $debug;
 $debug = false;
 
+global $admin_folder;
+$admin_folder = 'admin';
+
 global $config;
 $config = array(
 

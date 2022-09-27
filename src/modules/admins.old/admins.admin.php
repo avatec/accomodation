@@ -9,7 +9,7 @@ switch( $command )
 {
 	case "list":
 		Kernel::template("list.smarty");
-		$smarty->assign("list" , $admins->get_list());
+		$smarty->assign("list" , $Admins->get_list());
 	break;
 
 	case "add":
@@ -22,7 +22,7 @@ switch( $command )
 		];
 
 		if(!empty($request->post['module'])) {
-			if( $admins->add() == true ) {
+			if( $Admins->add() == true ) {
 				Kernel::redirect( $app_return );
 			}
 		}
@@ -37,10 +37,10 @@ switch( $command )
 			'link' => "admins/list/"
 		];
 
-		Form::$post = (!empty($request->post) ? $request->post : $admins->get_row($request->get['id'],true));
+		Form::$post = (!empty($request->post) ? $request->post : $Admins->get_row($request->get['id'],true));
 
 		if(!empty($request->post['module'])) {
-			if( $admins->update( $request->get['id'] ) == true ) {
+			if( $Admins->update( $request->get['id'] ) == true ) {
 				Kernel::redirect( $app_return );
 			}
 		}
@@ -56,18 +56,18 @@ switch( $command )
 		];
 
 		if(!empty($request->post['module'])) {
-			$admins->change_password( $request->get['id'] );
+			$Admins->change_password( $request->get['id'] );
 			Kernel::redirect( $app_return );
 		}
 	break;
 
 	case "activate":
-		$admins->activate( $request->get['id'] );
+		$Admins->activate( $request->get['id'] );
 		Kernel::redirect( $app_return );
 	break;
 
 	case "disactivate":
-		$admins->disactivate( $request->get['id'] );
+		$Admins->disactivate( $request->get['id'] );
 		Kernel::redirect( $app_return );
 	break;
 
@@ -79,10 +79,10 @@ switch( $command )
 			'link' => "admins/list/"
 		];
 
-		$smarty->assign("access_default" , $admins->get_access( $request->get['id'] ));
+		$smarty->assign("access_default" , $Admins->get_access( $request->get['id'] ));
 
 		if(!empty($request->post['module'])) {
-			if( $admins->update_access( $request->get['id'] ) == true ) {
+			if( $Admins->update_access( $request->get['id'] ) == true ) {
 				Kernel::redirect( $app_return );
 			}
 		}
@@ -96,17 +96,17 @@ switch( $command )
 			'link' => "admins/list/"
 		];
 
-		$smarty->assign("notify_default" , $admins->get_notify( $request->get['id'] ));
+		$smarty->assign("notify_default" , $Admins->get_notify( $request->get['id'] ));
 
 		if(!empty($request->post['module'])) {
-			if( $admins->update_notify( $request->get['id'] ) == true ) {
+			if( $Admins->update_notify( $request->get['id'] ) == true ) {
 				Kernel::redirect( $app_return );
 			}
 		}
 	break;
 
 	case "delete":
-		$admins->delete( $request->get['id'] );
+		$Admins->delete( $request->get['id'] );
 		Kernel::redirect( $app_return );
 	break;
 }

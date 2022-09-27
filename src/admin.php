@@ -14,8 +14,8 @@
  */
 
 use Core\Error;
-use Core\Assets as Assets;
-use Modules\Admins as Admins;
+use Core\Assets;
+use Modules\Admins\Backend\Admins;
 use Modules\Admins\Tokens as AdminsTokens;
 
 Assets::backend();
@@ -25,7 +25,7 @@ $app_admin_url = $app_url . $admin_folder . '/';
 
 if(!empty(Admins::$auth['token'])) {
 	if( AdminsTokens::update( Admins::$auth['token'] ) == false ) {
-		$admins->logout();
+		$Admins->logout();
 	}
 }
 
@@ -46,7 +46,7 @@ if($route->num == 4) {
 global $command;
 $command = end($route->path_array);
 
-if( $admins->login_is_blocked() == true ) {
+if( $Admins->login_is_blocked() == true ) {
 	if($command !== 'login.html') {
 		Kernel::redirect( $app_admin_url . 'login.html');
 	}
@@ -91,16 +91,16 @@ if((!isset($folder)) && (!isset($file))) {
 
 		case "reset.html":
 			if(!empty($request->post['module'])) {
-				if( $admins->reset_password() == true ) {
+				if( $Admins->reset_password() == true ) {
 					Kernel::redirect( $app_admin_url . 'login.html#forgot_pwd' );
 				}
 			}
 		break;
 
 		case "login.html":
-			$smarty->assign("is_blocked" , $admins->login_is_blocked());
+			$smarty->assign("is_blocked" , $Admins->login_is_blocked());
 			if(!empty($request->post['module'])) {
-				if($admins->login() == true ) {
+				if($Admins->login() == true ) {
 					Kernel::redirect( $app_admin_url . "start.html");
 				}
 			}
@@ -111,14 +111,14 @@ if((!isset($folder)) && (!isset($file))) {
 			Kernel::template("change-password.smarty");
 			Kernel::setJs("generate.js", "system" , true);
 			if(!empty($request->post['module'])) {
-				if( $admins->change_password_login() == true ) {
+				if( $Admins->change_password_login() == true ) {
 					Kernel::redirect( $app_admin_url . "login.html");
 				}
 			}
 		break;
 
 		case "logout.html":
-			$admins->logout();
+			$Admins->logout();
 			Kernel::redirect( $app_admin_url . "login.html");
 		break;
 	}

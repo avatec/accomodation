@@ -22,7 +22,7 @@ use Modules\Admins\Tokens as AdminsTokens;
 
          if(!empty(Admins::$auth['token'])) {
          	if( AdminsTokens::update( Admins::$auth['token'] ) == false ) {
-         		$admins->logout();
+         		$Admins->logout();
          	}
          }
 
