@@ -1,7 +1,7 @@
 {Form::open()}
 
 <input type="hidden" name="attractions_id" value="{$smarty.get.attractions_id}" id="attractions_id"/>
-<input type="hidden" name="token" value="{\Modules\Admins::$auth['token']}" id="token" />
+<input type="hidden" name="token" value="{\Modules\Admins\Backend\Admins::$auth['token']}" id="token" />
 <div class="blog">
 	<div class="blog-header">
 		<h5 class="blog-title pull-left">Zdjęcia</h5>

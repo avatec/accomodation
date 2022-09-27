@@ -191,7 +191,7 @@ class Admins extends Model
 
         self::$auth = Db::row("id, login, name, email, state, type, last_login_date, error_login_date, error_login_ip, access,image", self::$table, "WHERE login='" . $login . "'");
 
-        $token = \Modules\Admins\Backend\Tokens::create(self::$auth['id']);
+        $token = \Modules\Admins\Backend\Admins\Backend\Tokens::create(self::$auth['id']);
         if ($token == false) {
             Messages::error("Sesja wygasła !", self::$Error);
             Logs::create("admins.log", "Sesja wygasła dla login: " . self::$auth['login'] . " adres IP: " . Common::get_ip());

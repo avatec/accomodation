@@ -173,7 +173,7 @@ $smarty->assign("stats" , Stats::get());
 $smarty->assign("version" , Kernel::getVersion());
 $smarty->assign("app_admin_url" , $app_admin_url);
 
-$smarty->registerClass('Admins' , '\Modules\Admins');
+$smarty->registerClass('Admins' , '\Modules\Admins\Backend\Admins');
 
 if(empty(Admins::$auth['id'])) {
 	$smarty->display($app_path . "templates/admin/login.smarty");

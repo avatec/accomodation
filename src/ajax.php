@@ -1,5 +1,5 @@
 <?php
-use Modules\Admins as Admins;
+use Modules\Admins\Backend\Admins;
 use Modules\Admins\Tokens as AdminsTokens;
 
 /**

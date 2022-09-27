@@ -1,5 +1,5 @@
 <?php
-use \Modules\Admins;
+use \Modules\Admins\Backend\Admins;
 
 header('Content-type: application/json');
 

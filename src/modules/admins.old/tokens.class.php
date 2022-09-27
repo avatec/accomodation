@@ -1,6 +1,6 @@
 <?php namespace Modules\Admins;
 
-use \Db, \Kernel, \Modules\Admins as Admins;
+use \Db, \Kernel, \Modules\Admins\Backend\Admins as Admins;
 
 class Tokens
 {

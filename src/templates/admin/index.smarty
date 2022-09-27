@@ -88,7 +88,7 @@
 	});</script>
 	{/if}
 </head>
-<body data-expire="{\Modules\Admins::$auth['expire']}">
+<body data-expire="{\Modules\Admins\Backend\Admins::$auth['expire']}">
 <header>
 	<div class="logo">
 		<a href="#">

@@ -151,7 +151,7 @@ class Admins
 
 		self::$auth = Db::row("id, login, name, email, state, type, last_login_date, error_login_date, error_login_ip, access,avatar" , self::$table , "WHERE login='" . $login . "'");
 
-		$token = \Modules\Admins\Tokens::create( self::$auth['id'] );
+		$token = \Modules\Admins\Backend\Admins\Tokens::create( self::$auth['id'] );
 		if( $token == false ) {
 			Kernel::setMessage("ERROR" , "Sesja wygasła !" , self::$Error);
 			Kernel::log("admins.log" , "Sesja wygasła dla login: " . self::$auth['login'] . " adres IP: " . Common::get_ip());

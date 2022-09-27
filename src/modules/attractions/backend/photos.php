@@ -13,7 +13,7 @@ use \Kernel;
 use \LA;
 use \Language;
 use \System;
-use \Modules\Admins;
+use \Modules\Admins\Backend\Admins;
 
 class Photos
 {
