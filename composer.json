@@ -39,7 +39,7 @@
         "start": "docker-compose up",
         "stop": "docker-compose stop",
         "restart": "docker-composer up -d && docker-compose restart",
-        "backupdb": "docker exec mariadb_container /usr/bin/mysqldump -u root --password=rootpassword accomodation > docker/mysql/dump.sql",
-        "restoredb": "docker exec -i mariadb_container /usr/bin/mysql -u root --password=rootpassword accomodation < docker/mysql/dump.sql"
+        "backupdb": "docker exec mariadb_accomodation /usr/bin/mysqldump -u root --password=rootpassword accomodation > docker/mysql/dump.sql",
+        "restoredb": "docker exec -i mariadb_accomodation /usr/bin/mysql -u root --password=rootpassword accomodation < docker/mysql/dump.sql"
     }
 }

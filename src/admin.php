@@ -13,6 +13,7 @@
  * odpowiedzialności za wszelkie błędy i/lub wady tego oprogramowania.
  */
 
+use Core\Error;
 use Core\Assets as Assets;
 use Modules\Admins as Admins;
 use Modules\Admins\Tokens as AdminsTokens;
@@ -143,7 +144,7 @@ if(empty(Kernel::$tpl['file'])) {
 		if(file_exists($app_path . (isset($folder) ? "modules/" . $folder : ''). "/templates/admin/" . Kernel::$tpl['file']) == true) {
 			$smarty->assign("template_file" , $app_path . (isset($folder) ? "modules/" . $folder : ''). "/templates/admin/" . Kernel::$tpl['file']);
 		} else {
-			CMSError::show(
+			Error::show(
 				"APP FATAL ERROR: Template file not found" ,
 				"App can't find template file at <b>" . $app_path . (isset($folder) ? "modules/" . $folder : ''). "/templates/admin/" . Kernel::$tpl['file'] . "</b>.<br/>Verify if this file exists and check accessable of this folder and file."
 			);
