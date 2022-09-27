@@ -14,9 +14,6 @@ Kernel::loadClass("classes/form.class.php");
 Kernel::loadClass("classes/mail.class.php");
 Kernel::loadClass("classes/thumbs.class.php");
 
-require_once __DIR__ . '/../core/assets.php';
-require_once __DIR__ . '/../core/backend/navigation.php';
-
 if(!isset($config['basic'])) {
 	Kernel::loadClass("classes/smsgateway.class.php");
 }
@@ -135,5 +132,5 @@ if( file_exists( $app_path . "modules/payment/" . $config['payments_module'] . "
 		break;
 	}
 } else {
-	Core\Error::show("ERROR - Module not found" ,  "File " . $app_path . "modules/payments/" . $config['payments_module'] . ".class.php" . " not found");
+	Error::show("ERROR - Module not found" ,  "File " . $app_path . "modules/payments/" . $config['payments_module'] . ".class.php" . " not found");
 }

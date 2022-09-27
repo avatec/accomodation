@@ -23,9 +23,10 @@
         "psr/log": "^1.0",
         "google/recaptcha": "^1.2",
         "symfony/polyfill-mbstring": "^1.7",
-        "facebook/graph-sdk": "^5.7",
+        "facebook/graph-sdk": "^5.1",
         "avatec/framework": "dev-main",
-        "tecnickcom/tcpdf": "^6.5"
+        "tecnickcom/tcpdf": "^6.5",
+        "filp/whoops": "^2.14"
     },
     "config": {
         "platform": {

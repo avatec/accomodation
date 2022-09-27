@@ -85,7 +85,7 @@ class Kernel
 
         $key = array_search($id, array_column(self::$components, 'id'));
         if (!empty($key)) {
-            CMSError::show(
+            Error::show(
                 'RegisterComponent Duplicate found #' . $id,
                 'You are trying to registerComponent to existing ID in ' . $name . '<br/>but it has been registered in: ' . self::$components[$key]['name']
                 );
@@ -381,7 +381,7 @@ class Kernel
         );
     }
 
-    public static function setMessage($type = "NOTICE", $text, $error = null)
+    public static function setMessage($type = "NOTICE", $text = "", $error = null)
     {
         if (is_array($text)) {
             $text = implode("<br/>", $text);
@@ -679,6 +679,7 @@ class Kernel
             break;
         }
 
+        $class = '';
         $CountNumber=0;
         while ($CountNumber < $num) {
             $CountNumber++;

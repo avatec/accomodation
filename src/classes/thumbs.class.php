@@ -19,7 +19,7 @@ class Thumbnail
 
 	public static function cropImageUsingImagick($nw, $nh, $source, $dest, $stype = "auto")
 	{
-		$im = new imagick( $source );
+		$im = new \imagick( $source );
 		$im->cropThumbnailImage( $nw, $nh );
 		$im->writeImage( $dest );
 	}
@@ -111,7 +111,7 @@ class Thumbnail
 		imagedestroy($bg);
 	}
 
-	function resize( $after_width = 1920, $file, $output )
+	function resize( $after_width = 1920, $file = '', $output = '' )
 	{
 	    list( $width, $height, $type, $attr) = getimagesize( $file );
 		if( $width > $after_width ) {

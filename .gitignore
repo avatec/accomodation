@@ -19,3 +19,5 @@ cron/restore-dev/*
 cron/restore
 install/cache/*
 cache/cache.*
+src/vendor/
+src/vendor/**/vendor/**

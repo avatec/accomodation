@@ -2,7 +2,7 @@ version: "3.3"
 services:
   php:
     build: './docker/php/'
-    container_name: php_container
+    container_name: php_accomodation
     networks:
       - backend
       - frontend
@@ -15,7 +15,7 @@ services:
       - mysql
   apache:
     build: './docker/apache/'
-    container_name: apache_container
+    container_name: apache_accomodation
     depends_on:
       - php
       - mysql
@@ -29,7 +29,7 @@ services:
     links:
       - mysql
   mysql:
-    container_name: mariadb_container
+    container_name: mariadb_accomodation
     image: mariadb:latest
     ports:
       - "3306:3306"
@@ -44,7 +44,7 @@ services:
     command:
       ['--memlock=2M', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--max-allowed-packet=128M']
   phpmyadmin:
-    container_name: phpmyadmin_container
+    container_name: phpmyadmin_accomodation
     image: phpmyadmin:latest
     restart: always
     ports:

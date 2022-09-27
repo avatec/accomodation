@@ -15,109 +15,106 @@
  * odpowiedzialności za wszelkie błędy i/lub wady tego oprogramowania.</p>
  */
 
-class Db {
+class Db
+{
+    private static $instance;
+    public static $debug;
 
-	private static $instance;
-	public static $debug;
+    private function __clone()
+    {
+    }
 
-	public static function destruct()
-	{
-		self::$instance->close();
-	}
+    public function __destruct()
+    {
+        self::$instance->close();
+    }
 
-	private function __clone() { }
+    public static function call()
+    {
+        global $config;
 
-	public static function call()
-	{
-		global $config;
+        if (!isset(self::$instance)) {
+            self::$instance = new MySQLi($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name'], (!empty($config['db_port']) ? $config['db_port'] : 3306));
 
-    	if(!isset(self::$instance)){
-			if(empty($config['db_port'])) {
-				self::$instance = new MySQLi($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name'], 3306);
-			} else {
-				self::$instance = new MySQLi($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name'], $config['db_port']);
-			}
-
-
-        	if(self::$instance->connect_error){
+            if (self::$instance->connect_error) {
                 self::$instance = new MySQLi($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name'], (int) $config['db_port']);
-                if(self::$instance->connect_error) {
-            	   throw new Exception('Error MySQL: ' . self::$instance->connect_error);
+
+                if (self::$instance->connect_error) {
+                    throw new Exception('Error MySQL: ' . self::$instance->connect_error);
                 }
-        	}
+            }
 
-            self::$instance->set_charset("utf8");
-    	}
-    	return self::$instance;
-	}
+            self::$instance->set_charset("utf8mb4");
+            self::$instance->query("SET sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';");
+            self::$instance->query("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
+        }
 
-	public static function hasTable( $table )
-	{
-		if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        if (isset(self::$instance)) {
+            return self::$instance;
+        }
+    }
 
-    	$query = "SHOW TABLES LIKE " . $table;
+    public static function error()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	if(self::$debug == true) {
-	    	echo $query . PHP_EOL;
-    	}
+        return self::$instance->error;
+    }
 
-    	$result = self::$instance->query($query);
-    	if(empty($result)) {
-	    	return false;
-		}
+    public static function real_escape($string)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-		if( $result->num_rows > 0 ) {
-			return true;
-		}
+        return self::$instance->real_escape_string($string);
+    }
 
-		return false;
-	}
+    public static function count($t, $w = null)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
+        if (is_null($w)) {
+            $result = self::$instance->query("SELECT * FROM " . $t);
+        } else {
+            $result = self::$instance->query("SELECT * FROM " . $t . " WHERE " . $w);
+        }
 
-	public static function error()
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        if (!empty($result)) {
+            return $result->num_rows;
+        } else {
+            return 0;
+        }
+    }
 
-    	return self::$instance->error;
-	}
+    public static function query($query)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-	public static function real_escape( $string )
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        if (self::$debug == true) {
+            echo $query . PHP_EOL;
+        }
 
-		return self::$instance->real_escape_string( $string );
-	}
+        $result = self::$instance->query($query);
+        if (!empty(self::$instance->error)) {
+            throw new Exception('Error MySQL: ' . self::$instance->error);
+        }
 
-	public static function query( $query )
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        while ($row = $result->fetch_assoc()) {
+            $array[] = $row;
+        }
 
-    	if(self::$debug == true) {
-	    	echo $query . PHP_EOL;
-    	}
+        if (isset($array)) {
+            return $array;
+        }
+    }
 
-    	$result = self::$instance->query($query);
-    	if(!empty(self::$instance->error)) {
-	    	throw new Exception('Error MySQL: ' . self::$instance->error);
-    	}
-
-    	while ($row = $result->fetch_assoc()) {
-			$array[] = $row;
-		}
-
-		if(isset($array)) {
-			return $array;
-		}
-	}
-
-	public static function query_row($query)
+    public static function query_row($query)
     {
         if (!isset(self::$instance)) {
             self::$instance = self::call();
@@ -131,7 +128,8 @@ class Db {
         if (!empty(self::$instance->error)) {
             throw new Exception('Error MySQL: ' . self::$instance->error);
         }
-        if ($result == true) {
+
+        if (!empty($result)) {
             while ($row = $result->fetch_assoc()) {
                 $array[] = $row;
             }
@@ -141,219 +139,229 @@ class Db {
         }
     }
 
-	public static function run( $query )
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+    public static function last_id($table, $column = "id")
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	$result = self::$instance->query($query);
-    	if($result == true) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-	}
+        $result = self::row("*", $table, "ORDER BY ".$column." DESC");
+        return $result[$column];
+    }
 
-	public static function update($t, $q, $w)
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+    public static function run($query)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	$query = "UPDATE " . $t . " SET " . $q . " WHERE ".$w;
-    	if(self::$instance->query($query) === true) {
-	    	return true;
-    	} else {
-	    	if(self::$debug == true) {
-		    	echo $query . PHP_EOL;
-		    	exit;
-	    	}
-	    	throw new Exception('Error MySQL: ' . self::$instance->error);
-    	}
-	}
+        $result = self::$instance->query($query);
+        if (!empty(self::$instance->error)) {
+            throw new Exception('Error MySQL: ' . self::$instance->error);
+        }
 
-	public static function exec( $e = "*", $t, $w = null )
-	{
-    	if(self::$debug == true) {
-	    	echo "Function exec: <b>SELECT " . $e . " FROM " . $t . " " . $w . "</b><br/>";
-    	}
-    	return self::query("SELECT " . $e . " FROM " . $t . " " . $w);
-	}
+        if (!empty($result->num_rows)) {
+            return true;
+        }
 
-	public static function row( $e = "*" , $t, $w = null )
-	{
-    	$query = "SELECT " . $e . " FROM " . $t . " " . $w;
+        return false;
+    }
 
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+    public static function update($t, $q, $w)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	if(self::$debug == true) {
-	    	echo $query . PHP_EOL;
-	    	exit;
-    	}
+        $query = "UPDATE " . $t . " SET " . $q . " WHERE ".$w;
+        if (self::$debug == true) {
+            throw new Exception("MySQL ERROR: " . $query);
+        }
+        if (self::$instance->query($query) === true) {
+            return true;
+        } else {
+            if (self::$debug == true) {
+                throw new Exception("MySQL ERROR: " . $query);
+                exit;
+            }
+            throw new Exception('Error MySQL: ' . $query . ' => ' . self::$instance->error);
+        }
+    }
 
-    	$result = self::$instance->query($query);
-    	if(!empty(self::$instance->error)) {
-	    	throw new Exception('Error MySQL: ' . self::$instance->error);
-    	}
+    public static function exec($e = "*", $t = null, $w = null)
+    {
+        if (self::$debug == true) {
+            echo "Function exec: <b>SELECT " . $e . " FROM " . $t . " " . $w . "</b><br/>";
+        }
+        $result = self::query("SELECT " . $e . " FROM " . $t . " " . $w);
+        return $result;
+    }
 
-    	$result = $result->fetch_assoc();
-    	return $result;
-	}
+    public static function row($e = "*", $t = null, $w = null)
+    {
+        $query = "SELECT " . $e . " FROM " . $t . " " . $w;
 
-	public static function check( $t, $w, $silent = false )
-	{
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
-    	if(self::$debug == true) {
-	    	echo "Function check: <b>SELECT * FROM " . $t . " WHERE " . $w . "</b><br/>";
-    	}
-    	$query = "SELECT * FROM " . $t . " WHERE " . $w;
-    	$result = mysqli_query(self::$instance, $query);
-    	if( isset($result->num_rows) && ($result->num_rows > 0) ) {
-	    	return true;
-    	} else {
-	    	return false;
-    	}
-	}
+        if (self::$debug == true) {
+            echo $query . PHP_EOL;
+            //exit;
+        }
 
-	public static function insert( $t, $v ) {
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        $result = self::$instance->query($query);
+        if (!empty(self::$instance->error)) {
+            throw new Exception('Error MySQL: ' . self::$instance->error);
+        }
 
-    	$query = "INSERT INTO " . $t . " VALUES(" . $v . ");";
+        $result = $result->fetch_assoc();
+        return $result;
+    }
 
-    	if(self::$debug == true) {
-	    	echo "Function insert: <b>".$query."</b><br/>";
-    	}
+/**
+ * Funkcja zwaraca kolejny numer dla kolejności
+ * @param string $table
+ * @param string $conditions (optional)
+ * @return int
+ */
+    public static function getLastPriority( string $table, $conditions = null ): int
+    {
+        $query = "SELECT priority FROM " . $table . 
+            (!empty( $conditions ) ? " WHERE " . $conditions : "") . " ORDER BY priority DESC LIMIT 0,1";
 
-    	$result = mysqli_query(self::$instance, $query);
-    	return $result;
+        $result  = self::$instance->query( $query );
+        if (!empty(self::$instance->error)) {
+            throw new Exception('Error MySQL: ' . $query . " - returns: " . self::$instance->error);
+        }
 
-	}
+        $result = $result->fetch_assoc();
+        if(!empty( $result['priority'] )) {
+            $result['priority']++;
+            return $result['priority'];
+        }
 
-	public static function insert_id()
-	{
-		if(!empty(self::$instance)) {
-			self::$instance = self::call();
-		}
+        return 1;
+    }
 
-		return self::$instance->insert_id;
-	}
+    public static function check($t, $w, $silent = false)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
+        $query = "SELECT * FROM " . $t . " WHERE " . $w;
 
-	public static function save( $t, $v, $w ) {
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        if (self::$debug == true) {
+            echo "Function check: <b>".$query."</b><br/>";
+        }
 
-    	$query = "UPDATE  " . $t . " SET " . $v . " WHERE " . $w . ";";
-    	$result = mysqli_query(self::$instance, $query);
-    	return $result;
+        $result = mysqli_query(self::$instance, $query);
+        if (!empty($result) && $result->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	}
+    public static function insert($t, $v)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-	public static function delete( $t, $w ) {
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        $query = "INSERT INTO " . $t . " VALUES(" . $v . ");";
 
-    	$query = "DELETE FROM  " . $t . " WHERE " . $w . ";";
-    	$result = mysqli_query(self::$instance, $query);
+        if (self::$debug == true) {
+            echo "Function insert: <b>".$query."</b><br/>";
+        }
 
-    	$query = "OPTIMIZE TABLE " . $t;
-    	mysqli_query(self::$instance, $query);
-    	return $result;
-	}
+        $result = mysqli_query(self::$instance, $query);
+        return $result;
+    }
 
-	public static function counter( $t, $w = null )
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
-		if(is_null($w)) {
-			$result = self::$instance->query("SELECT * FROM " . $t );
-			if(self::$debug == true) {
-	    	echo "Function check: <b>SELECT * FROM " . $t . "</b><br/>";
-    	}
-		} else {
-	    	$result = self::$instance->query("SELECT * FROM " . $t . " WHERE " . $w);
-	    	if(self::$debug == true) {
-		    	echo "Function check: <b>SELECT * FROM " . $t . " WHERE " . $w . "</b><br/>";
-	    	}
-	    }
+    public static function insert_id()
+    {
+        if (!empty(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-	    if(!empty($result)) {
-	    	return $result->num_rows;
-    	} else {
-	    	return 0;
-    	}
-	}
+        $id = self::$instance->insert_id;
+        return $id;
+    }
 
-	public static function last_id( $table, $column = "id" )
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+    public static function save($t, $v, $w)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	$result = self::row("*" , $table , "ORDER BY ".$column." DESC");
-    	return $result[$column];
-	}
+        $query = "UPDATE  " . $t . " SET " . $v . " WHERE " . $w . ";";
 
-	public static function count( $t, $w = null )
-	{
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
-		if(is_null($w)) {
-			$result = self::$instance->query("SELECT * FROM " . $t );
-		} else {
-	    	$result = self::$instance->query("SELECT * FROM " . $t . " WHERE " . $w);
-	    }
+        if (self::$debug == true) {
+            echo "Function save: <b>".$query."</b><br/>";
+        }
 
-	    if(!empty($result->num_rows)) {
-	    	return $result->num_rows;
-    	} else {
-	    	return 0;
-    	}
-	}
+        $result = mysqli_query(self::$instance, $query);
+        return $result;
+    }
 
-	public static function has_table( $t )
-	{
-    	global $config;
+    public static function delete($t, $w)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
 
-    	if(!isset(self::$instance)) {
-    		self::$instance = self::call();
-    	}
+        $query = "DELETE FROM  " . $t . " WHERE " . $w . ";";
 
-		$result = self::$instance->query("SHOW TABLES FROM " . $config['db_name'] . " LIKE '" . $t . "';");
-    	if(!empty(self::$instance->error)) {
-	    	throw new Exception('Error MySQL: ' . self::$instance->error);
-    	}
+        if (self::$debug == true) {
+            echo "Function delete: <b>".$query."</b><br/>";
+        }
 
-    	if(!empty($result->num_rows)) {
-	    	return true;
-    	}
+        $result = mysqli_query(self::$instance, $query);
 
-    	return false;
-	}
+        $query = "OPTIMIZE TABLE " . $t;
+        mysqli_query(self::$instance, $query);
 
-	public static function install( $sql_array )
-	{
-    	if((!empty($sql_array)) && (is_array($sql_array))) {
-	    	foreach($sql_array as $sql) {
-		    	self::run( $sql );
-	    	}
-    	} else {
-	    	if(!empty($sql_array)) {
-		    	self::run( $sql_array );
-	    	}
-    	}
+        return $result;
+    }
 
-    	return true;
-	}
+    public static function has_table($t)
+    {
+        global $config;
+
+        if (!isset(self::$instance)) {
+            self::$instance = self::call();
+        }
+
+        $result = self::$instance->query("SHOW TABLES FROM " . $config['db_name'] . " LIKE '" . $t . "';");
+        if (!empty(self::$instance->error)) {
+            throw new Exception('Error MySQL: ' . self::$instance->error);
+        }
+
+        if (!empty($result->num_rows)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function install($sql_array)
+    {
+        if ((!empty($sql_array)) && (is_array($sql_array))) {
+            foreach ($sql_array as $sql) {
+                self::run($sql);
+            }
+        } else {
+            if (!empty($sql_array)) {
+                self::run($sql_array);
+            }
+        }
+
+        return true;
+    }
+
+    public static function close()
+    {
+        self::$instance->close();
+    }
 }

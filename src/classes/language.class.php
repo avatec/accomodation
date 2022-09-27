@@ -14,197 +14,242 @@
  *	oprogramowaniu bez pisemnej zgody autora
  */
 
-class Language {
+class Language
+{
 
-	// Lista języków strony
-	public static $available = [];
+    // Lista języków strony
+    public static $available = [];
 
-	// Wybrany jezyk dla strony
-	public static $selected = 'pl';
+    // Wybrany jezyk dla strony
+    public static $selected = 'pl';
 
-	// Wybrany język strony w PA
-	public static $selected_admin = 'pl';
+    // Wybrany język strony w PA
+    public static $selected_admin = 'pl';
 
-	// Tablica z tłumaczeniami
-	public static $lang = array();
+    // Tablica z tłumaczeniami
+    public static $lang = array();
 
-/**
- *	Inicjalizacja języków
- */
-	public static function init()
-	{
-		global $route;
-
-		// Strona internetowa
-		if( $route->isAdmin == false ) {
-			if(isset($_COOKIE['lng'])) {
-				self::$selected = $_COOKIE['lng'];
-			}
-
-			self::change( $route->language );
-
-			if(!empty($_SESSION['lng']['code'])) {
-				self::$selected = $_SESSION['lng']['code'];
-			} else {
-				if(!empty(self::$selected)) {
-					self::change( self::$selected );
-				} else {
-					self::change( "pl" );
-				}
-			}
-		}
-
-		// Panel administracyjny
-		if( $route->isAdmin == true ) {
-			if(isset($_COOKIE['lng_admin'])) {
-				self::$selected_admin = $_COOKIE['lng_admin'];
-				//$_SESSION['lng_admin']['code'] = self::$selected_admin;
-			}
-
-			if(empty(self::$selected_admin)) {
-				self::change( "pl" );
-			}
-		}
-	}
-
-	public static function get_selected()
-	{
-		global $route;
-
-		if( $route->isAdmin == false ) {
-			return self::$selected;
-		} else {
-			return self::$selected_admin;
-		}
-	}
-
-    public static function variety( $number, $variant )
+    /**
+     *	Inicjalizacja języków
+     */
+    public static function init()
     {
-        if($number == 0)
-        {
+        global $route;
+
+        if( !empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] )) {
+            $browser_language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+            $browser_language = explode("-", $browser_language);
+            $browser_language = strtolower($browser_language[0]);
+        }
+
+        // Strona internetowa
+        if ($route->isAdmin == false) {
+            if (isset($_COOKIE['frontendLanguage'])) {
+                self::$selected = $_COOKIE['frontendLanguage'];
+            }
+
+            self::change($route->language);
+
+            if (!empty($_SESSION['frontendLanguage']['code'])) {
+                self::$selected = $_SESSION['frontendLanguage']['code'];
+            } else {
+                if (!empty(self::$selected)) {
+                    self::change(self::$selected);
+                } else {
+                    self::change($browser_language);
+                }
+            }
+        }
+
+        // Panel administracyjny
+        if ($route->isAdmin == true) {
+            if (isset($_COOKIE['backendLanguage'])) {
+                self::$selected_admin = $_COOKIE['backendLanguage'];
+                //$_SESSION['backendLanguage']['code'] = self::$selected_admin;
+            }
+
+            if (empty(self::$selected_admin)) {
+                self::change("pl");
+            }
+        }
+    }
+
+    public static function get_selected()
+    {
+        global $route;
+
+        if ($route->isAdmin == false) {
+            return self::$selected;
+        } else {
+            return self::$selected_admin;
+        }
+    }
+
+    public static function variety($number, $variant)
+    {
+        if ($number == 0) {
             return $variant[2];
         }
 
-        if($number == 1) {
+        if ($number == 1) {
             return $variant[0];
         }
 
-        if($number > 1 && $number <=4 ) {
+        if ($number > 1 && $number <=4) {
             return $variant[1];
         }
 
-        if( $number > 4 ) {
+        if ($number > 4) {
             return $variant[2];
         }
     }
 
-	public static function change( $code )
-	{
-		global $route;
+    public static function change($code)
+    {
+        global $route;
 
-		// Strona internetowa
-		if( $route->isAdmin == false ) {
-			self::$selected = $code;
-			setcookie('lng' , self::$selected , time() + 3600 , '/');
-		}
+        // Strona internetowa
+        if ($route->isAdmin == false) {
+            self::$selected = $code;
+            setcookie('frontendLanguage', self::$selected, time() + 3600, '/');
+        }
 
-		// Panel administracyjny
-		if( $route->isAdmin == true ) {
-			self::$selected_admin = $code;
-			setcookie('lng_admin' , self::$selected_admin , time() + 3600 , '/');
-		}
+        // Panel administracyjny
+        if ($route->isAdmin == true) {
+            self::$selected_admin = $code;
+            setcookie('backendLanguage', self::$selected_admin, time() + 3600, '/');
+        }
 
-		self::update();
-	}
+        self::update();
+    }
 
-	public static function get( $module, $translate, $replace = array() )
-	{
-		global $app_url;
+    public static function get($module, $translate, $replace = array())
+    {
+        global $app_url;
 
-		if( strpos( $module , '/' ) == true ) {
-			$e = explode("/" , $module);
-			$module = $e['0'];
-			$file = $e['1'];
-			$module_arr = $e['0'] . '_' . $e['1'];
-		} else {
-			$module_arr = $module;
-		}
+        if (strpos($module, '/') == true) {
+            $e = explode("/", $module);
+            $module = $e['0'];
+            $file = $e['1'];
+            $module_arr = $e['0'] . '_' . $e['1'];
+        } else {
+            $module_arr = $module;
+        }
 
-		if(isset( self::$lang[$module_arr][$translate] ))
-		{
-			$text = self::$lang[$module_arr][$translate];
-			$text = str_replace("[app_url]" , $app_url , $text);
-			$text = str_replace("[app_url_without_http]" , str_replace("http://" , "" , $app_url) , $text);
-			if(!empty($replace)) {
-				$text = preg_replace_callback('/([##]+)/', function( $matches ) use (&$replace) {
-					return array_shift($replace);
-				}, $text);
+        if (isset(self::$lang[$module_arr][$translate])) {
+            $text = self::$lang[$module_arr][$translate];
+			if(!empty( $text ) && !is_array( $text )) {
+            	$text = str_replace("[app_url]", $app_url, $text);
+            	$text = str_replace("[app_url_without_http]", str_replace("http://", "", $app_url), $text);
 			}
-			return $text;
-		} else {
-			//trigger_error('Translation for <b>' . $module . '</b> => <u>' . $translate . '</u> <b>not found</b><br/>' , E_USER_NOTICE );
-			return $translate;
-		}
-	}
+            if (!empty($replace)) {
+                $text = preg_replace_callback('/([##]+)/', function ($matches) use (&$replace) {
+                    return array_shift($replace);
+                }, $text);
+            }
+            return self::replace($text, $replace);
+        } else {
+            $r = Db::row("value", "system_translates", "WHERE module='" . $module . "' AND code='" . self::get_selected() . "' AND slug='" . $translate . "'");
+            if (!empty($r['value'])) {
 
-	public static function set( $module, $value )
-	{
-		self::$lang[$module] = $value;
-	}
+                return self::replace(stripslashes($r['value']), $replace);
+            } else {
+                foreach (self::$available as $code=>$name) {
+                    if (Db::check("system_translates", "module='" . $module . "' AND code='" . $code . "' AND slug='" . $translate . "'") == false) {
+                        $r = Db::insert("system_translates", "null,
+						'" . $module . "',
+						'" . $code . "',
+						'" . addslashes($translate) . "',
+						'" . addslashes($translate) . "'");
 
-	public static function load( $module, $include = false )
-	{
-		global $app_path;
+                        if ($r == false) {
+                            die(Db::error());
+                        }
+                    }
+                }
 
-		if( strpos( $module , '/' ) == true ) {
-			$e = explode("/" , $module);
-			$module = $e['0'];
-			$file = $e['1'];
-			$module_arr = $e['0'].'_' . $e['1'];
-		} else {
-			$module_arr = $module;
-		}
+                return self::replace($translate, $replace);
+            }
 
-		if( $include == true ) {
-			$lang_file = $app_path . 'include/languages/' . $module . '_' . self::$selected . '.php';
-		} else {
-			$lang_file = $app_path . 'modules/' .$module . '/languages/' . (!empty($file) ? $file . '/' : '') . self::$selected . '.php';
-		}
+            //trigger_error('Translation for <b>' . $module . '</b> => <u>' . $translate . '</u> <b>not found</b><br/>' , E_USER_NOTICE );
+            return $translate;
+        }
+    }
 
-		if( file_exists($lang_file ) == true ) {
-			include( $lang_file );
-			if(isset($Lang)) {
-				self::$lang[$module_arr] = $Lang;
-				self::update();
-			}
-		} else {
-			trigger_error('Can\'t find language file in module <b>'.$lang_file.'</b>' , E_USER_NOTICE );
-		}
-	}
+    public static function set($module, $value)
+    {
+        self::$lang[$module] = $value;
+    }
 
-	public static function update()
-	{
-		global $route;
+    public static function load($module, $include = false)
+    {
+        global $app_path;
 
-		// Strona internetowa
-		if( $route->isAdmin == false ) {
-			$_SESSION['lng'] = array(
-				'code' => self::$selected,
-				'translate' => self::$lang
-			);
-		}
+        if (strpos($module, '/') == true) {
+            $e = explode("/", $module);
+            $module = $e['0'];
+            $file = $e['1'];
+            $module_arr = $e['0'].'_' . $e['1'];
+        } else {
+            $module_arr = $module;
+        }
 
-		// Panel administracyjny
-		if( $route->isAdmin == true ) {
-			$_SESSION['lng_admin'] = array(
-				'code' => self::$selected_admin,
-				'translate' => self::$lang
-			);
-		}
-	}
+        if ($include == true) {
+            $lang_file = $app_path . 'include/languages/' . $module . '_' . self::$selected . '.php';
+        } else {
+            $lang_file = $app_path . 'modules/' .$module . '/languages/' . (!empty($file) ? $file . '/' : '') . self::$selected . '.php';
+        }
 
-	public static function detect()
-	{
-		return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-	}
+        if (file_exists($lang_file) == true) {
+            include($lang_file);
+            if (isset($Lang)) {
+                self::$lang[$module_arr] = $Lang;
+                self::update();
+            }
+        } else {
+            Kernel::log("error.log", "Can't find language file in module <b>".$lang_file."</b>");
+            //trigger_error('Can\'t find language file in module <b>'.$lang_file.'</b>' , E_USER_NOTICE );
+        }
+    }
+
+    public static function update()
+    {
+        global $route;
+
+        // Strona internetowa
+        if (isset($route->isAdmin) && $route->isAdmin == false) {
+            $_SESSION['frontendLanguage'] = array(
+                'code' => self::$selected,
+                'translate' => self::$lang
+            );
+        }
+
+        // Panel administracyjny
+        if (isset($route->isAdmin) && $route->isAdmin == true) {
+            $_SESSION['backendLanguage'] = array(
+                'code' => self::$selected_admin,
+                'translate' => self::$lang
+            );
+        }
+    }
+
+    public static function detect()
+    {
+        return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    }
+
+    protected static function replace( $string, $replacements = null )
+    {
+        if( empty( $replacements )) {
+            return $string;
+        }
+
+        if( !empty( $replacements )) {
+            foreach( $replacements as $search=>$replace_value) {
+                $string = str_replace( $search , $replace_value , $string );
+            }
+
+            return $string;
+        }
+    }
 }
