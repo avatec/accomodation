@@ -1,5 +1,5 @@
 {
-   "name": "avatec/accomodation",
+    "name": "avatec/accomodation",
     "description": "Avatec Accomodation Open Source Edition",
     "type": "project",
     "license": "MIT",
@@ -16,11 +16,29 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": "^8.0",
 	    "verot/class.upload.php": "dev-master",
-        "smarty/smarty": "^3.1",
-        "phpmailer/phpmailer": "^6.0",
+        "smarty/smarty": "^4.2",
+        "phpmailer/phpmailer": "^6.6",
         "psr/log": "^1.0",
+        "google/recaptcha": "^1.2",
         "symfony/polyfill-mbstring": "^1.7",
-        "facebook/graph-sdk": "^5.7"
+        "facebook/graph-sdk": "^5.7",
+        "avatec/framework": "dev-main",
+        "tecnickcom/tcpdf": "^6.5"
+    },
+    "config": {
+        "platform": {
+            "php": "8.0"
+        },
+        "vendor-dir": "src/vendor"
+    },
+    "scripts": {
+        "build": "docker-compose stop && docker-compose rm && docker-compose build && docker-compose up -d",
+        "start": "docker-compose up",
+        "stop": "docker-compose stop",
+        "restart": "docker-composer up -d && docker-compose restart",
+        "backupdb": "docker exec mariadb_container /usr/bin/mysqldump -u root --password=rootpassword accomodation > docker/mysql/dump.sql",
+        "restoredb": "docker exec -i mariadb_container /usr/bin/mysql -u root --password=rootpassword accomodation < docker/mysql/dump.sql"
     }
 }
