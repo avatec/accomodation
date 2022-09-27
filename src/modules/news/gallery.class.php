@@ -39,15 +39,9 @@ class NewsGallery {
 		}
 
 		self::$table = $config['db_prefix'] . self::$table . "_" . $langCode;
-
-		if( !file_exists( $app_path . 'userfiles/' . self::$UploadDir . '/thumbs') ) {
-			Kernel::createLog('news.log' , 'Folder [' . $app_path . 'userfiles/' . self::$UploadDir . '/thumbs/] doesn\'t exists ! Trying to create one: ' , false);
-			if( $a = mkdir( $app_path . 'userfiles/' . self::$UploadDir . '/thumbs/', 0777 ) == true ) {
-				Kernel::createLog('news.log' , 'success');
-			} else {
-				Kernel::createLog('news.log' , 'ERROR - Could not create');
-				Kernel::createLog('news.log' , 'Please create this folder manually');
-			}
+		if( !file_exists( $app_path . 'userfiles/' . self::$UploadDir . '/thumbs/') ) {
+			mkdir( $app_path . 'userfiles/' . self::$UploadDir . '/', 0777 );
+			mkdir( $app_path . 'userfiles/' . self::$UploadDir . '/thumbs/', 0777 );
 		}
 
 		self::$UploadUrl = $app_url . "userfiles/" . self::$UploadDir . "/";

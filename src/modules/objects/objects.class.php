@@ -1001,7 +1001,7 @@ class Objects {
  * @return array
  */
 
-	public static function getExpire( $type = 'VIEW' , $days )
+	public static function getExpire( $type = 'VIEW' , $days = 0 )
 	{
 		switch( strtoupper($type) ) {
 			case "VIEW":

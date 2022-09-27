@@ -3,7 +3,7 @@
 	<section id="user-menu">
 		<div class="container">
 			<div class="pull-left">
-				{if User::$user['id'] > 0}
+				{if !empty(User::$user['id'])}
 				<span class="badge">{Language::get("system" , "user_text_login_as")}: <u>{User::$user['login']}</u></span>
 				{if User::$user['user_type'] == "OWNER"}
 				<a href="{$app_url}panel/objects/">{Language::get("system" , "user_btn_offers")}</a>

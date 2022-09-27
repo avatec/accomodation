@@ -62,7 +62,10 @@ function errorHandler($errno, $errstr, $errfile, $errline)
     return true;
 }
 
-set_error_handler("errorHandler");
+//set_error_handler("errorHandler");
+// $whoops = new \Whoops\Run();
+// $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+// $whoops->register();
 
 if( !empty( $debug )) {
     error_reporting( -1 );
