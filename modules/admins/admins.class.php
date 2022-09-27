@@ -1,7 +1,7 @@
 <?php namespace Modules;
 
 use \Db, \Kernel, \LA, \Common, \Paginate, \Mail, \Emails, \System;
-use \Core\Backend\Navigation as Navigation;
+use \Core\Backend\Navigation;
 
 /**
   * Klasa Admins dla Avatec Framework
@@ -183,7 +183,13 @@ class Admins
 		if(!empty($t)) {
 			foreach( $t as $k=>$i ) {
 				if( $i['i'] == Common::get_ip() && $i['t'] >= time() && $i['c'] >= 3 ) {
-					return true;
+                    if( $i['u'] == -1 && empty( self::$auth['id'] )) {
+                        return true;
+                    }
+
+                    if( !empty( self::$auth['id'] ) && ($i['u'] == self::$auth['id']) ) {
+                        return true;
+                    }
 				}
 			}
 		}
@@ -191,7 +197,7 @@ class Admins
 		return false;
 	}
 
-	private function login_error()
+    	private function login_error()
 	{
 		global $app_path;
 		if( System::file_exists( $app_path . 'cache/login.log' ) == true ) {
@@ -215,7 +221,7 @@ class Admins
 		}
 
 		if(empty($exists)) {
-			$t[] = [ 'i' => Common::get_ip(), 't' => time() + 300, 'c' => 1, 'd' => date('Y-m-d H:i:s') ];
+			$t[] = [ 'u' => (!empty(self::$auth['id']) ? self::$auth['id'] : -1), 'i' => Common::get_ip(), 't' => time() + 300, 'c' => 1, 'd' => date('Y-m-d H:i:s') ];
 		}
 
 		file_put_contents( $app_path . 'cache/login.log' , json_encode( $t ));
@@ -495,8 +501,6 @@ class Admins
 
 	protected static function make_password( $login, $password )
 	{
-		global $config;
-
 		return password_hash( $password, PASSWORD_BCRYPT);
 	}
 
