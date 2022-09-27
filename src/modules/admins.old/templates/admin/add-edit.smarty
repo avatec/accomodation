@@ -15,7 +15,7 @@
 				<div class="form-group layer-admin">
 					<label class="col-md-2 control-label">{LA::get('admins','label_type')}</label>
 					<div class="col-md-3">
-						{Form::select("type" , Modules\Admins::$types)}
+						{Form::select("type" , Modules\Admins\Backend\Admins::$types)}
 					</div>
 					
 					<label class="col-md-1 control-label">{LA::get('admins','label_name')}</label>

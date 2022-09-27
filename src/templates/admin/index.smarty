@@ -108,15 +108,15 @@
 		  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
 			<li class="usermenu-info">
 				<div class="usermenu-avatar">
-					{if !empty(Modules\Admins::$auth['avatar'])}
-					<em><img class="img-circle" src="{$app_url}userfiles/users/{Modules\Admins::$auth['avatar']}" alt="" /></em>
+					{if !empty(Modules\Admins\Backend\Admins::$auth['avatar'])}
+					<em><img class="img-circle" src="{$app_url}userfiles/users/{Modules\Admins\Backend\Admins::$auth['avatar']}" alt="" /></em>
 					{else}
 					<em class="fa fa-3x fa-user-circle-o"></em>
 					{/if}
 				</div>
 				<div class="usermenu-name">
-					<div class="user-name"><b>{Modules\Admins::$auth['login']}</b><br/>
-					{LA::get('cms' , 'info_last_login_successfully')}:<br/><i class="fa fa-calendar"></i> {Modules\Admins::$auth['last_login_date']}
+					<div class="user-name"><b>{Modules\Admins\Backend\Admins::$auth['login']}</b><br/>
+					{LA::get('cms' , 'info_last_login_successfully')}:<br/><i class="fa fa-calendar"></i> {Modules\Admins\Backend\Admins::$auth['last_login_date']}
 				</div>
 			</li>
 			<li role="separator" class="divider"></li>

@@ -1,6 +1,6 @@
 <?php
 use Modules\Admins\Backend\Admins;
-use Modules\Admins\Tokens as AdminsTokens;
+use Modules\Admins\Backend\Tokens as AdminsTokens;
 
 require_once __DIR__ . '/admins.class.php';
 require_once __DIR__ . '/tokens.class.php';

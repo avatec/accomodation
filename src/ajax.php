@@ -1,6 +1,6 @@
 <?php
 use Modules\Admins\Backend\Admins;
-use Modules\Admins\Tokens as AdminsTokens;
+use Modules\Admins\Backend\Tokens as AdminsTokens;
 
 /**
  * Avatec Accomodation

@@ -16,7 +16,7 @@
 use Core\Error;
 use Core\Assets;
 use Modules\Admins\Backend\Admins;
-use Modules\Admins\Tokens as AdminsTokens;
+use Modules\Admins\Backend\Tokens as AdminsTokens;
 
 Assets::backend();
 
@@ -178,7 +178,7 @@ $smarty->registerClass('Admins' , '\Modules\Admins\Backend\Admins');
 if(empty(Admins::$auth['id'])) {
 	$smarty->display($app_path . "templates/admin/login.smarty");
 } else {
-	$smarty->assign("access" , Modules\Admins::$auth['access']);
+	$smarty->assign("access" , Modules\Admins\Backend\Admins::$auth['access']);
 	$smarty->display($app_path . "templates/admin/index.smarty");
 }
 

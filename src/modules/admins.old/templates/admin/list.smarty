@@ -21,7 +21,7 @@
 					<div class="col-md-2">
 						{Form::select2([ 
 							"name" => "t",
-							"values" => Modules\Admins::$types,
+							"values" => Modules\Admins\Backend\Admins::$types,
 							"empty" => true,
 							"empty_name" => "Dowolny"
 						])}
@@ -70,7 +70,7 @@
 					
 				</td>
 				<td>
-					{System::read($item.type, Modules\Admins::$types, true)}
+					{System::read($item.type, Modules\Admins\Backend\Admins::$types, true)}
 				</td>
 				<td align="center">
 					{if $item.state=="TRUE"}<span class="label label-success">{LA::get('admins','label_active')}</span>{else}<span class="label label-danger">{LA::get('admins','label_disactivate')}</span>{/if}

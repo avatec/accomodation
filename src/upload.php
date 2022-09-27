@@ -130,10 +130,10 @@ if( !function_exists('apache_request_headers') ) {
  */
 
  	Kernel::log('upload.log', 'Is admin: ' . var_export($route->isAdmin, true) . PHP_EOL);
- 	Modules\Admins::restore();
+ 	Modules\Admins\Backend\Admins::restore();
 
- 	if(!empty( Modules\Admins::$auth['id'] )) {
-	 	$upload_user_dir = $app_path . "cache/temp/" . Modules\Admins::$auth['id'] . "/";
+ 	if(!empty( Modules\Admins\Backend\Admins::$auth['id'] )) {
+	 	$upload_user_dir = $app_path . "cache/temp/" . Modules\Admins\Backend\Admins::$auth['id'] . "/";
  	} else {
 	 	Modules\Users::restore();
 	 	$upload_user_dir = $app_path . "cache/temp/" . Modules\Users::$auth['id'] . "/";

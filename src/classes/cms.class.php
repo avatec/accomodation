@@ -555,7 +555,7 @@ class Kernel
             $account = ['0','1'];
         }
 
-        if ((strstr(Modules\Admins::$auth['access'], $module) != true) and (in_array(Modules\Admins::$auth['type'], $account) !== true)) {
+        if ((strstr(Modules\Admins\Backend\Admins::$auth['access'], $module) != true) and (in_array(Modules\Admins\Backend\Admins::$auth['type'], $account) !== true)) {
             Kernel::setMessage("ERROR", "Dostęp zabroniony dla Twojego konta");
             Kernel::redirect($app_admin_url . "start.html");
         } else {
