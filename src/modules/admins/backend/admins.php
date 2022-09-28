@@ -61,9 +61,8 @@ class Admins extends Model
 
         self::restore();
 
-        global $app_url, $app_path;
-        self::$UploadPath = $app_path . self::$UploadDir;
-        self::$UploadUrl = $app_url . self::$UploadDir;
+        self::$UploadPath = self::$app_path . self::$UploadDir;
+        self::$UploadUrl = self::$app_url . self::$UploadDir;
     }
 
     protected function parse($d, $edit = false)
