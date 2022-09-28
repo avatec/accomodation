@@ -19,7 +19,7 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsComments
 {
-	static protected $table = "objects_comments";
+	protected static$table = "objects_comments";
 	public static $Error;
 
 	public static $StatusSelect = [

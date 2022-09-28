@@ -19,7 +19,7 @@ use \Core\Backend\Navigation as Navigation;
 
 	class ObjectsPrices {
 
-		static protected $table = "rooms_prices";
+		protected static$table = "rooms_prices";
 		public static $Error;
 
 		public function __construct()

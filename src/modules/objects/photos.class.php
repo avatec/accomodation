@@ -20,8 +20,8 @@ use \Core\Backend\Navigation as Navigation;
 class ObjectsPhotos {
 
 	public static $table = "objects_photos";
-	static protected $uid;
-	static protected $imgPath = "userfiles/objects/photos/";
+	protected static$uid;
+	protected static$imgPath = "userfiles/objects/photos/";
 	public static $Error;
 
 	public function __construct()

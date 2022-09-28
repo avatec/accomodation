@@ -104,7 +104,7 @@ class ObjectsStates {
 			return false;
 		}
 
-		foreach(Language::$avaiable as $lang=>$i) {
+		foreach(Language::$available as $lang=>$i) {
 			$result = Db::insert( self::$nl_table . $lang , "null,
 			'" . $request->post['country'] . "',
 			'" . $request->post['name'] ."',
@@ -152,7 +152,7 @@ class ObjectsStates {
 
 	public function delete( $id )
 	{
-		foreach(Language::$avaiable as $lang=>$i) {
+		foreach(Language::$available as $lang=>$i) {
 			if( Db::check( self::$nl_table . $lang , "id='" . $id ."'") == true) {
 				if( Db::delete( self::$nl_table . $lang , "id= '" . $id . "'") == true ) {
 					Kernel::setMessage("NOTICE" , "Pomyślnie usunięto pozycję dla języka " . $lang);

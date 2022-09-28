@@ -19,8 +19,8 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsLocation {
 
-	static protected $table = "locations";
-	static protected $nl_table;
+	protected static$table = "locations";
+	protected static$nl_table;
 	public static $Error;
 
 	public function __construct()
@@ -79,7 +79,7 @@ class ObjectsLocation {
 			Kernel::setMessage("ERROR" , "Wystąpiły błędy w formularzu:<br/>" . implode("<br/>" , self::$Error));
 			return false;
 		}
-		foreach(Language::$avaiable as $lang=>$i) {
+		foreach(Language::$available as $lang=>$i) {
 			$result = Db::insert( self::$nl_table . $lang , "null,
 			'" . $request->post['show_main'] . "',
 			'" . $request->post['name'] ."',
@@ -148,7 +148,7 @@ class ObjectsLocation {
 					unlink( $app_path . "userfiles/locations/" . $row['icon'] );
 				}
 			}
-			foreach(Language::$avaiable as $lang=>$i) {
+			foreach(Language::$available as $lang=>$i) {
 				Db::delete( self::$nl_table . $lang , "id= '" . $id . "'");
 			}
 			Kernel::setMessage("NOTICE" , "Pomyślnie usunięto pozycję");

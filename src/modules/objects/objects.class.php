@@ -19,7 +19,7 @@ use \Core\Backend\Navigation as Navigation;
 
 class Objects {
 
-	static protected $table = "objects";
+	protected static$table = "objects";
 	public static $Error;
 
 	public static $Status = [

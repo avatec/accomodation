@@ -19,7 +19,7 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsTypes {
 
-	static protected $table = "types";
+	protected static$table = "types";
 	public static $Error;
 
 	public $post, $get;

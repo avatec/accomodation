@@ -19,7 +19,7 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsCities {
 
-	static protected $table = "cities";
+	protected static$table = "cities";
 	static private $search_query;
 	public static $Error;
 

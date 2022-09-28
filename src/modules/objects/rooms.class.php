@@ -19,7 +19,7 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsRooms {
 
-	static protected $table = "rooms";
+	protected static$table = "rooms";
 	public static $Error;
 
 	public static $AmountTypes = [

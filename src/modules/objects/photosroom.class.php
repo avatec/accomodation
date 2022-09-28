@@ -19,9 +19,9 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsPhotosRoom {
 
-	static protected $table = "rooms_photos";
-	static protected $uid;
-	static protected $imgPath = "userfiles/rooms/photos/";
+	protected static$table = "rooms_photos";
+	protected static$uid;
+	protected static$imgPath = "userfiles/rooms/photos/";
 	public static $Error;
 
 	public function __construct()

@@ -19,10 +19,10 @@ use \Core\Backend\Navigation as Navigation;
 
 class ObjectsDistance {
 
-	static protected $table = "distance";
-	static protected $nl_table;
+	protected static$table = "distance";
+	protected static$nl_table;
 	public static $Error;
-	static protected $distance;
+	protected static$distance;
 	static private $search_query;
 
 	public function __construct()
@@ -108,7 +108,7 @@ class ObjectsDistance {
 			return false;
 		}
 
-		foreach(Language::$avaiable as $lang=>$i) {
+		foreach(Language::$available as $lang=>$i) {
 			$result = Db::insert( self::$nl_table . $lang , "null,
 			'" . $request->post['name'] ."',
 			'" . Kernel::rewrite($request->post['name']) ."'");
@@ -155,7 +155,7 @@ class ObjectsDistance {
 
 	public function delete( $id )
 	{
-		foreach(Language::$avaiable as $lang=>$i) {
+		foreach(Language::$available as $lang=>$i) {
 			if( Db::check( self::$nl_table . $lang , "id='" . $id ."'") == true) {
 				if( Db::delete( self::$nl_table . $lang , "id= '" . $id . "'") == true ) {
 					Kernel::setMessage("NOTICE" , "Pomyślnie usunięto pozycję dla języka " . $lang);
